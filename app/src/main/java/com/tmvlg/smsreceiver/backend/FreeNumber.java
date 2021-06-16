@@ -17,4 +17,17 @@ public class FreeNumber {
     public FreeNumber() {
 
     }
+
+    public String getCounrty_name() {
+        return counrty_name;
+    }
+
+    public int hashCode(){
+        return call_number.hashCode() + counrty_name.hashCode();
+    }
+
+    public boolean equals(Object other){
+        FreeNumber otherCard = (FreeNumber) other;
+        return this.call_number.equals(otherCard.call_number) && this.counrty_name.equals(otherCard.counrty_name);
+    }
 }
