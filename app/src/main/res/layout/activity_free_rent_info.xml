@@ -15,48 +15,86 @@
         android:layout_marginTop="25dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/round_arrow_back_24" />
+        app:tint="#FFFFFF"
+        android:src="@drawable/round_arrow_back_24"
+        android:elevation="2dp"/>
 
     <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="25dp"
-        android:src="@drawable/flag_bi"
-        app:layout_constraintStart_toStartOf="@+id/imageView"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        android:id="@+id/imageView123"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@xml/at"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        app:layout_constraintTop_toTopOf="parent"
+        android:alpha="0.9"/>
+
+    <ImageView
+        android:id="@+id/imageView124"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:adjustViewBounds="true"
+        android:alpha="0.2"
+        android:background="#AA55AA"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView123"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView125"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:adjustViewBounds="true"
+        android:alpha="0.75"
+        android:background="@drawable/activity_header_gradient"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView123"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="RU"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="@+id/imageView3"
-        app:layout_constraintStart_toStartOf="@+id/imageView3"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/textView4"
+        app:layout_constraintTop_toBottomOf="@+id/textView4"
+        android:elevation="2dp"
+        android:paddingLeft="10dp"/>
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginLeft="15dp"
+        android:layout_marginTop="25dp"
         android:text="Россия"
-        android:textSize="25sp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView3"
-        app:layout_constraintStart_toEndOf="@+id/imageView3"
-        app:layout_constraintTop_toTopOf="@+id/imageView3" />
+        android:textColor="#FFFFFF"
+        android:textSize="23sp"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        android:elevation="2dp"
+        android:paddingLeft="10dp"/>
 
     <TextView
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="50dp"
         android:text="+7 902 237 87 42"
-        android:textSize="26sp"
+        android:textColor="#FFFFFF"
+        android:textSize="25sp"
         app:layout_constraintStart_toStartOf="@+id/textView4"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintTop_toBottomOf="@+id/textView4"
+        android:elevation="2dp"
+        android:paddingLeft="10dp"/>
 
     <ImageView
         android:id="@+id/imageView4"
@@ -67,7 +105,10 @@
         app:layout_constraintBottom_toBottomOf="@+id/textView5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textView5"
-        android:src="@drawable/outline_content_copy_24" />
+        app:tint="#FFFFFF"
+        android:src="@drawable/outline_content_copy_24"
+        android:elevation="2dp"
+        android:alpha="0.5"/>
 
     <TextView
         android:id="@+id/textView6"
@@ -75,20 +116,25 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:text="Copy"
+        android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="@+id/imageView4"
-        app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView4"
+        android:elevation="2dp"
+        android:alpha="0.5"/>
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/materialButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@android:color/transparent"
+        android:elevation="2dp"
         android:text="Обновить"
         android:textColor="@color/design_default_color_primary_dark"
         android:textSize="14sp"
         app:cornerRadius="4dp"
         app:icon="@drawable/round_refresh_24"
         app:iconTint="@color/design_default_color_primary_dark"
-        app:layout_constraintBottom_toBottomOf="@+id/textView4"
+        app:layout_constraintBottom_toBottomOf="@+id/textView2"
         app:layout_constraintEnd_toEndOf="@+id/imageView4"
         app:layout_constraintTop_toTopOf="@+id/textView4"
         app:rippleColor="#33AAAAAA"
@@ -96,4 +142,30 @@
         app:strokeWidth="1dp">
 
     </com.google.android.material.button.MaterialButton>
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        android:alpha="0.4"
+        android:background="#AA55AA"
+        app:layout_constraintBottom_toBottomOf="@+id/textView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/textView4"
+        app:layout_constraintTop_toTopOf="@+id/textView4">
+
+    </View>
+
+    <View
+        android:id="@+id/view2"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        android:alpha="0.4"
+        android:background="#AA55AA"
+        app:layout_constraintBottom_toBottomOf="@+id/textView6"
+        app:layout_constraintStart_toStartOf="@+id/textView5"
+        app:layout_constraintTop_toTopOf="@+id/imageView4">
+
+    </View>
 </androidx.constraintlayout.widget.ConstraintLayout>
