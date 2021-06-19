@@ -209,6 +209,7 @@ public class FreeRentFragment extends Fragment{
                 dataMApi.put("Title", num.counrty_name);
 
                 String icon_name = "flag_" + num.country_code.toLowerCase();
+//                String icon_name = num.country_code.toLowerCase();
                 dataMApi.put("free_region_icon", icon_name);
 
                 String prefix = num.country_code + " " + num.call_number_prefix;

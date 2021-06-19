@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.transition.Fade;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toolbar;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -27,6 +29,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         setContentView(R.layout.activity_main);
 
         getSupportActionBar().hide();
+
+        Fade fade = new Fade();
+        getWindow().setEnterTransition(fade);
+        getWindow().setExitTransition(fade);
 
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);

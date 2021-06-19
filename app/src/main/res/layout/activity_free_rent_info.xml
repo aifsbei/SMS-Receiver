@@ -24,19 +24,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
-        android:alpha="0.2"
         android:scaleType="centerCrop"
         android:src="@xml/ru"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:transitionName="free_flag_transition"/>
 
     <ImageView
         android:id="@+id/free_country_flag_overlay"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:adjustViewBounds="true"
-        android:alpha="0.2"
+        android:alpha="0"
         android:background="#AA55AA"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="@+id/free_country_flag"
@@ -168,4 +168,14 @@
         app:layout_constraintTop_toTopOf="@+id/free_copy_icon_info">
 
     </View>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/free_messages_recycle_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/free_country_flag" />
 </androidx.constraintlayout.widget.ConstraintLayout>

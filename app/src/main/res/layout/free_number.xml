@@ -23,7 +23,8 @@
             app:layout_constraintBottom_toBottomOf="@+id/free_call_number"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/free_call_number"
-            app:tint="#AEAEAE" />
+            app:tint="#AEAEAE"
+            android:transitionName="free_flag_transition"/>
 
         <TextView
             android:id="@+id/free_call_number"

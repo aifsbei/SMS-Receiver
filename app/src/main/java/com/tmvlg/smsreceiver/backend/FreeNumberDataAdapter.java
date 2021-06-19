@@ -1,6 +1,7 @@
 package com.tmvlg.smsreceiver.backend;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -12,6 +13,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityOptionsCompat;
+import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tmvlg.smsreceiver.FreeRentInfoActivity;
@@ -20,6 +23,7 @@ import com.tmvlg.smsreceiver.R;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class FreeNumberDataAdapter extends RecyclerView.Adapter<FreeNumberDataAdapter.DataHolder> {
 
@@ -75,7 +79,8 @@ public class FreeNumberDataAdapter extends RecyclerView.Adapter<FreeNumberDataAd
                 intent.putExtra("free_region_icon", dataMap.get("free_region_icon"));
                 intent.putExtra("free_prefix", dataMap.get("free_prefix"));
                 intent.putExtra("free_call_number", dataMap.get("free_call_number"));
-                context.startActivity(intent);
+                ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) context, holder.free_region_icon, "free_flag_transition");
+                context.startActivity(intent, options.toBundle());
             }
         });
 
