@@ -1,57 +1,26 @@
-<vector android:height="15dp" android:viewportHeight="15"
-    android:viewportWidth="21" android:width="21dp"
-    xmlns:aapt="http://schemas.android.com/aapt" xmlns:android="http://schemas.android.com/apk/res/android">
-    <path android:fillType="evenOdd" android:pathData="M0,0h21v15h-21z"
-        android:strokeColor="#00000000" android:strokeWidth="1">
-        <aapt:attr name="android:fillColor">
-            <gradient android:endX="10.5" android:endY="15"
-                android:startX="10.5" android:startY="0" android:type="linear">
-                <item android:color="#FFFFFFFF" android:offset="0"/>
-                <item android:color="#FFF0F0F0" android:offset="1"/>
-            </gradient>
-        </aapt:attr>
-    </path>
-    <path android:fillType="evenOdd" android:pathData="M0,0h21v15h-21z"
-        android:strokeColor="#00000000" android:strokeWidth="1">
-        <aapt:attr name="android:fillColor">
-            <gradient android:endX="10.5" android:endY="15"
-                android:startX="10.5" android:startY="0" android:type="linear">
-                <item android:color="#FFFF323E" android:offset="0"/>
-                <item android:color="#FFFD0D1B" android:offset="1"/>
-            </gradient>
-        </aapt:attr>
-    </path>
-    <path android:fillType="evenOdd"
-        android:pathData="M0,0l13,7.5l-13,7.5z"
-        android:strokeColor="#00000000" android:strokeWidth="1">
-        <aapt:attr name="android:fillColor">
-            <gradient android:endX="6.5" android:endY="15"
-                android:startX="6.5" android:startY="0" android:type="linear">
-                <item android:color="#FFFFCC51" android:offset="0"/>
-                <item android:color="#FFFFC63C" android:offset="1"/>
-            </gradient>
-        </aapt:attr>
-    </path>
-    <path android:fillType="evenOdd"
-        android:pathData="M0,0l9,7.5l-9,7.5z"
-        android:strokeColor="#00000000" android:strokeWidth="1">
-        <aapt:attr name="android:fillColor">
-            <gradient android:endX="4.5" android:endY="15"
-                android:startX="4.5" android:startY="0" android:type="linear">
-                <item android:color="#FF262626" android:offset="0"/>
-                <item android:color="#FF0D0D0D" android:offset="1"/>
-            </gradient>
-        </aapt:attr>
-    </path>
-    <path android:fillType="evenOdd"
-        android:pathData="M4.4579,8.1183l-0.6632,1.4542l-0.3464,-1.5603l-1.588,-0.1814l1.3769,-0.8116l-0.3182,-1.5663l1.1974,1.0587l1.3913,-0.7867l-0.6369,1.4659l1.1781,1.0801z"
-        android:strokeColor="#00000000" android:strokeWidth="1">
-        <aapt:attr name="android:fillColor">
-            <gradient android:endX="3.9546" android:endY="9.5725"
-                android:startX="3.9546" android:startY="5.4529004" android:type="linear">
-                <item android:color="#FFFFFFFF" android:offset="0"/>
-                <item android:color="#FFF0F0F0" android:offset="1"/>
-            </gradient>
-        </aapt:attr>
-    </path>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="640dp"
+    android:height="480dp"
+    android:viewportWidth="640"
+    android:viewportHeight="480">
+  <group>
+    <clip-path
+        android:pathData="M0,0l640.031,0l0,480L0,480z"/>
+    <path
+        android:pathData="M0,0l966.75,0l0,480L0,480z"
+        android:fillColor="#cb000f"
+        android:fillType="evenOdd"/>
+    <path
+        android:pathData="M0,0c3,0 480,240.656 480,240.656L0,480L0,0z"
+        android:fillColor="#f8c00c"
+        android:fillType="evenOdd"/>
+    <path
+        android:fillColor="#FF000000"
+        android:pathData="M0,0c1.969,0 319.313,240.656 319.313,240.656L0,480L0,0z"
+        android:fillType="evenOdd"/>
+    <path
+        android:pathData="M175.969,279.563L119.063,266.906l-29.063,49.5 -4.688,-55.969 -56.906,-12.469 51.469,-23.344 -3.094,-55.594 37.688,40.688 51.938,-23.719 -27.094,50.625 36.75,42.938z"
+        android:fillColor="#fff"
+        android:fillType="evenOdd"/>
+  </group>
 </vector>

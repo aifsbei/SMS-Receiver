@@ -2,30 +2,30 @@ package com.tmvlg.smsreceiver.backend;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.tmvlg.smsreceiver.FreeRentInfoActivity;
 import com.tmvlg.smsreceiver.R;
 
-import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class DataAdapter extends RecyclerView.Adapter<DataAdapter.DataHolder> {
+public class FreeNumberDataAdapter extends RecyclerView.Adapter<FreeNumberDataAdapter.DataHolder> {
 
     Context context;
     ArrayList<HashMap<String,String>> list = new ArrayList<>();
-    public DataAdapter(Context con,ArrayList<HashMap<String,String>> dataList)
+    public FreeNumberDataAdapter(Context con, ArrayList<HashMap<String,String>> dataList)
     {
         context = con;
         list = dataList;
@@ -66,6 +66,19 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.DataHolder> {
 
         holder.free_call_number.setText(dataMap.get("free_call_number"));
 
+
+
+        holder.free_number_layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, FreeRentInfoActivity.class);
+                intent.putExtra("free_region_icon", dataMap.get("free_region_icon"));
+                intent.putExtra("free_prefix", dataMap.get("free_prefix"));
+                intent.putExtra("free_call_number", dataMap.get("free_call_number"));
+                context.startActivity(intent);
+            }
+        });
+
     }
 
     @Override
@@ -78,11 +91,13 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.DataHolder> {
         ImageView free_region_icon;
         TextView free_prefix;
         TextView free_call_number;
+        LinearLayout free_number_layout;
         public DataHolder(@NonNull View itemView) {
             super(itemView);
             free_region_icon = (ImageView)itemView.findViewById(R.id.free_region_icon);
             free_prefix = (TextView)itemView.findViewById(R.id.free_prefix);
             free_call_number = (TextView)itemView.findViewById(R.id.free_call_number);
+            free_number_layout = (LinearLayout)itemView.findViewById(R.id.free_number_layout);
         }
     }
 

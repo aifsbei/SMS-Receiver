@@ -4,7 +4,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/recycleritem_id"
+    android:id="@+id/free_number_layout"
     android:layout_width="match_parent"
     android:layout_height="90dp">
 
@@ -14,34 +14,24 @@
         android:layout_height="match_parent">
 
 
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Copy"
-            android:textColor="#AEAEAE"
-            app:layout_constraintEnd_toEndOf="@+id/imageView2"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2" />
-
         <ImageView
             android:id="@+id/imageView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
             android:layout_marginEnd="25dp"
-            android:layout_marginRight="25dp"
-            app:tint="#AEAEAE"
+            android:src="@drawable/round_chevron_right_24"
+            app:layout_constraintBottom_toBottomOf="@+id/free_call_number"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/free_call_number"
-            android:src="@drawable/outline_content_copy_24" />
+            app:tint="#AEAEAE" />
 
         <TextView
             android:id="@+id/free_call_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:layout_marginLeft="10dp"
             android:text="000 000 00 00"
-            android:textSize="22sp"
+            android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="@+id/free_region_icon"
             app:layout_constraintStart_toEndOf="@+id/free_prefix"
             app:layout_constraintTop_toTopOf="@+id/free_region_icon" />
@@ -63,9 +53,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
-            android:layout_marginLeft="15dp"
             android:text="RU +7"
-            android:textSize="22sp"
+            android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/free_region_icon"
             app:layout_constraintStart_toEndOf="@+id/free_region_icon"

@@ -7,13 +7,12 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.tmvlg.smsreceiver.R;
-import com.tmvlg.smsreceiver.backend.DataAdapter;
+import com.tmvlg.smsreceiver.backend.FreeNumberDataAdapter;
 import com.tmvlg.smsreceiver.backend.FreeNumber;
 import com.tmvlg.smsreceiver.backend.FreeNumbersParser;
 import com.tmvlg.smsreceiver.backend.RecyclerItemDecoration;
@@ -28,7 +27,7 @@ import butterknife.ButterKnife;
  * Use the {@link FreeRentFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FreeRentFragment extends Fragment {
+public class FreeRentFragment extends Fragment{
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -190,7 +189,6 @@ public class FreeRentFragment extends Fragment {
     }
 
 
-
     class AsyncParse extends AsyncTask<Void, Void, Void> {
 
         @Override
@@ -223,7 +221,7 @@ public class FreeRentFragment extends Fragment {
 
 //            getData();
 
-            DataAdapter adapter = new DataAdapter(getActivity(), dataList);
+            FreeNumberDataAdapter adapter = new FreeNumberDataAdapter(getActivity(), dataList);
             free_recycle_view.setAdapter(adapter);
 
             RecyclerItemDecoration recyclerItemDecoration = new RecyclerItemDecoration(getActivity(),
