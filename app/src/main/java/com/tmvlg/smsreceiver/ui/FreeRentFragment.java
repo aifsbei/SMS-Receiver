@@ -217,6 +217,8 @@ public class FreeRentFragment extends Fragment{
 
                 dataMApi.put("free_call_number", num.call_number);
 
+                dataMApi.put("origin", num.origin);
+
                 dataList.add(dataMApi);
             }
 

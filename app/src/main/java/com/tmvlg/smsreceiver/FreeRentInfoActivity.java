@@ -1,6 +1,8 @@
 package com.tmvlg.smsreceiver;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.palette.graphics.Palette;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -10,6 +12,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.transition.Fade;
 import android.util.Log;
@@ -25,8 +28,13 @@ import android.widget.TextView;
 import com.google.android.material.button.MaterialButton;
 import com.neovisionaries.i18n.CountryCode;
 import com.tmvlg.smsreceiver.backend.CountryCodes;
+import com.tmvlg.smsreceiver.backend.FreeMessage;
 import com.tmvlg.smsreceiver.backend.FreeMessagesDataAdapter;
+import com.tmvlg.smsreceiver.backend.FreeNumber;
 import com.tmvlg.smsreceiver.backend.FreeNumberDataAdapter;
+import com.tmvlg.smsreceiver.backend.FreeNumbersParser;
+import com.tmvlg.smsreceiver.backend.RecyclerItemDecoration;
+import com.tmvlg.smsreceiver.ui.FreeRentFragment;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -47,6 +55,13 @@ public class FreeRentInfoActivity extends AppCompatActivity {
     View substrate_countryname;
     View substrate_callnumber;
     ImageView free_country_flag_shadow;
+    int baseColor;
+    int textColor;
+
+    FreeNumbersParser parser;
+
+    String origin;
+    String call_number;
 
 
     ArrayList<HashMap<String,String>> dataList;
@@ -76,9 +91,14 @@ public class FreeRentInfoActivity extends AppCompatActivity {
 
 
 
+        refresh_button.setOnClickListener(refresh_button_click_listener);
+        arrow_back.setOnClickListener(go_back_button_click_listener);
+
+
+
         init_data();
 
-        arrow_back.setOnClickListener(refresh_button_click_listener);
+
 
         dataList = new ArrayList<>();
 
@@ -86,13 +106,17 @@ public class FreeRentInfoActivity extends AppCompatActivity {
         linearLayoutManager = new LinearLayoutManager(this);
         free_messages_recycle_view.setLayoutManager(linearLayoutManager);
 
-        getData();
+//        getData();
 
-        FreeMessagesDataAdapter adapter = new FreeMessagesDataAdapter(this, dataList);
-        free_messages_recycle_view.setAdapter(adapter);
+//        FreeMessagesDataAdapter adapter = new FreeMessagesDataAdapter(this, dataList);
+//        free_messages_recycle_view.setAdapter(adapter);
 
         getSupportActionBar().hide();
 
+
+
+        parser = new FreeNumbersParser();
+        new FreeRentInfoActivity.AsyncParse().execute();
 
     }
 
@@ -103,10 +127,11 @@ public class FreeRentInfoActivity extends AppCompatActivity {
         String free_region_icon = bundle.getString("free_region_icon");
         String free_prefix = bundle.getString("free_prefix");
         String free_call_number = bundle.getString("free_call_number");
+        origin = bundle.getString("origin");
 
         String flag_path = free_region_icon.replace("flag_", "");
         String country_code = free_prefix.substring(0, 2);
-        String call_number = free_prefix.substring(3) + " " + free_call_number;
+        call_number = free_prefix.substring(3) + " " + free_call_number;
 
         Log.d(TAG, free_region_icon);
         Log.d(TAG, free_prefix);
@@ -117,8 +142,41 @@ public class FreeRentInfoActivity extends AppCompatActivity {
         Log.d(TAG, call_number);
 
 
-        /*SETTING FLAG*/
         int flag_resID = getResId(flag_path, R.xml.class);
+        Bitmap srcBitmap = getBitmap(flag_resID);
+
+        baseColor = ContextCompat.getColor(this, R.color.design_default_color_background);
+        textColor = ContextCompat.getColor(this, R.color.design_default_color_secondary_variant);
+
+//        Palette.from(srcBitmap).generate(new Palette.PaletteAsyncListener() {
+//            @Override
+//            public void onGenerated(Palette palette) {
+////                int mutedColor = palette.getMutedColor(R.attr.colorPrimary);
+////                collapsingToolbar.setContentScrimColor(mutedColor);
+//                Palette.Swatch vibrantSwatch = palette.getVibrantSwatch();
+//                baseColor = vibrantSwatch.getRgb();
+//                textColor = vibrantSwatch.getTitleTextColor();
+//                Log.d(TAG, "baseColor = " + baseColor);
+//                Log.d(TAG, "textColor = " + textColor);
+//            }
+//        });
+
+
+        Palette palette = Palette.from(srcBitmap).generate();
+        Palette.Swatch vibrantSwatch = palette.getMutedSwatch();
+        if (vibrantSwatch == null) {
+            vibrantSwatch = palette.getVibrantSwatch();
+        }
+        baseColor = vibrantSwatch.getRgb();
+        textColor = vibrantSwatch.getTitleTextColor();
+        Log.d(TAG, "baseColor = " + baseColor);
+        Log.d(TAG, "textColor = " + textColor);
+
+
+
+
+        /*SETTING FLAG*/
+////        int flag_resID = getResId(flag_path, R.xml.class);
         free_country_flag.setImageResource(flag_resID);
 
         Animation fadeOut = new AlphaAnimation(1f, 0.5f);
@@ -129,12 +187,13 @@ public class FreeRentInfoActivity extends AppCompatActivity {
         fadeOut.start();
 
         /*FLAG OVERLAY*/
-        Bitmap srcBitmap = getBitmap(flag_resID);
-        Bitmap dstBitmap = Bitmap.createScaledBitmap(srcBitmap, 1, 1, true);
-        int pixel = dstBitmap.getPixel(0,0);
+////        Bitmap srcBitmap = getBitmap(flag_resID);
+////        Bitmap dstBitmap = Bitmap.createScaledBitmap(srcBitmap, 1, 1, true);
+////        int pixel = dstBitmap.getPixel(0,0);
+////        baseColor = Color.rgb(Color.red(pixel), Color.green(pixel), Color.blue(pixel));
 //        free_country_flag.setImageAlpha(51);    //20% alpha
-        Log.d(TAG, "BITMAP COLOR: R = " + Color.red(pixel) + " G = " + Color.green(pixel) + " B = " + Color.blue(pixel));
-        free_country_flag_overlay.setBackgroundColor(Color.rgb(Color.red(pixel), Color.green(pixel), Color.blue(pixel)));
+////        Log.d(TAG, "BITMAP COLOR: R = " + Color.red(pixel) + " G = " + Color.green(pixel) + " B = " + Color.blue(pixel));
+        free_country_flag_overlay.setBackgroundColor(baseColor);
 
         Animation fadeIn = new AlphaAnimation(0f, 0.2f);
         fadeIn.setInterpolator(new DecelerateInterpolator()); //add this
@@ -152,12 +211,19 @@ public class FreeRentInfoActivity extends AppCompatActivity {
 //        fadeIn2.start();
 
         /*SUBSTRATE COUNTRYNAME*/
-        substrate_countryname.setBackgroundColor(Color.rgb(Color.red(pixel), Color.green(pixel), Color.blue(pixel)));
+        substrate_countryname.setBackgroundColor(baseColor);
         /*SUBSTRATE CALLNUMBER*/
-        substrate_callnumber.setBackgroundColor(Color.rgb(Color.red(pixel), Color.green(pixel), Color.blue(pixel)));
+        substrate_callnumber.setBackgroundColor(baseColor);
         /*REFRESH BUTTON*/
-        refresh_button.setBackgroundColor(Color.rgb(Color.red(pixel), Color.green(pixel), Color.blue(pixel)));
+        refresh_button.setBackgroundColor(baseColor);
         refresh_button.setRippleColor(ColorStateList.valueOf(Color.rgb(228, 228, 228)));
+
+
+
+
+
+
+
 
 
 
@@ -174,12 +240,20 @@ public class FreeRentInfoActivity extends AppCompatActivity {
 
     }
 
-    View.OnClickListener refresh_button_click_listener = new View.OnClickListener() {
+    View.OnClickListener go_back_button_click_listener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
 //            Intent intent = new Intent(FreeRentInfoActivity.this, MainActivity.class);
 //            startActivity(intent);
             FreeRentInfoActivity.super.finish();
+        }
+    };
+
+    View.OnClickListener refresh_button_click_listener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+            new FreeRentInfoActivity.AsyncParse().execute();
         }
     };
 
@@ -192,10 +266,60 @@ public class FreeRentInfoActivity extends AppCompatActivity {
             dataMApi.put("free_message_header", "AUTORUS");
             dataMApi.put("free_message_text", "Спасибо за регистрацию в AUTORUS! Ваш проверочный код: 125854. Никому не сообщайте этот код!");
             dataMApi.put("free_time_remained", "5 минут назад");
+            dataMApi.put("color", String.valueOf(baseColor));
             dataList.add(dataMApi);
         }
 
     }
+
+
+
+
+    class AsyncParse extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            ArrayList<ArrayList<String>> numbers_data_list;
+            String cn = call_number.replace("-", "").replace(" ", "").replace("+", "");
+            parser.parse_messages(origin, cn);
+
+            return null;
+        }
+
+        @Override
+        protected void onPreExecute() {
+
+            Log.d(TAG, "ON PRE EXECUTE");
+            parser.messagesList.clear();
+            super.onPreExecute();
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            dataList.clear();
+            for (FreeMessage msg : parser.messagesList) {
+                HashMap<String, String> dataMApi = new HashMap<>();
+                dataMApi.put("Title", "NoTitle");
+                dataMApi.put("free_message_header", msg.message_title);
+                dataMApi.put("free_message_text", msg.message_text);
+                dataMApi.put("free_time_remained", msg.time_remained);
+                dataMApi.put("color", String.valueOf(baseColor));
+                dataList.add(dataMApi);
+            }
+
+//            getData();
+
+            FreeMessagesDataAdapter adapter = new FreeMessagesDataAdapter(FreeRentInfoActivity.this, dataList);
+            free_messages_recycle_view.setAdapter(adapter);
+
+
+            super.onPostExecute(result);
+
+        }
+    }
+
+
+
 
     private Bitmap getBitmap(int drawableRes) {
         Drawable drawable = getResources().getDrawable(drawableRes);

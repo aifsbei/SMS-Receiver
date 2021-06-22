@@ -79,6 +79,7 @@ public class FreeNumberDataAdapter extends RecyclerView.Adapter<FreeNumberDataAd
                 intent.putExtra("free_region_icon", dataMap.get("free_region_icon"));
                 intent.putExtra("free_prefix", dataMap.get("free_prefix"));
                 intent.putExtra("free_call_number", dataMap.get("free_call_number"));
+                intent.putExtra("origin", dataMap.get("origin"));
                 ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) context, holder.free_region_icon, "free_flag_transition");
                 context.startActivity(intent, options.toBundle());
             }

@@ -3,6 +3,7 @@ package com.tmvlg.smsreceiver.backend;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tmvlg.smsreceiver.FreeRentInfoActivity;
@@ -20,6 +22,7 @@ import com.tmvlg.smsreceiver.R;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class FreeMessagesDataAdapter extends RecyclerView.Adapter<FreeMessagesDataAdapter.DataHolder> {
 
@@ -51,6 +54,16 @@ public class FreeMessagesDataAdapter extends RecyclerView.Adapter<FreeMessagesDa
 
         holder.free_time_remained.setText(dataMap.get("free_time_remained"));
 
+        int baseColor = Integer.parseInt(Objects.requireNonNull(dataMap.get("color")));
+
+        holder.free_message_header.setTextColor(baseColor);
+
+//        holder.free_time_remained;
+        Drawable unwrappedDrawable = holder.free_time_remained.getBackground();
+        Drawable wrappedDrawable = DrawableCompat.wrap(unwrappedDrawable);
+        DrawableCompat.setTint(wrappedDrawable, baseColor);
+
+        holder.free_time_remained.setTextColor(baseColor);
 
     }
 
