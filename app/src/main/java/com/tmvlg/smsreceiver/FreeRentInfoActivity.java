@@ -1,6 +1,7 @@
 package com.tmvlg.smsreceiver;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.palette.graphics.Palette;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -111,7 +112,9 @@ public class FreeRentInfoActivity extends AppCompatActivity {
 //        FreeMessagesDataAdapter adapter = new FreeMessagesDataAdapter(this, dataList);
 //        free_messages_recycle_view.setAdapter(adapter);
 
-        getSupportActionBar().hide();
+        Toolbar toolbar = (Toolbar) findViewById(R.id.free_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
 

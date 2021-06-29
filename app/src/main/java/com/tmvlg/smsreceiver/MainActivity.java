@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        getSupportActionBar().hide();
+//        getSupportActionBar().hide();
 
         Fade fade = new Fade();
         getWindow().setEnterTransition(fade);

@@ -1,180 +1,216 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".FreeRentInfoActivity">
 
-    <ImageView
-        android:id="@+id/arrow_back"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginLeft="25dp"
-        android:layout_marginTop="25dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:tint="#FFFFFF"
-        android:src="@drawable/round_arrow_back_24"
-        android:elevation="2dp"/>
-
-    <ImageView
-        android:id="@+id/free_country_flag"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:adjustViewBounds="true"
-        android:scaleType="centerCrop"
-        android:src="@xml/ru"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:transitionName="free_flag_transition"/>
-
-    <ImageView
-        android:id="@+id/free_country_flag_overlay"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:adjustViewBounds="true"
-        android:alpha="0"
-        android:background="#AA55AA"
-        android:scaleType="centerCrop"
-        app:layout_constraintBottom_toBottomOf="@+id/free_country_flag"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/free_country_flag_shadow"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:adjustViewBounds="true"
-        android:alpha="0.75"
-        android:background="@drawable/activity_header_gradient"
-        android:scaleType="centerCrop"
-        app:layout_constraintBottom_toBottomOf="@+id/free_country_flag"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-    <TextView
-        android:id="@+id/free_region_code_info"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="RU"
-        android:textColor="#FFFFFF"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="@+id/free_country_name_info"
-        app:layout_constraintTop_toBottomOf="@+id/free_country_name_info"
-        android:elevation="2dp"
-        android:paddingLeft="10dp"/>
-
-    <TextView
-        android:id="@+id/free_country_name_info"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:elevation="2dp"
-        android:paddingLeft="10dp"
-        android:text="Россия"
-        android:textColor="#FFFFFF"
-        android:textSize="20sp"
-        app:layout_constraintStart_toEndOf="@+id/arrow_back"
-        app:layout_constraintTop_toBottomOf="@+id/arrow_back" />
-
-    <TextView
-        android:id="@+id/free_call_number_info"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:text="+7 902 237 87 42"
-        android:textColor="#FFFFFF"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="@+id/free_country_name_info"
-        app:layout_constraintTop_toBottomOf="@+id/free_country_name_info"
-        android:elevation="2dp"
-        android:paddingLeft="10dp"/>
-
-    <ImageView
-        android:id="@+id/free_copy_icon_info"
-        android:layout_width="26dp"
-        android:layout_height="26dp"
-        android:layout_marginEnd="25dp"
-        android:layout_marginRight="25dp"
-        app:layout_constraintBottom_toBottomOf="@+id/free_call_number_info"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/free_call_number_info"
-        app:tint="#FFFFFF"
-        android:src="@drawable/outline_content_copy_24"
-        android:elevation="2dp"
-        android:alpha="0.5"/>
-
-    <TextView
-        android:id="@+id/free_copy_text_info"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:text="Copy"
-        android:textSize="10sp"
-        android:textColor="#FFFFFF"
-        app:layout_constraintEnd_toEndOf="@+id/free_copy_icon_info"
-        app:layout_constraintTop_toBottomOf="@+id/free_copy_icon_info"
-        android:elevation="2dp"
-        android:alpha="0.5"/>
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/refresh_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#AA55AA"
-        android:elevation="2dp"
-        android:text="Обновить"
-        android:textColor="#FFFFFF"
-        android:textSize="11sp"
-        app:cornerRadius="4dp"
-        app:icon="@drawable/round_refresh_24"
-        app:iconTint="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="@+id/free_region_code_info"
-        app:layout_constraintEnd_toEndOf="@+id/free_copy_icon_info"
-        app:layout_constraintTop_toTopOf="@+id/free_country_name_info"
-        app:rippleColor="#33AAAAAA">
-
-    </com.google.android.material.button.MaterialButton>
-
-    <View
-        android:id="@+id/substrate_countryname"
-        android:layout_width="0dp"
-        android:layout_height="70dp"
-        android:alpha="0.4"
-        android:background="#AA55AA"
-        app:layout_constraintBottom_toBottomOf="@+id/free_region_code_info"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/free_country_name_info"
-        app:layout_constraintTop_toTopOf="@+id/free_country_name_info">
-
-    </View>
-
-    <View
-        android:id="@+id/substrate_callnumber"
-        android:layout_width="0dp"
-        android:layout_height="70dp"
-        android:alpha="0.4"
-        android:background="#AA55AA"
-        app:layout_constraintBottom_toBottomOf="@+id/free_copy_text_info"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/free_call_number_info"
-        app:layout_constraintTop_toTopOf="@+id/free_copy_icon_info">
-
-    </View>
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/free_messages_recycle_view"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/free_country_flag" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/collapsingToolbarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_scrollFlags="scroll|enterAlways">
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_collapseMode="зшт">
+
+
+                <ImageView
+                    android:id="@+id/arrow_back"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="25dp"
+                    android:elevation="2dp"
+                    android:src="@drawable/round_arrow_back_24"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="#FFFFFF" />
+
+                <ImageView
+                    android:id="@+id/free_country_flag"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop"
+                    android:src="@xml/ru"
+                    android:transitionName="free_flag_transition"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/free_country_flag_overlay"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:adjustViewBounds="true"
+                    android:alpha="0"
+                    android:background="#AA55AA"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintBottom_toBottomOf="@+id/free_country_flag"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/free_country_flag_shadow"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:adjustViewBounds="true"
+                    android:alpha="0.75"
+                    android:background="@drawable/activity_header_gradient"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintBottom_toBottomOf="@+id/free_country_flag"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <TextView
+                    android:id="@+id/free_region_code_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:elevation="2dp"
+                    android:paddingLeft="10dp"
+                    android:text="RU"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="@+id/free_country_name_info"
+                    app:layout_constraintTop_toBottomOf="@+id/free_country_name_info" />
+
+                <TextView
+                    android:id="@+id/free_country_name_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="50dp"
+                    android:elevation="2dp"
+                    android:paddingLeft="10dp"
+                    android:text="Россия"
+                    android:textColor="#FFFFFF"
+                    android:textSize="20sp"
+                    app:layout_constraintStart_toEndOf="@+id/arrow_back"
+                    app:layout_constraintTop_toBottomOf="@+id/arrow_back" />
+
+                <TextView
+                    android:id="@+id/free_call_number_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="50dp"
+                    android:elevation="2dp"
+                    android:paddingLeft="10dp"
+                    android:text="+7 902 237 87 42"
+                    android:textColor="#FFFFFF"
+                    android:textSize="24sp"
+                    app:layout_constraintStart_toStartOf="@+id/free_country_name_info"
+                    app:layout_constraintTop_toBottomOf="@+id/free_country_name_info" />
+
+                <ImageView
+                    android:id="@+id/free_copy_icon_info"
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
+                    android:layout_marginEnd="25dp"
+                    android:layout_marginRight="25dp"
+                    android:alpha="0.5"
+                    android:elevation="2dp"
+                    android:src="@drawable/outline_content_copy_24"
+                    app:layout_constraintBottom_toBottomOf="@+id/free_call_number_info"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/free_call_number_info"
+                    app:tint="#FFFFFF" />
+
+                <TextView
+                    android:id="@+id/free_copy_text_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:alpha="0.5"
+                    android:elevation="2dp"
+                    android:text="Copy"
+                    android:textColor="#FFFFFF"
+                    android:textSize="10sp"
+                    app:layout_constraintEnd_toEndOf="@+id/free_copy_icon_info"
+                    app:layout_constraintTop_toBottomOf="@+id/free_copy_icon_info" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/refresh_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="#AA55AA"
+                    android:elevation="2dp"
+                    android:text="Обновить"
+                    android:textColor="#FFFFFF"
+                    android:textSize="11sp"
+                    app:cornerRadius="4dp"
+                    app:icon="@drawable/round_refresh_24"
+                    app:iconTint="#FFFFFF"
+                    app:layout_constraintBottom_toBottomOf="@+id/free_region_code_info"
+                    app:layout_constraintEnd_toEndOf="@+id/free_copy_icon_info"
+                    app:layout_constraintTop_toTopOf="@+id/free_country_name_info"
+                    app:rippleColor="#33AAAAAA">
+
+                </com.google.android.material.button.MaterialButton>
+
+                <View
+                    android:id="@+id/substrate_countryname"
+                    android:layout_width="0dp"
+                    android:layout_height="70dp"
+                    android:alpha="0.4"
+                    android:background="#AA55AA"
+                    app:layout_constraintBottom_toBottomOf="@+id/free_region_code_info"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/free_country_name_info"
+                    app:layout_constraintTop_toTopOf="@+id/free_country_name_info">
+
+                </View>
+
+                <View
+                    android:id="@+id/substrate_callnumber"
+                    android:layout_width="0dp"
+                    android:layout_height="70dp"
+                    android:alpha="0.4"
+                    android:background="#AA55AA"
+                    app:layout_constraintBottom_toBottomOf="@+id/free_copy_text_info"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/free_call_number_info"
+                    app:layout_constraintTop_toTopOf="@+id/free_copy_icon_info">
+
+                </View>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/free_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin">
+
+            </androidx.appcompat.widget.Toolbar>
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
