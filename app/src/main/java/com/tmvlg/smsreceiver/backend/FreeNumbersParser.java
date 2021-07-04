@@ -36,6 +36,8 @@ public class FreeNumbersParser {
             Elements numbers = doc.select("h4.number-boxes-item-number");
             Elements countries = doc.select("h5.number-boxes-item-country");
 
+            Log.d(TAG, numbers.text());
+
             CountryCodes codes = new CountryCodes();
             for (int i = 0; i < numbers.size(); i++) {
                 String code = codes.getCode(countries.get(i).text());
@@ -205,7 +207,7 @@ public class FreeNumbersParser {
 
             }
         } catch (IOException e) {
-            Log.d(TAG, "parsing error at parse_1");
+            Log.d(TAG, "parsing error at parse_3");
             e.printStackTrace();
         }
 
@@ -237,7 +239,7 @@ public class FreeNumbersParser {
 
 
         } catch (IOException e) {
-            Log.d(TAG, "parsing error at parse_messages_2");
+            Log.d(TAG, "parsing error at parse_messages_3");
             e.printStackTrace();
         }
     }

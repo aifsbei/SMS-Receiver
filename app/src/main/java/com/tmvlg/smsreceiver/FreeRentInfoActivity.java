@@ -1,5 +1,6 @@
 package com.tmvlg.smsreceiver;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
@@ -114,6 +115,7 @@ public class FreeRentInfoActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.free_toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
@@ -123,6 +125,21 @@ public class FreeRentInfoActivity extends AppCompatActivity {
 
     }
 
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable @org.jetbrains.annotations.Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.d(TAG, "onActivityResult: ");
+    }
+
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d(TAG, "onResume: ");
+    }
 
     public void init_data() {
 
@@ -182,12 +199,12 @@ public class FreeRentInfoActivity extends AppCompatActivity {
 ////        int flag_resID = getResId(flag_path, R.xml.class);
         free_country_flag.setImageResource(flag_resID);
 
-        Animation fadeOut = new AlphaAnimation(1f, 0.5f);
-        fadeOut.setInterpolator(new DecelerateInterpolator()); //add this
-        fadeOut.setDuration(1500);
-        fadeOut.setFillAfter(true);
-        free_country_flag.setAnimation(fadeOut);
-        fadeOut.start();
+//        Animation fadeOut = new AlphaAnimation(1f, 0.5f);
+//        fadeOut.setInterpolator(new DecelerateInterpolator()); //add this
+//        fadeOut.setDuration(1500);
+//        fadeOut.setFillAfter(true);
+//        free_country_flag.setAnimation(fadeOut);
+//        fadeOut.start();
 
         /*FLAG OVERLAY*/
 ////        Bitmap srcBitmap = getBitmap(flag_resID);
@@ -198,12 +215,12 @@ public class FreeRentInfoActivity extends AppCompatActivity {
 ////        Log.d(TAG, "BITMAP COLOR: R = " + Color.red(pixel) + " G = " + Color.green(pixel) + " B = " + Color.blue(pixel));
         free_country_flag_overlay.setBackgroundColor(baseColor);
 
-        Animation fadeIn = new AlphaAnimation(0f, 0.2f);
-        fadeIn.setInterpolator(new DecelerateInterpolator()); //add this
-        fadeIn.setDuration(1500);
-        fadeIn.setFillAfter(true);
-        free_country_flag_overlay.setAnimation(fadeIn);
-        fadeIn.start();
+//        Animation fadeIn = new AlphaAnimation(0f, 0.2f);
+//        fadeIn.setInterpolator(new DecelerateInterpolator()); //add this
+//        fadeIn.setDuration(1500);
+//        fadeIn.setFillAfter(true);
+//        free_country_flag_overlay.setAnimation(fadeIn);
+//        fadeIn.start();
 
         /*SHADOW OVERLAY*/
 //        Animation fadeIn2 = new AlphaAnimation(0f, 0.75f);
