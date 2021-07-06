@@ -33,26 +33,44 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
                     android:layout_marginTop="5dp"
-                    android:text="AUTORUS"
-                    android:textColor="#FF0000"
-                    android:textSize="20sp"
+                    android:background="#dddddd"
+                    android:text="HEADER NAME"
+                    android:textColor="#dddddd"
+                    android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/free_message_text"
-                    android:layout_width="match_parent"
+                <LinearLayout
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginEnd="15dp"
-                    android:layout_marginBottom="15dp"
-                    android:text="Спасибо за регистрацию в AUTORUS! Ваш проверочный код: 125854. Никому не сообщайте этот код!"
-                    android:textColor="#DE000000"
+                    android:layout_width="match_parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/free_message_header_shimmer"
-                    app:layout_constraintTop_toBottomOf="@+id/free_message_header_shimmer" />
+                    app:layout_constraintTop_toBottomOf="@+id/free_message_header_shimmer"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="50dp"
+                        android:layout_marginBottom="15dp"
+                        android:background="#dddddd"
+                        android:textColor="#dddddd" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginEnd="225dp"
+                        android:layout_marginBottom="15dp"
+                        android:textColor="#dddddd"
+                        android:background="#dddddd"/>
+
+
+
+                </LinearLayout>
 
 
                 <TextView
@@ -60,12 +78,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="15dp"
-                    android:background="@drawable/time_remained"
+                    android:background="#dddddd"
                     android:padding="2dp"
                     android:paddingStart="8dp"
                     android:paddingEnd="8dp"
                     android:text="5 минут назад"
-                    android:textColor="#FF0000"
+                    android:textColor="#dddddd"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/free_message_header_shimmer" />
 

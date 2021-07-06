@@ -14,7 +14,8 @@
         android:layout_marginLeft="25dp"
         android:layout_marginTop="10dp"
         android:text="CountryName"
-        android:textColor="#5F000000"
+        android:background="#dddddd"
+        android:textColor="#dddddd"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

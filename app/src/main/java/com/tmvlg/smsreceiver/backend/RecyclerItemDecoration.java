@@ -39,13 +39,17 @@ public class RecyclerItemDecoration extends RecyclerView.ItemDecoration {
         }
     }
 
+    public void setSectionCallback(SectionCallback callback) {
+        sectionCallback = callback;
+    }
+
     @Override
     public void onDrawOver(@NonNull Canvas c, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
         super.onDrawOver(c, parent, state);
         if(headerView==null)
         {
             headerView = inflateHeader(parent);
-            tvTitle = (TextView)headerView.findViewById(R.id.country_name);
+            tvTitle = (TextView)headerView.findViewById(R.id.country_name_shimmer);
             fixLayoutSize(headerView,parent);
         }
         String prevTitle = "";

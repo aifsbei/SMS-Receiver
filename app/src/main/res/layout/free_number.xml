@@ -4,7 +4,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/free_number_layout"
+    android:id="@+id/free_number_layout_shimmer"
     android:layout_width="match_parent"
     android:layout_height="90dp">
 
@@ -20,25 +20,25 @@
             android:layout_height="32dp"
             android:layout_marginEnd="25dp"
             android:src="@drawable/round_chevron_right_24"
-            app:layout_constraintBottom_toBottomOf="@+id/free_call_number"
+            app:layout_constraintBottom_toBottomOf="@+id/free_call_number_shimmer"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/free_call_number"
+            app:layout_constraintTop_toTopOf="@+id/free_call_number_shimmer"
             app:tint="#AEAEAE"
             android:transitionName="free_flag_transition"/>
 
         <TextView
-            android:id="@+id/free_call_number"
+            android:id="@+id/free_call_number_shimmer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:text="000 000 00 00"
             android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="@+id/free_region_icon"
-            app:layout_constraintStart_toEndOf="@+id/free_prefix"
-            app:layout_constraintTop_toTopOf="@+id/free_region_icon" />
+            app:layout_constraintBottom_toBottomOf="@+id/free_region_icon_shimmer"
+            app:layout_constraintStart_toEndOf="@+id/free_prefix_shimmer"
+            app:layout_constraintTop_toTopOf="@+id/free_region_icon_shimmer" />
 
         <ImageView
-            android:id="@+id/free_region_icon"
+            android:id="@+id/free_region_icon_shimmer"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginStart="25dp"
@@ -50,16 +50,16 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/free_prefix"
+            android:id="@+id/free_prefix_shimmer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:text="RU +7"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/free_region_icon"
-            app:layout_constraintStart_toEndOf="@+id/free_region_icon"
-            app:layout_constraintTop_toTopOf="@+id/free_region_icon" />
+            app:layout_constraintBottom_toBottomOf="@+id/free_region_icon_shimmer"
+            app:layout_constraintStart_toEndOf="@+id/free_region_icon_shimmer"
+            app:layout_constraintTop_toTopOf="@+id/free_region_icon_shimmer" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -14,7 +14,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityOptionsCompat;
-import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tmvlg.smsreceiver.FreeRentInfoActivity;
@@ -23,7 +22,6 @@ import com.tmvlg.smsreceiver.R;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Objects;
 
 public class FreeNumberDataAdapter extends RecyclerView.Adapter<FreeNumberDataAdapter.DataHolder> {
 
@@ -100,10 +98,10 @@ public class FreeNumberDataAdapter extends RecyclerView.Adapter<FreeNumberDataAd
         LinearLayout free_number_layout;
         public DataHolder(@NonNull View itemView) {
             super(itemView);
-            free_region_icon = (ImageView)itemView.findViewById(R.id.free_region_icon);
-            free_prefix = (TextView)itemView.findViewById(R.id.free_prefix);
-            free_call_number = (TextView)itemView.findViewById(R.id.free_call_number);
-            free_number_layout = (LinearLayout)itemView.findViewById(R.id.free_number_layout);
+            free_region_icon = (ImageView)itemView.findViewById(R.id.free_region_icon_shimmer);
+            free_prefix = (TextView)itemView.findViewById(R.id.free_prefix_shimmer);
+            free_call_number = (TextView)itemView.findViewById(R.id.free_call_number_shimmer);
+            free_number_layout = (LinearLayout)itemView.findViewById(R.id.free_number_layout_shimmer);
         }
     }
 
@@ -123,4 +121,10 @@ public class FreeNumberDataAdapter extends RecyclerView.Adapter<FreeNumberDataAd
             return -1;
         }
     }
+
+    public void filterList(ArrayList<HashMap<String,String>> filteredList) {
+        list = filteredList;
+        notifyDataSetChanged();
+    }
+
 }

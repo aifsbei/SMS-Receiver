@@ -2,24 +2,18 @@ package com.tmvlg.smsreceiver.backend;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.tmvlg.smsreceiver.FreeRentInfoActivity;
 import com.tmvlg.smsreceiver.R;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
@@ -79,9 +73,9 @@ public class FreeMessagesDataAdapter extends RecyclerView.Adapter<FreeMessagesDa
         TextView free_time_remained;
         public DataHolder(@NonNull View itemView) {
             super(itemView);
-            free_message_header = (TextView)itemView.findViewById(R.id.free_message_header);
+            free_message_header = (TextView)itemView.findViewById(R.id.free_message_header_shimmer);
             free_message_text = (TextView)itemView.findViewById(R.id.free_message_text);
-            free_time_remained = (TextView)itemView.findViewById(R.id.free_time_remained);
+            free_time_remained = (TextView)itemView.findViewById(R.id.free_time_remained_shimmer);
         }
     }
 

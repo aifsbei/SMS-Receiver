@@ -3,11 +3,15 @@ package com.tmvlg.smsreceiver;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.NavUtils;
 import androidx.core.content.ContextCompat;
 import androidx.palette.graphics.Palette;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
@@ -18,6 +22,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.transition.Fade;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.AlphaAnimation;
@@ -26,7 +31,9 @@ import android.view.animation.AnimationSet;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.material.button.MaterialButton;
 import com.neovisionaries.i18n.CountryCode;
 import com.tmvlg.smsreceiver.backend.CountryCodes;
@@ -56,6 +63,7 @@ public class FreeRentInfoActivity extends AppCompatActivity {
     MaterialButton refresh_button;
     View substrate_countryname;
     View substrate_callnumber;
+    ImageView free_copy_icon_info;
     ImageView free_country_flag_shadow;
     int baseColor;
     int textColor;
@@ -68,6 +76,7 @@ public class FreeRentInfoActivity extends AppCompatActivity {
 
     ArrayList<HashMap<String,String>> dataList;
     RecyclerView free_messages_recycle_view;
+    ShimmerFrameLayout shimmer_free_rent_info_layout;
     LinearLayoutManager linearLayoutManager;
 
     @Override
@@ -90,11 +99,13 @@ public class FreeRentInfoActivity extends AppCompatActivity {
         substrate_countryname = findViewById(R.id.substrate_countryname);
         substrate_callnumber = findViewById(R.id.substrate_callnumber);
         free_country_flag_shadow = findViewById(R.id.free_country_flag_shadow);
+        free_copy_icon_info = findViewById(R.id.free_copy_icon_info);
 
 
 
         refresh_button.setOnClickListener(refresh_button_click_listener);
         arrow_back.setOnClickListener(go_back_button_click_listener);
+        free_copy_icon_info.setOnClickListener(free_copy_icon_info_click_listener);
 
 
 
@@ -105,6 +116,7 @@ public class FreeRentInfoActivity extends AppCompatActivity {
         dataList = new ArrayList<>();
 
         free_messages_recycle_view = findViewById(R.id.free_messages_recycle_view);
+        shimmer_free_rent_info_layout = findViewById(R.id.shimmer_free_rent_info_layout);
         linearLayoutManager = new LinearLayoutManager(this);
         free_messages_recycle_view.setLayoutManager(linearLayoutManager);
 
@@ -277,6 +289,20 @@ public class FreeRentInfoActivity extends AppCompatActivity {
         }
     };
 
+    View.OnClickListener free_copy_icon_info_click_listener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+            String to_delete = call_number.split(" ")[0];
+            call_number = call_number.replace(to_delete, "");
+            call_number = call_number.replaceAll("-", "");
+            call_number = call_number.replaceAll(" ", "");
+            ClipData clip = ClipData.newPlainText("Clipboard", call_number);
+            clipboard.setPrimaryClip(clip);
+            Toast.makeText(getApplicationContext(), "Номер скопирован!", Toast.LENGTH_SHORT).show();
+        }
+    };
+
 
 
     public void getData() {
@@ -290,6 +316,24 @@ public class FreeRentInfoActivity extends AppCompatActivity {
             dataList.add(dataMApi);
         }
 
+    }
+
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                if (getParentActivityIntent() == null) {
+                    Log.i(TAG, "You have forgotten to specify the parentActivityName in the AndroidManifest!");
+                    onBackPressed();
+                } else {
+                    NavUtils.navigateUpFromSameTask(this);
+                }
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
 
@@ -308,7 +352,8 @@ public class FreeRentInfoActivity extends AppCompatActivity {
 
         @Override
         protected void onPreExecute() {
-
+            shimmer_free_rent_info_layout.setVisibility(View.VISIBLE);
+            free_messages_recycle_view.setVisibility(View.GONE);
             Log.d(TAG, "ON PRE EXECUTE");
             parser.messagesList.clear();
             super.onPreExecute();
@@ -317,6 +362,8 @@ public class FreeRentInfoActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void result) {
             dataList.clear();
+            shimmer_free_rent_info_layout.setVisibility(View.GONE);
+            free_messages_recycle_view.setVisibility(View.VISIBLE);
             for (FreeMessage msg : parser.messagesList) {
                 HashMap<String, String> dataMApi = new HashMap<>();
                 dataMApi.put("Title", "NoTitle");

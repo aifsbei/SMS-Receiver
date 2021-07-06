@@ -6,10 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".FreeRentInfoActivity">
 
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/free_messages_recycle_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="5dp"
+        android:visibility="gone"
+        android:layoutAnimation="@anim/recycler_view_layout_animation"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 
@@ -133,7 +138,6 @@
                     android:layout_height="26dp"
                     android:layout_marginEnd="25dp"
                     android:layout_marginRight="25dp"
-                    android:alpha="0.5"
                     android:elevation="2dp"
                     android:src="@drawable/outline_content_copy_24"
                     app:layout_constraintBottom_toBottomOf="@+id/free_call_number_info"
@@ -146,7 +150,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:alpha="0.5"
                     android:elevation="2dp"
                     android:text="Copy"
                     android:textColor="#FFFFFF"
@@ -200,6 +203,49 @@
 
                 </View>
 
+
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/shimmer_free_rent_info_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/free_country_flag"
+                    tools:ignore="MissingConstraints">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <!--add  several shimmer placeholder layout -->
+
+                        <include layout="@layout/shimmer_free_message"></include>
+
+                        <include layout="@layout/shimmer_free_message"></include>
+
+                        <include layout="@layout/shimmer_free_message"></include>
+
+                        <include layout="@layout/shimmer_free_message"></include>
+
+                        <include layout="@layout/shimmer_free_message"></include>
+                        <include layout="@layout/shimmer_free_message"></include>
+                        <include layout="@layout/shimmer_free_message"></include>
+                        <include layout="@layout/shimmer_free_message"></include>
+                        <include layout="@layout/shimmer_free_message"></include>
+                        <include layout="@layout/shimmer_free_message"></include>
+                        <include layout="@layout/shimmer_free_message"></include>
+                        <include layout="@layout/shimmer_free_message"></include>
+
+                        <include layout="@layout/shimmer_free_message"></include>
+
+                        <include layout="@layout/shimmer_free_message"></include>
+
+                    </LinearLayout>
+                </com.facebook.shimmer.ShimmerFrameLayout>
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.appcompat.widget.Toolbar
@@ -216,6 +262,8 @@
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
+
+
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

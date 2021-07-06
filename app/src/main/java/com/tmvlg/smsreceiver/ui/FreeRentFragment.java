@@ -7,10 +7,14 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.facebook.shimmer.ShimmerFrameLayout;
+import com.google.android.material.textfield.TextInputEditText;
 import com.tmvlg.smsreceiver.R;
 import com.tmvlg.smsreceiver.backend.FreeNumberDataAdapter;
 import com.tmvlg.smsreceiver.backend.FreeNumber;
@@ -86,6 +90,12 @@ public class FreeRentFragment extends Fragment{
     ArrayList<HashMap<String,String>> dataList;
     RecyclerView free_recycle_view;
     LinearLayoutManager linearLayoutManager;
+    TextInputEditText free_rent_search_entry;
+
+    ShimmerFrameLayout shimmerFreeNumberLayout;
+    FreeNumberDataAdapter adapter;
+
+    RecyclerItemDecoration recyclerItemDecoration;
 
 
 
@@ -100,6 +110,8 @@ public class FreeRentFragment extends Fragment{
         dataList = new ArrayList<>();
 
         free_recycle_view = view.findViewById(R.id.free_recycle_view);
+        shimmerFreeNumberLayout = view.findViewById(R.id.shimmer_free_rent_layout);
+        free_rent_search_entry = view.findViewById(R.id.free_rent_search_entry);
         linearLayoutManager = new LinearLayoutManager(getActivity());
         free_recycle_view.setLayoutManager(linearLayoutManager);
 
@@ -108,20 +120,10 @@ public class FreeRentFragment extends Fragment{
 
         ButterKnife.bind(view);
 
+        free_rent_search_entry.addTextChangedListener(search_text_changed_listener);
+
 //        getData();
 
-
-
-
-//        DataAdapter adapter = new DataAdapter(getActivity(), dataList);
-//        free_recycle_view.setAdapter(adapter);
-
-//        RecyclerItemDecoration recyclerItemDecoration = new RecyclerItemDecoration(getActivity(),
-//                getResources().getDimensionPixelSize(R.dimen.free_header_height),
-//                true,
-//                getSectionCallback(dataList));
-//
-//        free_recycle_view.addItemDecoration(recyclerItemDecoration);
 
         return view;
     }
@@ -140,6 +142,66 @@ public class FreeRentFragment extends Fragment{
                 return dataMap.get("Title");
             }
         };
+    }
+
+    TextWatcher search_text_changed_listener = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+            filter(editable.toString());
+        }
+    };
+
+
+    public void filter(String text) {
+        ArrayList<HashMap<String,String>> filteredList = new ArrayList<>();
+
+        for (FreeNumber num : parser.numbersList) {
+            if (num.counrty_name.toLowerCase().contains(text.toLowerCase()) ||
+                    num.country_code.toLowerCase().contains(text.toLowerCase()) ||
+                    num.call_number.toLowerCase().contains(text.toLowerCase()) ||
+                    num.call_number_prefix.toLowerCase().contains(text.toLowerCase()))
+            {
+
+                HashMap<String, String> dataMApi = new HashMap<>();
+
+
+                dataMApi.put("Title", num.counrty_name);
+
+                String icon_name = "flag_" + num.country_code.toLowerCase();
+//                String icon_name = num.country_code.toLowerCase();
+                dataMApi.put("free_region_icon", icon_name);
+
+                String prefix = num.country_code + " " + num.call_number_prefix;
+                dataMApi.put("free_prefix", prefix);
+
+                dataMApi.put("free_call_number", num.call_number);
+
+                dataMApi.put("origin", num.origin);
+
+                filteredList.add(dataMApi);
+            }
+        }
+
+        adapter.filterList(filteredList);
+
+
+//        adapter = new FreeNumberDataAdapter(getActivity(), filteredList);
+//        free_recycle_view.setAdapter(adapter);
+
+        recyclerItemDecoration.setSectionCallback(getSectionCallback(filteredList));
+
+//        free_recycle_view.addItemDecoration(recyclerItemDecoration);
+
     }
 
 
@@ -202,6 +264,8 @@ public class FreeRentFragment extends Fragment{
         @Override
         protected void onPostExecute(Void result) {
             parser.print_data();
+            shimmerFreeNumberLayout.setVisibility(View.GONE);
+            free_recycle_view.setVisibility(View.VISIBLE);
             for (FreeNumber num : parser.numbersList) {
                 HashMap<String, String> dataMApi = new HashMap<>();
 
@@ -224,10 +288,10 @@ public class FreeRentFragment extends Fragment{
 
 //            getData();
 
-            FreeNumberDataAdapter adapter = new FreeNumberDataAdapter(getActivity(), dataList);
+            adapter = new FreeNumberDataAdapter(getActivity(), dataList);
             free_recycle_view.setAdapter(adapter);
 
-            RecyclerItemDecoration recyclerItemDecoration = new RecyclerItemDecoration(getActivity(),
+            recyclerItemDecoration = new RecyclerItemDecoration(getActivity(),
                     getResources().getDimensionPixelSize(R.dimen.free_header_height),
                     true,
                     getSectionCallback(dataList));
