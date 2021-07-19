@@ -21,6 +21,10 @@ import com.tmvlg.smsreceiver.backend.FreeNumber;
 import com.tmvlg.smsreceiver.backend.FreeNumbersParser;
 import com.tmvlg.smsreceiver.backend.RecyclerItemDecoration;
 
+import org.json.JSONException;
+import org.json.simple.parser.ParseException;
+
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -256,7 +260,11 @@ public class FreeRentFragment extends Fragment{
         @Override
         protected Void doInBackground(Void... params) {
             ArrayList<ArrayList<String>> numbers_data_list;
-            parser.parse_numbers();
+            try {
+                parser.parse_numbers();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
             return null;
         }

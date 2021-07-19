@@ -3,15 +3,30 @@ package com.tmvlg.smsreceiver.backend;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.google.i18n.phonenumbers.NumberParseException;
+import com.google.i18n.phonenumbers.PhoneNumberUtil;
+import com.google.i18n.phonenumbers.Phonenumber;
+
+import org.hamcrest.core.Is;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Locale;
+import java.util.Scanner;
 
 public class FreeNumbersParser {
 
@@ -244,18 +259,95 @@ public class FreeNumbersParser {
         }
     }
 
+    public void parse_4() throws ParseException, MalformedURLException {
+        String inline_countries = parse_inline(new URL("https://onlinesim.ru/api/getFreeCountryList"));
+        JSONParser parse_countries = new JSONParser();
+        JSONObject jobj_countries = (JSONObject)parse_countries.parse(inline_countries);
+        JSONArray countries_Array = (JSONArray) jobj_countries.get("countries");
+        for (int i = 0; i < countries_Array.size(); i++) {
+            JSONObject jsonCountry = (JSONObject)countries_Array.get(i);
+            System.out.print(" << jsonCountry >> ");
+            System.out.println(jsonCountry);
+            // int local_country_code = Integer.parseInt((String)jsonCountry.get("country"));
+            String country_name_local = (String)jsonCountry.get("country_text");
+            int local_country_code = (int) (long) jsonCountry.get("country");
+
+
+            String inline_numbers = parse_inline(new URL("https://onlinesim.ru/api/getFreePhoneList?country=" + local_country_code));
+            JSONParser parse_numbers = new JSONParser();
+            JSONObject jobj_numbers = (JSONObject)parse_numbers.parse(inline_numbers);
+            JSONArray numbers_Array = (JSONArray) jobj_numbers.get("numbers");
+            for (int j = 0; j < numbers_Array.size(); j++) {
+                JSONObject jsonNumber = (JSONObject) numbers_Array.get(j);
+                System.out.print(" >>>> jsonNumber: ");
+                System.out.println(jsonNumber);
+                String call_number = (String) jsonNumber.get("number");
+                String full_number = (String) jsonNumber.get("full_number");
+                String country_prefix = full_number.replace(call_number, "");
+
+                PhoneNumberUtil phoneUtil = PhoneNumberUtil.getInstance();
+
+                String country_code = "";
+                try {
+                    // phone must begin with '+'
+                    Phonenumber.PhoneNumber numberProto = phoneUtil.parse(full_number, "");
+                    country_code = phoneUtil.getRegionCodeForCountryCode(numberProto.getCountryCode());
+                } catch (Exception e) {
+                    System.err.println("NumberParseException was thrown: " + e.toString());
+                }
+
+                Locale locale = new Locale("", country_code);
+                String country_name = locale.getDisplayCountry();
+                Log.d(TAG, "parse_4: country_name " + country_name);
+
+                FreeNumber temp = new FreeNumber();
+//                temp.local_country = country_name;
+//                temp.local_country_code = local_country_code;
+                temp.call_number = call_number;
+                temp.country_code = country_code;
+                temp.country_code = country_code;
+                temp.counrty_name = country_name;
+                temp.call_number_prefix = country_prefix;
+                temp.origin = "parse_4";
+
+                numbersList.add(temp);
+
+
+            }
+        }
+    }
 
 
 
-    public void parse_numbers() {
-        parse_1();
+
+    public void parse_messages_4(String phone) throws ParseException, MalformedURLException {
+        String inline_messages = parse_inline(new URL("https://onlinesim.ru/api/getFreeMessageList?cpage=1&phone=" + phone));
+        Log.d(TAG, "parse_messages_4: inline = " + inline_messages);
+        JSONParser parse_messages = new JSONParser();
+        JSONObject jobj_messages = (JSONObject)parse_messages.parse(inline_messages);
+        JSONArray messages_Array = (JSONArray) jobj_messages.get("messages");
+        Log.d(TAG, "parse_messages_4: MessagesAray size: " + messages_Array.size());
+        for (int i = 0; i < messages_Array.size(); i++) {
+            JSONObject jsonMessage = (JSONObject)messages_Array.get(i);
+            System.out.print(" << jsonMessage >> ");
+            System.out.println(jsonMessage);
+//            String country_name_local = (String)jsonMessage.get("country_text");
+//            int local_country_code = (int) (long) jsonMessage.get("country");
+        }
+    }
+
+
+
+    public void parse_numbers() throws ParseException, MalformedURLException {
+//        parse_1();
 //        parse_2();
-        parse_3();
+//        parse_3();
+//        parse_4();
 
         sort_numbers();
     }
 
-    public void parse_messages(String origin, String callnumber) {
+    public void parse_messages(String origin, String callnumber) throws MalformedURLException, ParseException {
         messagesList.clear();
         if (origin.equals("parse_1")) {
             Log.d(TAG, callnumber);
@@ -269,6 +361,42 @@ public class FreeNumbersParser {
             Log.d(TAG, callnumber.substring(1));
             parse_messages_3(callnumber);
         }
+        else if (origin.equals("parse_4")) {
+            Log.d(TAG, callnumber);
+            parse_messages_4("+" + callnumber);
+        }
+    }
+
+
+    public static String parse_inline(URL url) {
+        // URL url = new URL("https://google.com");
+
+        try {
+
+            HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+            conn.setRequestMethod("GET");
+            conn.connect();
+            int responsecode = conn.getResponseCode();
+            String inline = "";
+
+            if(responsecode != 200)
+                throw new RuntimeException("HttpResponseCode: " +responsecode);
+            else
+            {
+                Scanner sc = new Scanner(url.openStream());
+                while(sc.hasNext())
+                {
+                    inline+=sc.nextLine();
+                }
+                System.out.println("INLINE FETCHED!");
+                sc.close();
+                return inline;
+            }
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return "";
     }
 
 

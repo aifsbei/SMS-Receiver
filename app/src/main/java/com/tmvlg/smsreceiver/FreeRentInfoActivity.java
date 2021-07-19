@@ -45,6 +45,9 @@ import com.tmvlg.smsreceiver.backend.FreeNumbersParser;
 import com.tmvlg.smsreceiver.backend.RecyclerItemDecoration;
 import com.tmvlg.smsreceiver.ui.FreeRentFragment;
 
+import org.json.simple.parser.ParseException;
+
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -251,6 +254,9 @@ public class FreeRentInfoActivity extends AppCompatActivity {
         refresh_button.setRippleColor(ColorStateList.valueOf(Color.rgb(228, 228, 228)));
 
 
+        
+
+
 
 
 
@@ -345,8 +351,11 @@ public class FreeRentInfoActivity extends AppCompatActivity {
         protected Void doInBackground(Void... params) {
             ArrayList<ArrayList<String>> numbers_data_list;
             String cn = call_number.replace("-", "").replace(" ", "").replace("+", "");
-            parser.parse_messages(origin, cn);
-
+            try {
+                parser.parse_messages(origin, cn);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             return null;
         }
 
