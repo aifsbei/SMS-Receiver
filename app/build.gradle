@@ -46,6 +46,7 @@ dependencies {
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
     compile 'com.googlecode.json-simple:json-simple:+'
     implementation group: 'com.googlecode.libphonenumber', name: 'libphonenumber', version: '5.5'
+    implementation 'com.neovisionaries:nv-i18n:1.11'
 
 
 }

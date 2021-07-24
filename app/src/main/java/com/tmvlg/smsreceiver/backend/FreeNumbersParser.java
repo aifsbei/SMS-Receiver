@@ -6,6 +6,7 @@ import android.util.Log;
 import com.google.i18n.phonenumbers.NumberParseException;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.google.i18n.phonenumbers.Phonenumber;
+import com.neovisionaries.i18n.CountryCode;
 
 import org.hamcrest.core.Is;
 import org.json.simple.JSONArray;
@@ -53,14 +54,23 @@ public class FreeNumbersParser {
 
             Log.d(TAG, numbers.text());
 
-            CountryCodes codes = new CountryCodes();
+//            CountryCodes codes = new CountryCodes();
             for (int i = 0; i < numbers.size(); i++) {
-                String code = codes.getCode(countries.get(i).text());
+//                String code = codes.getCode(countries.get(i).text());
+                Log.d(TAG, "parse_1: country_name = " + countries.get(i).text());
+                String code =  CountryCode.findByName(countries.get(i).text()).get(0).name();
+
+
                 if (code == null) {
                     Log.d(TAG, "null country code at " + countries.get(i).text());
                     continue;
                 }
-                String prefix = Iso2Phone.getPhone(code);
+//                String prefix = Iso2Phone.getPhone(code);
+
+                int prefix2 = PhoneNumberUtil.getInstance().getCountryCodeForRegion(code);
+                String prefix = "+" + prefix2;
+                Log.d(TAG, "parse_1: prefix2 = " + prefix2);
+
                 if (prefix == null || prefix.contains("and")) {
                     Log.d(TAG, "null number prefix at " + code);
                     continue;
@@ -191,19 +201,32 @@ public class FreeNumbersParser {
 
             CountryCodes codes = new CountryCodes();
             for (int i = 0; i < countries.size(); i++) {
-                Log.d(TAG, countries.get(i).text());
+                Log.d(TAG, "parse_3: country = " + countries.get(i).text());
                 String code = codes.getCode(countries.get(i).text());
+//                String code = convertCountryNameToIsoCode(countries.get(i).text()).getDisplayCountry();
+                Log.d(TAG, "parse_3: code = " + code);
+
                 if (code == null) {
                     Log.d(TAG, "null country code at " + countries.get(i).text());
-                    continue;
+                    try {
+                        code = CountryCode.findByName(countries.get(i).text()).get(0).name();
+                    }
+                    catch (Exception e){
+                        Log.d(TAG, "parse_3: null cc again");
+                        continue;
+                    }
                 }
-                String prefix = Iso2Phone.getPhone(code);
+//                String prefix = Iso2Phone.getPhone(code);
+                int prefix2 = PhoneNumberUtil.getInstance().getCountryCodeForRegion(code);
+                String prefix = "+" + prefix2;
+                Log.d(TAG, "parse_3: prefix = " + prefix);
                 if (prefix == null || prefix.contains("and")) {
                     Log.d(TAG, "null number prefix at " + code);
                     continue;
                 }
 
                 Elements numbers = doc.select("#tab" + code + " a");
+                Log.d(TAG, "parse_3: elemnumbs = " + numbers.text());
                 Log.d(TAG, "#tab" + code + " a");
 
                 for (int j = 0; j < numbers.size(); j++) {
@@ -341,7 +364,7 @@ public class FreeNumbersParser {
     public void parse_numbers() throws ParseException, MalformedURLException {
 //        parse_1();
 //        parse_2();
-//        parse_3();
+        parse_3();
 //        parse_4();
 
         sort_numbers();
@@ -414,6 +437,15 @@ public class FreeNumbersParser {
         for (FreeNumber cur_number : numbersList) {
             Log.d(TAG, cur_number.call_number_prefix + " : " + cur_number.call_number + " : " + cur_number.country_code);
         }
+    }
+
+    Locale convertCountryNameToIsoCode(String countryName){
+        for(Locale l : Locale.getAvailableLocales()) {
+            if (l.getDisplayCountry().equals(countryName)) {
+                return l;
+            }
+        }
+        return null;
     }
 
     public FreeNumbersParser () {
