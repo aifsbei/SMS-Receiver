@@ -28,6 +28,7 @@ import org.json.simple.parser.ParseException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.ButterKnife;
 
@@ -169,7 +170,7 @@ public class FreeRentFragment extends Fragment{
 
     public void filter(String text) {
         ArrayList<HashMap<String,String>> filteredList = new ArrayList<>();
-
+        int i = 0;
         for (FreeNumber num : parser.numbersList) {
             if (num.counrty_name.toLowerCase().contains(text.toLowerCase()) ||
                     num.country_code.toLowerCase().contains(text.toLowerCase()) ||
@@ -181,6 +182,7 @@ public class FreeRentFragment extends Fragment{
 
 
                 dataMApi.put("Title", num.counrty_name);
+                dataMApi.put("type", "item");
 
                 String icon_name = "flag_" + num.country_code.toLowerCase();
 //                String icon_name = num.country_code.toLowerCase();
@@ -194,7 +196,28 @@ public class FreeRentFragment extends Fragment{
                 dataMApi.put("origin", num.origin);
 
                 filteredList.add(dataMApi);
+
+                try {
+                    if (!num.counrty_name.equals(parser.numbersList.get(i+1).counrty_name)) {
+                        HashMap<String, String> dataMApiFOOTER = new HashMap<>();
+                        dataMApiFOOTER.put("Title", num.counrty_name);
+                        dataMApiFOOTER.put("type", "footer");
+                        filteredList.add(dataMApiFOOTER);
+                    }
+                }
+                catch (java.lang.IndexOutOfBoundsException e) {
+                    Log.d(TAG, "IndexOFBoundException: ok");
+                    HashMap<String, String> dataMApiFOOTER = new HashMap<>();
+                    dataMApiFOOTER.put("Title", num.counrty_name);
+                    dataMApiFOOTER.put("type", "footer");
+                    filteredList.add(dataMApiFOOTER);
+                }
+
+
+
             }
+            i++;
+
         }
 
         adapter.filterList(filteredList);
@@ -273,13 +296,22 @@ public class FreeRentFragment extends Fragment{
         @Override
         protected void onPostExecute(Void result) {
             parser.print_data();
+//            for (Map.Entry<String, Integer> item : parser.numbersCountedByCountry.entrySet()) {
+//                Log.d(TAG, "onPostExecute: counts-countryname = " + item.getKey());
+//                Log.d(TAG, "onPostExecute: counts-value = " + item.getValue());
+//            }
             shimmerFreeNumberLayout.setVisibility(View.GONE);
             free_recycle_view.setVisibility(View.VISIBLE);
+            String prev_countryname = "";
+            int i = 0;
             for (FreeNumber num : parser.numbersList) {
                 HashMap<String, String> dataMApi = new HashMap<>();
 
 
                 dataMApi.put("Title", num.counrty_name);
+
+
+                dataMApi.put("type", "item");
 
                 String icon_name = "flag_" + num.country_code.toLowerCase();
 //                String icon_name = num.country_code.toLowerCase();
@@ -293,6 +325,27 @@ public class FreeRentFragment extends Fragment{
                 dataMApi.put("origin", num.origin);
 
                 dataList.add(dataMApi);
+
+                prev_countryname = num.counrty_name;
+
+                try {
+                    if (!num.counrty_name.equals(parser.numbersList.get(i+1).counrty_name)) {
+                        HashMap<String, String> dataMApiFOOTER = new HashMap<>();
+                        dataMApiFOOTER.put("Title", num.counrty_name);
+                        dataMApiFOOTER.put("type", "footer");
+                        dataList.add(dataMApiFOOTER);
+                    }
+                }
+                catch (java.lang.IndexOutOfBoundsException e) {
+                    Log.d(TAG, "IndexOFBoundException: ok");
+                    HashMap<String, String> dataMApiFOOTER = new HashMap<>();
+                    dataMApiFOOTER.put("Title", num.counrty_name);
+                    dataMApiFOOTER.put("type", "footer");
+                    dataList.add(dataMApiFOOTER);
+                }
+
+
+                i++;
             }
 
 //            getData();

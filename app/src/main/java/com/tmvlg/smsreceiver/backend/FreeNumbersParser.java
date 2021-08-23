@@ -26,6 +26,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.Locale;
 import java.util.Scanner;
 
@@ -36,6 +37,8 @@ public class FreeNumbersParser {
     public ArrayList<FreeNumber> numbersList;
 
     public ArrayList<FreeMessage> messagesList;
+
+    public HashMap<String, Integer> numbersCountedByCountry;
 
 
 
@@ -51,6 +54,13 @@ public class FreeNumbersParser {
             Document doc = Jsoup.connect("https://sms-online.co/receive-free-sms").get();
             Elements numbers = doc.select("h4.number-boxes-item-number");
             Elements countries = doc.select("h5.number-boxes-item-country");
+
+            for (int i=0; i < countries.size(); i++){
+                Log.d(TAG, "parse_1: counts + 1");
+//                if (numbersCountedByCountry.get(country.text()) != null)
+                Log.d(TAG, "parse_1: country = " + countries.get(i).text());
+                numbersCountedByCountry.put(countries.get(i).text(), (Integer) 0);
+            }
 
             Log.d(TAG, numbers.text());
 
@@ -84,7 +94,7 @@ public class FreeNumbersParser {
                 free_number.counrty_name = countries.get(i).text();
                 free_number.origin = "parse_1";
 
-                numbersList.add(free_number);
+                numbersCountedByCountry.put(free_number.counrty_name, numbersCountedByCountry.get(free_number.counrty_name) + 1);
             }
         } catch (IOException e) {
             Log.d(TAG, "parsing error at parse_1");
@@ -197,6 +207,12 @@ public class FreeNumbersParser {
             Document doc = Jsoup.connect("https://online-sms.org/").get();
             Elements countries = doc.select(("h4.titlecoutry"));
 
+            for (int i=0; i < countries.size(); i++){
+                Log.d(TAG, "parse_1: counts + 1");
+//                if (numbersCountedByCountry.get(country.text()) != null)
+                Log.d(TAG, "parse_1: country = " + countries.get(i).text());
+                numbersCountedByCountry.put(countries.get(i).text(), (Integer) 0);
+            }
 
 
             CountryCodes codes = new CountryCodes();
@@ -241,6 +257,9 @@ public class FreeNumbersParser {
                     free_number.origin = "parse_3";
 
                     numbersList.add(free_number);
+
+                    numbersCountedByCountry.put(free_number.counrty_name, numbersCountedByCountry.get(free_number.counrty_name) + 1);
+
                 }
 
             }
@@ -362,9 +381,9 @@ public class FreeNumbersParser {
 
 
     public void parse_numbers() throws ParseException, MalformedURLException {
-//        parse_1();
+        parse_1();
 //        parse_2();
-        parse_3();
+//        parse_3();
 //        parse_4();
 
         sort_numbers();
@@ -451,6 +470,7 @@ public class FreeNumbersParser {
     public FreeNumbersParser () {
         numbersList = new ArrayList<>();
         messagesList = new ArrayList<>();
+        numbersCountedByCountry = new HashMap<>();
     }
 
 
