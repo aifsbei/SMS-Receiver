@@ -1,4 +1,4 @@
-package com.tmvlg.smsreceiver.ui;
+package com.tmvlg.smsreceiver.presentation;
 
 import android.os.Bundle;
 

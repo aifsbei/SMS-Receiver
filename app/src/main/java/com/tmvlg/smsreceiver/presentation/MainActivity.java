@@ -1,4 +1,4 @@
-package com.tmvlg.smsreceiver;
+package com.tmvlg.smsreceiver.presentation;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -6,13 +6,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.transition.Fade;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toolbar;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.tmvlg.smsreceiver.ui.FreeRentFragment;
-import com.tmvlg.smsreceiver.ui.ProfileFragment;
-import com.tmvlg.smsreceiver.ui.RentNumberFragment;
+import com.tmvlg.smsreceiver.R;
+import com.tmvlg.smsreceiver.presentation.freerent.FreeRentFragment;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 

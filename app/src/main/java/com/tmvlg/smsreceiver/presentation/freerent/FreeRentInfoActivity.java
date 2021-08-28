@@ -1,4 +1,4 @@
-package com.tmvlg.smsreceiver;
+package com.tmvlg.smsreceiver.presentation.freerent;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,11 +24,6 @@ import android.transition.Fade;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.AccelerateInterpolator;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
-import android.view.animation.AnimationSet;
-import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,18 +31,11 @@ import android.widget.Toast;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.material.button.MaterialButton;
 import com.neovisionaries.i18n.CountryCode;
-import com.tmvlg.smsreceiver.backend.CountryCodes;
-import com.tmvlg.smsreceiver.backend.FreeMessage;
+import com.tmvlg.smsreceiver.R;
+import com.tmvlg.smsreceiver.domain.freemessage.FreeMessage;
 import com.tmvlg.smsreceiver.backend.FreeMessagesDataAdapter;
-import com.tmvlg.smsreceiver.backend.FreeNumber;
-import com.tmvlg.smsreceiver.backend.FreeNumberDataAdapter;
 import com.tmvlg.smsreceiver.backend.FreeNumbersParser;
-import com.tmvlg.smsreceiver.backend.RecyclerItemDecoration;
-import com.tmvlg.smsreceiver.ui.FreeRentFragment;
 
-import org.json.simple.parser.ParseException;
-
-import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -376,9 +364,9 @@ public class FreeRentInfoActivity extends AppCompatActivity {
             for (FreeMessage msg : parser.messagesList) {
                 HashMap<String, String> dataMApi = new HashMap<>();
                 dataMApi.put("Title", "NoTitle");
-                dataMApi.put("free_message_header", msg.message_title);
-                dataMApi.put("free_message_text", msg.message_text);
-                dataMApi.put("free_time_remained", msg.time_remained);
+                dataMApi.put("free_message_header", msg.getMessage_title());
+                dataMApi.put("free_message_text", msg.getMessage_text());
+                dataMApi.put("free_time_remained", msg.getTime_remained());
                 dataMApi.put("color", String.valueOf(baseColor));
                 dataList.add(dataMApi);
             }
