@@ -252,8 +252,6 @@ public class CountryCodes {
         map.put("Zambia", "ZM");
         map.put("Zaire", "ZR");
         map.put("Zimbabwe", "ZW");
-        map.put("Russia", "RU");
-        map.put("Hong Kong SAR China", "HK");
 
     }
 
