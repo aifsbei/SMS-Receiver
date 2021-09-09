@@ -10,4 +10,6 @@ interface FreeNumberRepository {
 
     fun getFreeNumber(freeNumberId: Int) : FreeNumber
 
+    suspend fun loadFreeNumberList() : Unit
+
 }

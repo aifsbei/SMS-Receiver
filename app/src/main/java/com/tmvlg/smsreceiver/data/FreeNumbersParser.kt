@@ -1,7 +1,10 @@
-package com.tmvlg.smsreceiver.backend
+package com.tmvlg.smsreceiver.data
 
 import android.util.Log
 import com.google.i18n.phonenumbers.PhoneNumberUtil
+import com.tmvlg.smsreceiver.backend.CountryCodes
+import com.tmvlg.smsreceiver.backend.Iso2Phone
+import com.tmvlg.smsreceiver.data.freemessage.FreeMessageRepositoryImpl
 import com.tmvlg.smsreceiver.domain.freemessage.FreeMessage
 import com.tmvlg.smsreceiver.domain.freenumber.FreeNumber
 import org.json.simple.JSONArray
@@ -17,13 +20,14 @@ import java.util.*
 
 class FreeNumbersParser {
     private val TAG = "1"
-    var numbersList: ArrayList<FreeNumber>
-    @JvmField
-    var messagesList: ArrayList<FreeMessage>
+    val numbersList = mutableListOf<FreeNumber>()
+    val messagesList = mutableListOf<FreeMessage>()
+
 
     /////////////////////////////////////////////////////////////
     //////////https://sms-online.co/receive-free-sms/////////////
     /////////////////////////////////////////////////////////////
+
     fun parse_1() {
         try {
             val doc = Jsoup.connect("https://sms-online.co/receive-free-sms").get()
@@ -46,7 +50,8 @@ class FreeNumbersParser {
                         call_number_prefix = prefix,
                         country_code = code,
                         counrty_name = countries[i].text(),
-                        origin = "parse_1")
+                        origin = "parse_1",
+                        icon_path = "$code.xml")
                 numbersList.add(free_number)
             }
         } catch (e: IOException) {
@@ -87,7 +92,8 @@ class FreeNumbersParser {
                         call_number_prefix = prefix,
                         country_code = code,
                         counrty_name = "Russia",
-                        origin = "parse_2")
+                        origin = "parse_2",
+                        icon_path = "$code.xml")
                 numbersList.add(free_number)
             }
         } catch (e: IOException) {
@@ -146,7 +152,8 @@ class FreeNumbersParser {
                             call_number_prefix = prefix,
                             country_code = code,
                             counrty_name = countries[i].text(),
-                            origin = "parse_3")
+                            origin = "parse_3",
+                            icon_path = "$code.xml")
                     numbersList.add(free_number)
                 }
             }
@@ -218,7 +225,8 @@ class FreeNumbersParser {
                         call_number_prefix = country_prefix,
                         country_code = country_code!!,
                         counrty_name = country_name,
-                        origin = "parse_4")
+                        origin = "parse_4",
+                        icon_path = "$country_code.xml")
                 //                temp.local_country = country_name;
 //                temp.local_country_code = local_country_code;
                 numbersList.add(free_number)
@@ -249,24 +257,32 @@ class FreeNumbersParser {
         //        parse_2();
         parse_3()
         //        parse_4();
+        add_countrynames_to_list()
         sort_numbers()
     }
 
     @Throws(MalformedURLException::class, ParseException::class)
-    fun parse_messages(origin: String, callnumber: String) {
+    fun parse_messages(freeNumber: FreeNumber) {
         messagesList.clear()
-        if (origin == "parse_1") {
-            Log.d(TAG, callnumber)
-            parse_messages_1(callnumber)
-        } else if (origin == "parse_2") {
-            Log.d(TAG, callnumber.substring(1))
-            parse_messages_2(callnumber.substring(1))
-        } else if (origin == "parse_3") {
-            Log.d(TAG, callnumber.substring(1))
-            parse_messages_3(callnumber)
-        } else if (origin == "parse_4") {
-            Log.d(TAG, callnumber)
-            parse_messages_4("+$callnumber")
+        with(freeNumber) {
+            when (origin) {
+                "parse_1" -> {
+                    Log.d(TAG, call_number)
+                    parse_messages_1(call_number)
+                }
+                "parse_2" -> {
+                    Log.d(TAG, call_number.substring(1))
+                    parse_messages_2(call_number.substring(1))
+                }
+                "parse_3" -> {
+                    Log.d(TAG, call_number.substring(1))
+                    parse_messages_3(call_number)
+                }
+                "parse_4" -> {
+                    Log.d(TAG, call_number)
+                    parse_messages_4("+$call_number")
+                }
+            }
         }
     }
 
@@ -274,6 +290,28 @@ class FreeNumbersParser {
         Collections.sort(numbersList) { o1, o2 ->
             val comparision = o1.counrty_name.compareTo(o2.counrty_name)
             Integer.compare(comparision, 0)
+        }
+    }
+
+    fun add_countrynames_to_list() {
+        var countryName = numbersList[0].counrty_name
+        var tempNumberList = mutableListOf<FreeNumber>()
+        for (item in numbersList) {
+            val new_countryName = item.counrty_name
+            if (!new_countryName.equals(countryName)) {
+                val free_number = FreeNumber(call_number = "",
+                        call_number_prefix = "",
+                        country_code = "",
+                        counrty_name = new_countryName,
+                        origin = "",
+                        icon_path = "",
+                        type = FreeNumber.HEADER_TYPE)
+                tempNumberList.add(free_number)
+                countryName = new_countryName
+            }
+        }
+        for (item in tempNumberList) {
+            numbersList.add(0, item)
         }
     }
 
@@ -306,10 +344,5 @@ class FreeNumbersParser {
             }
             return ""
         }
-    }
-
-    init {
-        numbersList = ArrayList()
-        messagesList = ArrayList()
     }
 }

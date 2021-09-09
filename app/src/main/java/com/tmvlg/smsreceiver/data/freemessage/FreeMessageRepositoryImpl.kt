@@ -2,6 +2,7 @@ package com.tmvlg.smsreceiver.data.freemessage
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.tmvlg.smsreceiver.data.FreeNumbersParser
 import com.tmvlg.smsreceiver.data.freenumber.FreeNumberRepositoryImpl
 import com.tmvlg.smsreceiver.domain.freemessage.FreeMessage
 import com.tmvlg.smsreceiver.domain.freemessage.FreeMessageRepository
@@ -14,6 +15,13 @@ object FreeMessageRepositoryImpl : FreeMessageRepository {
     private val freeMessageList = mutableListOf<FreeMessage>()
 
     private var autoIncrementId = 0
+
+    init {
+        val parser = FreeNumbersParser()
+        for (item in parser.messagesList) {
+            addFreeMessage(item)
+        }
+    }
 
     override fun addFreeMessage(freeMessage: FreeMessage) {
         freeMessage.id = autoIncrementId++
@@ -31,6 +39,6 @@ object FreeMessageRepositoryImpl : FreeMessageRepository {
     }
 
     private fun updateList() {
-        freeMessageLD.value = freeMessageList.toList()
+        freeMessageLD.postValue(freeMessageList.toList())
     }
 }

@@ -8,16 +8,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import butterknife.ButterKnife
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.textfield.TextInputEditText
 import com.tmvlg.smsreceiver.R
-import com.tmvlg.smsreceiver.backend.FreeNumberDataAdapter
-import com.tmvlg.smsreceiver.backend.FreeNumbersParser
+import com.tmvlg.smsreceiver.data.FreeNumbersParser
 import com.tmvlg.smsreceiver.backend.RecyclerItemDecoration
 import com.tmvlg.smsreceiver.backend.RecyclerItemDecoration.SectionCallback
+import com.tmvlg.smsreceiver.domain.freenumber.FreeNumber
 import java.util.*
 
 /**
@@ -34,11 +35,11 @@ class FreeRentFragment : Fragment() {
     var linearLayoutManager: LinearLayoutManager? = null
     var free_rent_search_entry: TextInputEditText? = null
     var shimmerFreeNumberLayout: ShimmerFrameLayout? = null
-    var adapter: FreeNumberDataAdapter? = null
     var recyclerItemDecoration: RecyclerItemDecoration? = null
 
 
     private lateinit var viewModel: FreeRentViewModel
+    private lateinit var freeNumberDataAdapter: FreeNumberDataAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -51,23 +52,49 @@ class FreeRentFragment : Fragment() {
         linearLayoutManager = LinearLayoutManager(activity)
         free_recycle_view?.setLayoutManager(linearLayoutManager)
         parser = FreeNumbersParser()
-        AsyncParse().execute()
+//        AsyncParse().execute()
         ButterKnife.bind(view)
         free_rent_search_entry?.addTextChangedListener(search_text_changed_listener)
+
+        viewModel = ViewModelProvider(this).get(FreeRentViewModel::class.java)
+
+        viewModel.initRepository()
+        shimmerFreeNumberLayout!!.visibility = View.GONE
+        free_recycle_view!!.visibility = View.VISIBLE
+        viewModel.numberList.observe(viewLifecycleOwner) {
+            setupRecyclerView()
+            freeNumberDataAdapter.freeNumberList = it
+            freeNumberDataAdapter.setList(it)
+            recyclerItemDecoration = RecyclerItemDecoration(activity,
+                    resources.getDimensionPixelSize(R.dimen.free_header_height),
+                    true,
+                    getSectionCallback(freeNumberDataAdapter.freeNumberList))
+//            free_recycle_view!!.addItemDecoration(recyclerItemDecoration!!)
+        }
+
+
 
 //        getData();
         return view
     }
 
-    fun getSectionCallback(list: ArrayList<HashMap<String, String>>?): SectionCallback {
+
+    fun setupRecyclerView() {
+        freeNumberDataAdapter = FreeNumberDataAdapter()
+        free_recycle_view?.adapter = freeNumberDataAdapter
+
+
+    }
+
+    fun getSectionCallback(list: List<FreeNumber>): SectionCallback {
         return object : SectionCallback {
             override fun isSection(pos: Int): Boolean {
-                return pos == 0 || list!![pos]["Title"] != list[pos - 1]["Title"]
+                return pos == 0 || list[pos].type != list[pos - 1].type
             }
 
             override fun getSectionHeaderName(pos: Int): String {
-                val dataMap = list!![pos]
-                return dataMap["Title"]!!
+                val headerName = list.get(pos).counrty_name
+                return headerName
             }
         }
     }
@@ -99,89 +126,55 @@ class FreeRentFragment : Fragment() {
                 filteredList.add(dataMApi)
             }
         }
-        adapter!!.filterList(filteredList)
+//        adapter!!.filterList(filteredList)
 
 
 //        adapter = new FreeNumberDataAdapter(getActivity(), filteredList);
 //        free_recycle_view.setAdapter(adapter);
-        recyclerItemDecoration!!.setSectionCallback(getSectionCallback(filteredList))
+
+        //TODO: BUG
+//        recyclerItemDecoration!!.setSectionCallback(getSectionCallback(freeNumberDataAdapter.freeNumberList))
 
 //        free_recycle_view.addItemDecoration(recyclerItemDecoration);
     }
 
-    val data: Unit
-        get() {
-            for (i in 0..2) {
-                val dataMApi = HashMap<String, String>()
-                dataMApi["Title"] = "Zimbabwe"
-                dataMApi["free_region_icon"] = "flag_bi"
-                dataMApi["free_prefix"] = "RU +7"
-                dataMApi["free_call_number"] = "902 237 87 42"
-                dataList!!.add(dataMApi)
-            }
-            val dataMApi1 = HashMap<String, String>()
-            dataMApi1["Title"] = "Zimbabwe"
-            dataMApi1["free_region_icon"] = "flag_bi"
-            dataMApi1["free_prefix"] = "RU +7"
-            dataMApi1["free_call_number"] = "902 237 87 42"
-            dataList!!.add(dataMApi1)
-            val dataMApi12 = HashMap<String, String>()
-            dataMApi12["Title"] = "Russia"
-            dataMApi12["free_region_icon"] = "flag_bi"
-            dataMApi12["free_prefix"] = "RU +7"
-            dataMApi12["free_call_number"] = "902 237 87 43"
-            dataList!!.add(dataMApi12)
-            val dataMApi13 = HashMap<String, String>()
-            dataMApi13["Title"] = "Zimbabwe"
-            dataMApi13["free_region_icon"] = "flag_bi"
-            dataMApi13["free_prefix"] = "RU +7"
-            dataMApi13["free_call_number"] = "902 237 87 44"
-            dataList!!.add(dataMApi13)
-            val dataMApi2 = HashMap<String, String>()
-            dataMApi2["Title"] = "Malaysia"
-            dataMApi2["free_region_icon"] = "flag_bi"
-            dataMApi2["free_prefix"] = "RU +7"
-            dataMApi2["free_call_number"] = "902 237 87 42"
-            dataList!!.add(dataMApi2)
-        }
-
-    internal inner class AsyncParse : AsyncTask<Void?, Void?, Void?>() {
-        override fun doInBackground(vararg params: Void?): Void? {
-            var numbers_data_list: ArrayList<ArrayList<String?>?>
-            try {
-                parser!!.parse_numbers()
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-            return null
-        }
-
-        override fun onPostExecute(result: Void?) {
-            parser!!.print_data()
-            shimmerFreeNumberLayout!!.visibility = View.GONE
-            free_recycle_view!!.visibility = View.VISIBLE
-            for (num in parser!!.numbersList) {
-                val dataMApi = HashMap<String, String>()
-                dataMApi["Title"] = num.counrty_name
-                val icon_name = "flag_" + num.country_code.toLowerCase()
-                //                String icon_name = num.country_code.toLowerCase();
-                dataMApi["free_region_icon"] = icon_name
-                val prefix = num.country_code + " " + num.call_number_prefix
-                dataMApi["free_prefix"] = prefix
-                dataMApi["free_call_number"] = num.call_number
-                dataMApi["origin"] = num.origin
-                dataList!!.add(dataMApi)
-            }
-
-//            getData();
-            adapter = FreeNumberDataAdapter()   //FIX ARGUMENTS HERE!!
-            free_recycle_view!!.adapter = adapter
-            recyclerItemDecoration = RecyclerItemDecoration(activity,
-                    resources.getDimensionPixelSize(R.dimen.free_header_height),
-                    true,
-                    getSectionCallback(dataList))
-            free_recycle_view!!.addItemDecoration(recyclerItemDecoration!!)
-            super.onPostExecute(result)
-        }
-    }
+//    internal inner class AsyncParse : AsyncTask<Void?, Void?, Void?>() {
+//        override fun doInBackground(vararg params: Void?): Void? {
+//            var numbers_data_list: ArrayList<ArrayList<String?>?>
+//            try {
+//                parser!!.parse_numbers()
+//            } catch (e: Exception) {
+//                e.printStackTrace()
+//            }
+//            return null
+//        }
+//
+//        override fun onPostExecute(result: Void?) {
+//            parser!!.print_data()
+//            shimmerFreeNumberLayout!!.visibility = View.GONE
+//            free_recycle_view!!.visibility = View.VISIBLE
+//            for (num in parser!!.numbersList) {
+//                val dataMApi = HashMap<String, String>()
+//                dataMApi["Title"] = num.counrty_name
+//                val icon_name = "flag_" + num.country_code.toLowerCase()
+//                //                String icon_name = num.country_code.toLowerCase();
+//                dataMApi["free_region_icon"] = icon_name
+//                val prefix = num.country_code + " " + num.call_number_prefix
+//                dataMApi["free_prefix"] = prefix
+//                dataMApi["free_call_number"] = num.call_number
+//                dataMApi["origin"] = num.origin
+//                dataList!!.add(dataMApi)
+//            }
+//
+////            getData();
+//            adapter = FreeNumberDataAdapter()   //FIX ARGUMENTS HERE!!
+//            free_recycle_view!!.adapter = adapter
+//            recyclerItemDecoration = RecyclerItemDecoration(activity,
+//                    resources.getDimensionPixelSize(R.dimen.free_header_height),
+//                    true,
+//                    getSectionCallback(dataList))
+//            free_recycle_view!!.addItemDecoration(recyclerItemDecoration!!)
+//            super.onPostExecute(result)
+//        }
+//    }
 }

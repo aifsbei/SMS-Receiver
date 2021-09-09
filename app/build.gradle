@@ -3,6 +3,10 @@ plugins {
 }
 apply plugin: 'kotlin-android'
 
+configurations.all {
+    resolutionStrategy { force 'androidx.core:core-ktx:1.6.0' }
+}
+
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
@@ -49,6 +53,9 @@ dependencies {
     implementation group: 'com.googlecode.libphonenumber', name: 'libphonenumber', version: '5.5'
     implementation "androidx.core:core-ktx:+"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:x.x.x"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:x.x.x"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0-alpha03"
 
 
 }
