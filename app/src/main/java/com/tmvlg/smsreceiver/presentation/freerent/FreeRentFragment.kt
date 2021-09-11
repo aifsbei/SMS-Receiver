@@ -37,6 +37,8 @@ class FreeRentFragment : Fragment() {
     var shimmerFreeNumberLayout: ShimmerFrameLayout? = null
     var recyclerItemDecoration: RecyclerItemDecoration? = null
 
+    private var INIT_VAR = 0
+
 
     private lateinit var viewModel: FreeRentViewModel
     private lateinit var freeNumberDataAdapter: FreeNumberDataAdapter
@@ -62,14 +64,20 @@ class FreeRentFragment : Fragment() {
         shimmerFreeNumberLayout!!.visibility = View.GONE
         free_recycle_view!!.visibility = View.VISIBLE
         viewModel.numberList.observe(viewLifecycleOwner) {
-            setupRecyclerView()
+            if (INIT_VAR == 0) {
+                setupRecyclerView()
+                INIT_VAR++
+            }
             freeNumberDataAdapter.freeNumberList = it
-            freeNumberDataAdapter.setList(it)
-            recyclerItemDecoration = RecyclerItemDecoration(activity,
-                    resources.getDimensionPixelSize(R.dimen.free_header_height),
-                    true,
-                    getSectionCallback(freeNumberDataAdapter.freeNumberList))
-//            free_recycle_view!!.addItemDecoration(recyclerItemDecoration!!)
+//            freeNumberDataAdapter.setList(it)
+//            if (INIT_VAR == 0){
+//                recyclerItemDecoration = RecyclerItemDecoration(activity,
+//                        resources.getDimensionPixelSize(R.dimen.free_header_height),
+//                        true,
+//                        getSectionCallback(freeNumberDataAdapter.freeNumberList))
+//                free_recycle_view!!.addItemDecoration(recyclerItemDecoration!!)
+//                INIT_VAR++
+//            }
         }
 
 

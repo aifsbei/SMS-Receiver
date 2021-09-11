@@ -51,6 +51,10 @@ class StickyHeaderItemDecoration(@LayoutRes private val headerId: Int, private v
 
     private fun drawStickedHeader(c: Canvas) {
         c.save()
+//        if (sticked)
+//            c.translate(0f, Math.max(0f, stickyHeaderView.top.toFloat() - stickyHeaderView.height.toFloat()))
+//        else
+//            c.translate(0f, stickyHeaderView.top.toFloat() - stickyHeaderView.height.toFloat())
         c.translate(0f, Math.max(0f, stickyHeaderView.top.toFloat() - stickyHeaderView.height.toFloat()))
         headerView.draw(c)
         c.restore()
@@ -65,6 +69,9 @@ class StickyHeaderItemDecoration(@LayoutRes private val headerId: Int, private v
         // Specs for children (headers)
         val childWidthSpec = ViewGroup.getChildMeasureSpec(widthSpec, parent.paddingLeft + parent.paddingRight, view.getLayoutParams().width)
         val childHeightSpec = ViewGroup.getChildMeasureSpec(heightSpec, parent.paddingTop + parent.paddingBottom, view.getLayoutParams().height)
+//
+//        val childWidthSpec = ViewGroup.getChildMeasureSpec(widthSpec, viewGroup.getPaddingLeft() + viewGroup.getPaddingRight(), view.layoutParams.width)
+//        val childHeightSpec = ViewGroup.getChildMeasureSpec(heightSpec, viewGroup.getPaddingTop() + viewGroup.getPaddingBottom(), view.layoutParams.height)
 
         view.measure(childWidthSpec, childHeightSpec)
 
