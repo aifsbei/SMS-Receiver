@@ -7,6 +7,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.recyclerview.widget.RecyclerView
 import com.tmvlg.smsreceiver.R
 import com.tmvlg.smsreceiver.backend.RecyclerItemDecoration
 import com.tmvlg.smsreceiver.data.freenumber.FreeNumberRepositoryImpl

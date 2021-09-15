@@ -4,6 +4,7 @@ import android.os.AsyncTask
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -63,23 +64,18 @@ class FreeRentFragment : Fragment() {
         viewModel.initRepository()
         shimmerFreeNumberLayout!!.visibility = View.GONE
         free_recycle_view!!.visibility = View.VISIBLE
+        setupRecyclerView()
         viewModel.numberList.observe(viewLifecycleOwner) {
-            if (INIT_VAR == 0) {
-                setupRecyclerView()
-                INIT_VAR++
-            }
-            freeNumberDataAdapter.freeNumberList = it
-//            freeNumberDataAdapter.setList(it)
-//            if (INIT_VAR == 0){
-//                recyclerItemDecoration = RecyclerItemDecoration(activity,
-//                        resources.getDimensionPixelSize(R.dimen.free_header_height),
-//                        true,
-//                        getSectionCallback(freeNumberDataAdapter.freeNumberList))
-//                free_recycle_view!!.addItemDecoration(recyclerItemDecoration!!)
+//            if (INIT_VAR == 0) {
+//                Log.d(TAG, "onCreateView: INIT1")
+//                setupRecyclerView()
 //                INIT_VAR++
 //            }
+//            freeNumberDataAdapter.freeNumberList = it
+            freeNumberDataAdapter.setList(it)
+//            freeNumberDataAdapter.setList(it)
+            Log.d(TAG, "onCreateView: INIT2")
         }
-
 
 
 //        getData();
@@ -97,7 +93,7 @@ class FreeRentFragment : Fragment() {
     fun getSectionCallback(list: List<FreeNumber>): SectionCallback {
         return object : SectionCallback {
             override fun isSection(pos: Int): Boolean {
-                return pos == 0 || list[pos].type != list[pos - 1].type
+                return pos == 0 || list[pos].counrty_name != list[pos - 1].counrty_name
             }
 
             override fun getSectionHeaderName(pos: Int): String {

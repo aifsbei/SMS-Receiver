@@ -57,6 +57,7 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:x.x.x"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0-alpha03"
     implementation "com.github.shuhart:stickyheader:1.1.0"
+    implementation 'com.squareup.picasso:picasso:2.71828'
 
 }
 repositories {
