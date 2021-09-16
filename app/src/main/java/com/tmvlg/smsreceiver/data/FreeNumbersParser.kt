@@ -298,10 +298,12 @@ class FreeNumbersParser {
         var tempNumberList = mutableListOf<FreeNumber>()
         for (item in numbersList) {
             val new_countryName = item.counrty_name
+            val new_call_number_prefix = item.call_number_prefix
+            val new_country_code = item.country_code
             if (!new_countryName.equals(countryName)) {
                 val free_number = FreeNumber(call_number = "",
-                        call_number_prefix = "",
-                        country_code = "",
+                        call_number_prefix = new_call_number_prefix,
+                        country_code = new_country_code,
                         counrty_name = new_countryName,
                         origin = "",
                         icon_path = "",

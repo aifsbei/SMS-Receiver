@@ -37,6 +37,16 @@ object FreeNumberRepositoryImpl : FreeNumberRepository {
                 ?: throw RuntimeException("Number with id = $freeNumberId not found!")
     }
 
+    override fun filterFreeNumberListUseCase(query: String) {
+        val tempList = freeNumberList.toList().filter {
+            it.counrty_name.lowercase().contains(query.lowercase()) ||
+                    it.country_code.lowercase().contains(query.lowercase()) ||
+                    it.call_number.lowercase().contains(query.lowercase()) ||
+                    it.call_number_prefix.lowercase().contains(query.lowercase())
+        }
+        freeNumberLD.postValue(tempList.toList())
+    }
+
     override suspend fun loadFreeNumberList() {
         val parser = FreeNumbersParser()
         parser.parse_numbers()
@@ -47,6 +57,11 @@ object FreeNumberRepositoryImpl : FreeNumberRepository {
 
     private fun updateList() {
         freeNumberLD.postValue(freeNumberList.toList())
+    }
+
+    private fun clearList() {
+        freeNumberList.clear()
+        updateList()
     }
 
 }

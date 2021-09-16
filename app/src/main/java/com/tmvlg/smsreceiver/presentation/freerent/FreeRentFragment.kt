@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -107,78 +108,8 @@ class FreeRentFragment : Fragment() {
         override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
         override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
         override fun afterTextChanged(editable: Editable) {
-            filter(editable.toString())
+            viewModel.filterFreeNumberList(editable.toString())
         }
     }
-
-    fun filter(text: String) {
-        val filteredList = ArrayList<HashMap<String, String>>()
-        for (num in parser!!.numbersList) {
-            if (num.counrty_name.toLowerCase().contains(text.toLowerCase()) ||
-                    num.country_code.toLowerCase().contains(text.toLowerCase()) ||
-                    num.call_number.toLowerCase().contains(text.toLowerCase()) ||
-                    num.call_number_prefix.toLowerCase().contains(text.toLowerCase())) {
-                val dataMApi = HashMap<String, String>()
-                dataMApi["Title"] = num.counrty_name
-                val icon_name = "flag_" + num.country_code.toLowerCase()
-                //                String icon_name = num.country_code.toLowerCase();
-                dataMApi["free_region_icon"] = icon_name
-                val prefix = num.country_code + " " + num.call_number_prefix
-                dataMApi["free_prefix"] = prefix
-                dataMApi["free_call_number"] = num.call_number
-                dataMApi["origin"] = num.origin
-                filteredList.add(dataMApi)
-            }
-        }
-//        adapter!!.filterList(filteredList)
-
-
-//        adapter = new FreeNumberDataAdapter(getActivity(), filteredList);
-//        free_recycle_view.setAdapter(adapter);
-
-        //TODO: BUG
-//        recyclerItemDecoration!!.setSectionCallback(getSectionCallback(freeNumberDataAdapter.freeNumberList))
-
-//        free_recycle_view.addItemDecoration(recyclerItemDecoration);
-    }
-
-//    internal inner class AsyncParse : AsyncTask<Void?, Void?, Void?>() {
-//        override fun doInBackground(vararg params: Void?): Void? {
-//            var numbers_data_list: ArrayList<ArrayList<String?>?>
-//            try {
-//                parser!!.parse_numbers()
-//            } catch (e: Exception) {
-//                e.printStackTrace()
-//            }
-//            return null
-//        }
-//
-//        override fun onPostExecute(result: Void?) {
-//            parser!!.print_data()
-//            shimmerFreeNumberLayout!!.visibility = View.GONE
-//            free_recycle_view!!.visibility = View.VISIBLE
-//            for (num in parser!!.numbersList) {
-//                val dataMApi = HashMap<String, String>()
-//                dataMApi["Title"] = num.counrty_name
-//                val icon_name = "flag_" + num.country_code.toLowerCase()
-//                //                String icon_name = num.country_code.toLowerCase();
-//                dataMApi["free_region_icon"] = icon_name
-//                val prefix = num.country_code + " " + num.call_number_prefix
-//                dataMApi["free_prefix"] = prefix
-//                dataMApi["free_call_number"] = num.call_number
-//                dataMApi["origin"] = num.origin
-//                dataList!!.add(dataMApi)
-//            }
-//
-////            getData();
-//            adapter = FreeNumberDataAdapter()   //FIX ARGUMENTS HERE!!
-//            free_recycle_view!!.adapter = adapter
-//            recyclerItemDecoration = RecyclerItemDecoration(activity,
-//                    resources.getDimensionPixelSize(R.dimen.free_header_height),
-//                    true,
-//                    getSectionCallback(dataList))
-//            free_recycle_view!!.addItemDecoration(recyclerItemDecoration!!)
-//            super.onPostExecute(result)
-//        }
-//    }
 }
+

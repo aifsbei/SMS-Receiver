@@ -53,13 +53,7 @@ class FreeNumberDataAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(), V
                 (holder as FreeNumberItemHolder).free_region_icon.setImageResource(resID!!)
 //                Picasso.get().load(resID!!).into((holder as FreeNumberItemHolder).free_region_icon)
 
-//        String icon_path = dataMap.get("free_region_icon");
-//        Log.d("2", icon_path);
-//        InputStream is = context.getResources().openRawResource(
-//                context.getResources().getIdentifier(icon_path,
-//                        "xml", context.getPackageName()));
-//        Bitmap bitmap = BitmapFactory.decodeStream(is);
-//        holder.free_region_icon.setImageBitmap(bitmap);
+
                 (holder as FreeNumberItemHolder).free_prefix.text = number.call_number_prefix
                 (holder as FreeNumberItemHolder).free_call_number.text = number.call_number
                 (holder as FreeNumberItemHolder).free_number_layout.setOnClickListener {

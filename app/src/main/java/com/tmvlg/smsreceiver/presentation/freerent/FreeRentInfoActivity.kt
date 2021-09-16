@@ -30,7 +30,6 @@ import com.tmvlg.smsreceiver.R
 import com.tmvlg.smsreceiver.R.xml
 import com.tmvlg.smsreceiver.backend.FreeMessagesDataAdapter
 import com.tmvlg.smsreceiver.data.FreeNumbersParser
-import com.tmvlg.smsreceiver.presentation.freerent.FreeNumberDataAdapter.Companion.getResId
 import java.util.*
 
 class FreeRentInfoActivity : AppCompatActivity() {
@@ -119,7 +118,8 @@ class FreeRentInfoActivity : AppCompatActivity() {
         Log.d(TAG, flag_path)
         Log.d(TAG, country_code)
         Log.d(TAG, call_number!!)
-        val flag_resID = getResId(flag_path, xml::class.java)
+//        val flag_resID = getResId(flag_path, xml::class.java)
+        val flag_resID = this.resources.getIdentifier(flag_path, "xml", this.packageName)
         val srcBitmap = getBitmap(flag_resID)
         baseColor = ContextCompat.getColor(this, R.color.design_default_color_background)
         textColor = ContextCompat.getColor(this, R.color.design_default_color_secondary_variant)

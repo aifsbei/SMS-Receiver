@@ -10,6 +10,8 @@ interface FreeNumberRepository {
 
     fun getFreeNumber(freeNumberId: Int) : FreeNumber
 
+    fun filterFreeNumberListUseCase(query: String)
+
     suspend fun loadFreeNumberList() : Unit
 
 }
