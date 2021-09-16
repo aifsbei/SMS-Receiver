@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.tmvlg.smsreceiver.R
 import com.tmvlg.smsreceiver.backend.RecyclerItemDecoration
 import com.tmvlg.smsreceiver.data.freenumber.FreeNumberRepositoryImpl
-import com.tmvlg.smsreceiver.domain.FreeNumber.FilterFreeNumberListUseCase
 import com.tmvlg.smsreceiver.domain.freenumber.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

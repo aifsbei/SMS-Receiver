@@ -1,4 +1,4 @@
-package com.tmvlg.smsreceiver.domain.FreeNumber
+package com.tmvlg.smsreceiver.domain.freenumber
 
 import androidx.lifecycle.LiveData
 import com.tmvlg.smsreceiver.domain.freenumber.FreeNumber

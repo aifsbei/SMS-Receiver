@@ -73,7 +73,7 @@ class FreeRentFragment : Fragment() {
 //                INIT_VAR++
 //            }
 //            freeNumberDataAdapter.freeNumberList = it
-            freeNumberDataAdapter.setList(it)
+            freeNumberDataAdapter.submitList(it)
 //            freeNumberDataAdapter.setList(it)
             Log.d(TAG, "onCreateView: INIT2")
         }

@@ -7,6 +7,7 @@ import android.content.res.Resources
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.tmvlg.smsreceiver.R
@@ -14,11 +15,8 @@ import com.tmvlg.smsreceiver.backend.ViewHolderStickyDecoration
 import com.tmvlg.smsreceiver.domain.freenumber.FreeNumber
 
 
-class FreeNumberDataAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(), ViewHolderStickyDecoration.Condition {
+class FreeNumberDataAdapter : ListAdapter<FreeNumber, RecyclerView.ViewHolder>(FreeNumberDiffCallback()), ViewHolderStickyDecoration.Condition {
 
-
-
-    var freeNumberList = listOf<FreeNumber>()
     var context: Context? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -40,7 +38,7 @@ class FreeNumberDataAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(), V
 
     @SuppressLint("ResourceType")
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val number = freeNumberList[position]
+        val number = getItem(position)
 
         when (number.type) {
             FreeNumber.ITEM_TYPE -> {
@@ -76,12 +74,8 @@ class FreeNumberDataAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(), V
     }
 
 
-    override fun getItemCount(): Int {
-        return freeNumberList.size
-    }
-
     override fun getItemViewType(position: Int): Int {
-        val item = freeNumberList[position]
+        val item = getItem(position)
         return when (item.type) {
             FreeNumber.HEADER_TYPE -> VIEWTYPE_HEADER
             FreeNumber.ITEM_TYPE -> VIEWTYPE_ITEM
@@ -94,20 +88,12 @@ class FreeNumberDataAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(), V
         recyclerView.addItemDecoration(ViewHolderStickyDecoration(recyclerView, this))
     }
 
-
-    fun filterList(filteredList: List<FreeNumber>) {
-        freeNumberList = filteredList
-        notifyDataSetChanged()
-    }
-
-    fun setList(list: List<FreeNumber>) {
-        freeNumberList = list
-        notifyDataSetChanged()
-    }
-
-
     override fun isHeader(position: Int): Boolean {
-        return freeNumberList[position].type == FreeNumber.HEADER_TYPE
+        try {
+            return getItem(position).type == FreeNumber.HEADER_TYPE
+        } catch (e: ArrayIndexOutOfBoundsException) {
+            return false
+        }
     }
 
 
