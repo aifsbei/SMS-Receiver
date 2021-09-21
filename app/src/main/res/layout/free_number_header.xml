@@ -7,7 +7,7 @@
     android:background="#FFFFFF">
 
     <TextView
-        android:id="@+id/country_name_shimmer"
+        android:id="@+id/country_name"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
         android:layout_marginStart="25dp"
@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <View
-        android:id="@+id/divider_shimmer"
+        android:id="@+id/divider"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginStart="20dp"
@@ -32,6 +32,6 @@
         android:paddingBottom="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/country_name_shimmer" />
+        app:layout_constraintTop_toBottomOf="@+id/country_name" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

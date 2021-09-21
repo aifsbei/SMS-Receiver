@@ -49,7 +49,7 @@ public class RecyclerItemDecoration extends RecyclerView.ItemDecoration {
         if(headerView==null)
         {
             headerView = inflateHeader(parent);
-            tvTitle = (TextView)headerView.findViewById(R.id.country_name_shimmer);
+            tvTitle = (TextView)headerView.findViewById(R.id.country_name);
             fixLayoutSize(headerView,parent);
         }
         String prevTitle = "";

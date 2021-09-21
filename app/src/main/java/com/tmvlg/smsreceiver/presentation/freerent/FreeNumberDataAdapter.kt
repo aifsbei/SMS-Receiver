@@ -45,7 +45,6 @@ class FreeNumberDataAdapter : ListAdapter<FreeNumber, RecyclerView.ViewHolder>(F
 
                 Log.d("1", icon_path)
 
-                //TODO: ПЕРЕСТАЛО РАБОТАТЬ
                 (holder as FreeNumberItemHolder).free_region_icon.setImageResource(resID!!)
 //                Picasso.get().load(resID!!).into((holder as FreeNumberItemHolder).free_region_icon)
 
@@ -65,7 +64,7 @@ class FreeNumberDataAdapter : ListAdapter<FreeNumber, RecyclerView.ViewHolder>(F
 
                 }
             FreeNumber.HEADER_TYPE -> {
-                (holder as FreeNumberHeaderHolder).country_name_shimmer.text = number.counrty_name
+                (holder as FreeNumberHeaderHolder).country_name.text = number.counrty_name
             }
         }
 

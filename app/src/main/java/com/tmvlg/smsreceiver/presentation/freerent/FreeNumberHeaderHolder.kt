@@ -6,5 +6,5 @@ import androidx.recyclerview.widget.RecyclerView
 import com.tmvlg.smsreceiver.R
 
 class FreeNumberHeaderHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    var country_name_shimmer = itemView.findViewById<TextView>(R.id.country_name_shimmer)
+    var country_name = itemView.findViewById<TextView>(R.id.country_name)
 }

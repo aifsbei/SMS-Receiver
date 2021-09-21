@@ -73,9 +73,9 @@ public class FreeMessagesDataAdapter extends RecyclerView.Adapter<FreeMessagesDa
         TextView free_time_remained;
         public DataHolder(@NonNull View itemView) {
             super(itemView);
-            free_message_header = (TextView)itemView.findViewById(R.id.free_message_header_shimmer);
+            free_message_header = (TextView)itemView.findViewById(R.id.free_message_header);
             free_message_text = (TextView)itemView.findViewById(R.id.free_message_text);
-            free_time_remained = (TextView)itemView.findViewById(R.id.free_time_remained_shimmer);
+            free_time_remained = (TextView)itemView.findViewById(R.id.free_time_remained);
         }
     }
 
