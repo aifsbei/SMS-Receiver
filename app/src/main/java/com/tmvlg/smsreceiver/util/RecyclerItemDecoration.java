@@ -1,4 +1,4 @@
-package com.tmvlg.smsreceiver.backend;
+package com.tmvlg.smsreceiver.util;
 
 import android.content.Context;
 import android.graphics.Canvas;

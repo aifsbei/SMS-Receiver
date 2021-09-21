@@ -1,4 +1,4 @@
-package com.tmvlg.smsreceiver.backend
+package com.tmvlg.smsreceiver.util
 
 import android.graphics.Canvas
 import android.graphics.Rect

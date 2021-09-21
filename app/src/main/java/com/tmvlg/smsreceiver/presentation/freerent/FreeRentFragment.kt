@@ -1,6 +1,5 @@
 package com.tmvlg.smsreceiver.presentation.freerent
 
-import android.os.AsyncTask
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -8,7 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.widget.doOnTextChanged
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,8 +17,8 @@ import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.textfield.TextInputEditText
 import com.tmvlg.smsreceiver.R
 import com.tmvlg.smsreceiver.data.FreeNumbersParser
-import com.tmvlg.smsreceiver.backend.RecyclerItemDecoration
-import com.tmvlg.smsreceiver.backend.RecyclerItemDecoration.SectionCallback
+import com.tmvlg.smsreceiver.util.RecyclerItemDecoration
+import com.tmvlg.smsreceiver.util.RecyclerItemDecoration.SectionCallback
 import com.tmvlg.smsreceiver.domain.freenumber.FreeNumber
 import java.util.*
 
@@ -37,9 +36,6 @@ class FreeRentFragment : Fragment() {
     var linearLayoutManager: LinearLayoutManager? = null
     var free_rent_search_entry: TextInputEditText? = null
     var shimmerFreeNumberLayout: ShimmerFrameLayout? = null
-    var recyclerItemDecoration: RecyclerItemDecoration? = null
-
-    private var INIT_VAR = 0
 
 
     private lateinit var viewModel: FreeRentViewModel
@@ -47,7 +43,6 @@ class FreeRentFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_free_rent, container, false)
         dataList = ArrayList()
         free_recycle_view = view.findViewById(R.id.free_recycle_view)
@@ -56,30 +51,21 @@ class FreeRentFragment : Fragment() {
         linearLayoutManager = LinearLayoutManager(activity)
         free_recycle_view?.setLayoutManager(linearLayoutManager)
         parser = FreeNumbersParser()
-//        AsyncParse().execute()
-        ButterKnife.bind(view)
         free_rent_search_entry?.addTextChangedListener(search_text_changed_listener)
 
         viewModel = ViewModelProvider(this).get(FreeRentViewModel::class.java)
 
         viewModel.initRepository()
-        shimmerFreeNumberLayout!!.visibility = View.GONE
-        free_recycle_view!!.visibility = View.VISIBLE
+//        shimmerFreeNumberLayout!!.visibility = View.GONE
+//        free_recycle_view!!.visibility = View.VISIBLE
         setupRecyclerView()
         viewModel.numberList.observe(viewLifecycleOwner) {
-//            if (INIT_VAR == 0) {
-//                Log.d(TAG, "onCreateView: INIT1")
-//                setupRecyclerView()
-//                INIT_VAR++
-//            }
-//            freeNumberDataAdapter.freeNumberList = it
+
             freeNumberDataAdapter.submitList(it)
-//            freeNumberDataAdapter.setList(it)
+            shimmerFreeNumberLayout!!.visibility = View.GONE
+            free_recycle_view!!.visibility = View.VISIBLE
             Log.d(TAG, "onCreateView: INIT2")
         }
-
-
-//        getData();
         return view
     }
 
@@ -88,19 +74,11 @@ class FreeRentFragment : Fragment() {
         freeNumberDataAdapter = FreeNumberDataAdapter()
         free_recycle_view?.adapter = freeNumberDataAdapter
 
-
-    }
-
-    fun getSectionCallback(list: List<FreeNumber>): SectionCallback {
-        return object : SectionCallback {
-            override fun isSection(pos: Int): Boolean {
-                return pos == 0 || list[pos].counrty_name != list[pos - 1].counrty_name
+        freeNumberDataAdapter.onFreeNumberClickListener = object : FreeNumberDataAdapter.OnFreeNumberClickListener {
+            override fun onFreeNumberClick(freeNumber: FreeNumber) {
+                Log.d(TAG, "onFreeNumberClick: clicked")
             }
 
-            override fun getSectionHeaderName(pos: Int): String {
-                val headerName = list.get(pos).counrty_name
-                return headerName
-            }
         }
     }
 

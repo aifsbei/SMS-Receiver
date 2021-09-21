@@ -1,23 +1,21 @@
 package com.tmvlg.smsreceiver.presentation.freerent
 
-import android.R.xml
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.res.Resources
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.squareup.picasso.Picasso
 import com.tmvlg.smsreceiver.R
-import com.tmvlg.smsreceiver.backend.ViewHolderStickyDecoration
+import com.tmvlg.smsreceiver.util.ViewHolderStickyDecoration
 import com.tmvlg.smsreceiver.domain.freenumber.FreeNumber
 
 
 class FreeNumberDataAdapter : ListAdapter<FreeNumber, RecyclerView.ViewHolder>(FreeNumberDiffCallback()), ViewHolderStickyDecoration.Condition {
 
     var context: Context? = null
+    var onFreeNumberClickListener : OnFreeNumberClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val layout = when (viewType) {
@@ -55,6 +53,7 @@ class FreeNumberDataAdapter : ListAdapter<FreeNumber, RecyclerView.ViewHolder>(F
                 (holder as FreeNumberItemHolder).free_prefix.text = number.call_number_prefix
                 (holder as FreeNumberItemHolder).free_call_number.text = number.call_number
                 (holder as FreeNumberItemHolder).free_number_layout.setOnClickListener {
+                    onFreeNumberClickListener?.onFreeNumberClick(number)
 //            val intent = Intent(holder.itemView.context, FreeRentInfoActivity::class.java)
 //            intent.putExtra("free_region_icon", dataMap["free_region_icon"])
 //            intent.putExtra("free_prefix", dataMap["free_prefix"])
@@ -94,6 +93,11 @@ class FreeNumberDataAdapter : ListAdapter<FreeNumber, RecyclerView.ViewHolder>(F
         } catch (e: ArrayIndexOutOfBoundsException) {
             return false
         }
+    }
+
+    interface OnFreeNumberClickListener {
+
+        fun onFreeNumberClick(freeNumber: FreeNumber)
     }
 
 

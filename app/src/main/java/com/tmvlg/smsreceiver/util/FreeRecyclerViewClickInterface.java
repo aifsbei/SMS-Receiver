@@ -1,4 +1,4 @@
-package com.tmvlg.smsreceiver.backend;
+package com.tmvlg.smsreceiver.util;
 
 public interface FreeRecyclerViewClickInterface {
     void onItemClick(int position);

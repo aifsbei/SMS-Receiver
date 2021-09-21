@@ -1,4 +1,4 @@
-package com.tmvlg.smsreceiver.backend;
+package com.tmvlg.smsreceiver.util;
 
 import java.util.Map;
 import java.util.TreeMap;

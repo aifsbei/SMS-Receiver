@@ -2,9 +2,8 @@ package com.tmvlg.smsreceiver.data
 
 import android.util.Log
 import com.google.i18n.phonenumbers.PhoneNumberUtil
-import com.tmvlg.smsreceiver.backend.CountryCodes
-import com.tmvlg.smsreceiver.backend.Iso2Phone
-import com.tmvlg.smsreceiver.data.freemessage.FreeMessageRepositoryImpl
+import com.tmvlg.smsreceiver.util.CountryCodes
+import com.tmvlg.smsreceiver.util.Iso2Phone
 import com.tmvlg.smsreceiver.domain.freemessage.FreeMessage
 import com.tmvlg.smsreceiver.domain.freenumber.FreeNumber
 import org.json.simple.JSONArray

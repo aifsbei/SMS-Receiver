@@ -7,7 +7,6 @@ import android.content.res.ColorStateList
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
-import android.os.AsyncTask
 import android.os.Bundle
 import android.transition.Fade
 import android.util.Log
@@ -27,8 +26,6 @@ import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.button.MaterialButton
 import com.neovisionaries.i18n.CountryCode
 import com.tmvlg.smsreceiver.R
-import com.tmvlg.smsreceiver.R.xml
-import com.tmvlg.smsreceiver.backend.FreeMessagesDataAdapter
 import com.tmvlg.smsreceiver.data.FreeNumbersParser
 import java.util.*
 
