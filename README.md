@@ -30,7 +30,7 @@ This app is under development. At this moment it includes the following technolo
 To contribute contact me on a github or make pull request.
 # 
 ### Coming soon
-As soon as possible there will be implemented modules of application mentioned in [About](https://github.com/aifsbei/SMS-Receiver/new/main?readme=1#about). 
+As soon as possible there will be implemented modules of application mentioned in [About](https://github.com/aifsbei/SMS-Receiver#about). 
 There will be something like:
 <p>
   <img src="https://imagizer.imageshack.com/img924/9092/rystdA.png" width=300px></img>
