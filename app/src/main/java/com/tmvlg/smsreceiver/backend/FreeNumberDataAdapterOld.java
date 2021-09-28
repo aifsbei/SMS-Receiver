@@ -24,7 +24,7 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class FreeNumberDataAdapter extends RecyclerView.Adapter<FreeNumberDataAdapter.DataHolder> {
+public class FreeNumberDataAdapterOld extends RecyclerView.Adapter<FreeNumberDataAdapterOld.DataHolder> {
 
     private class VIEW_TYPES {
         public static final int Header = 1;
@@ -34,7 +34,7 @@ public class FreeNumberDataAdapter extends RecyclerView.Adapter<FreeNumberDataAd
 
     Context context;
     ArrayList<HashMap<String,String>> list = new ArrayList<>();
-    public FreeNumberDataAdapter(Context con, ArrayList<HashMap<String,String>> dataList)
+    public FreeNumberDataAdapterOld(Context con, ArrayList<HashMap<String,String>> dataList)
     {
         context = con;
         list = dataList;

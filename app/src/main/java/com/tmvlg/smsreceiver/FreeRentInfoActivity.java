@@ -24,11 +24,6 @@ import android.transition.Fade;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.AccelerateInterpolator;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
-import android.view.animation.AnimationSet;
-import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,22 +31,14 @@ import android.widget.Toast;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.material.button.MaterialButton;
 import com.neovisionaries.i18n.CountryCode;
-import com.tmvlg.smsreceiver.backend.CountryCodes;
 import com.tmvlg.smsreceiver.backend.FreeMessage;
 import com.tmvlg.smsreceiver.backend.FreeMessagesDataAdapter;
-import com.tmvlg.smsreceiver.backend.FreeNumber;
-import com.tmvlg.smsreceiver.backend.FreeNumberDataAdapter;
-import com.tmvlg.smsreceiver.backend.FreeNumbersParser;
-import com.tmvlg.smsreceiver.backend.RecyclerItemDecoration;
-import com.tmvlg.smsreceiver.ui.FreeRentFragment;
+import com.tmvlg.smsreceiver.backend.FreeNumbersParserOld;
 
-import org.json.simple.parser.ParseException;
-
-import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static com.tmvlg.smsreceiver.backend.FreeNumberDataAdapter.getResId;
+import static com.tmvlg.smsreceiver.backend.FreeNumberDataAdapterOld.getResId;
 
 public class FreeRentInfoActivity extends AppCompatActivity {
 
@@ -71,7 +58,7 @@ public class FreeRentInfoActivity extends AppCompatActivity {
     int baseColor;
     int textColor;
 
-    FreeNumbersParser parser;
+    FreeNumbersParserOld parser;
 
     String origin;
     String call_number;
@@ -135,7 +122,7 @@ public class FreeRentInfoActivity extends AppCompatActivity {
 
 
 
-        parser = new FreeNumbersParser();
+        parser = new FreeNumbersParserOld();
         new FreeRentInfoActivity.AsyncParse().execute();
 
     }

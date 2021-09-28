@@ -17,27 +17,22 @@ import android.view.ViewGroup;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.material.textfield.TextInputEditText;
 import com.tmvlg.smsreceiver.R;
-import com.tmvlg.smsreceiver.backend.FreeNumberDataAdapter;
+import com.tmvlg.smsreceiver.backend.FreeNumberDataAdapterOld;
 import com.tmvlg.smsreceiver.backend.FreeNumber;
-import com.tmvlg.smsreceiver.backend.FreeNumbersParser;
+import com.tmvlg.smsreceiver.backend.FreeNumbersParserOld;
 import com.tmvlg.smsreceiver.backend.RecyclerItemDecoration;
 
-import org.json.JSONException;
-import org.json.simple.parser.ParseException;
-
-import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 import butterknife.ButterKnife;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link FreeRentFragment#newInstance} factory method to
+ * Use the {@link FreeRentFragmentOld#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FreeRentFragment extends Fragment{
+public class FreeRentFragmentOld extends Fragment{
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -48,7 +43,7 @@ public class FreeRentFragment extends Fragment{
     private String mParam1;
     private String mParam2;
 
-    public FreeRentFragment() {
+    public FreeRentFragmentOld() {
         // Required empty public constructor
     }
 
@@ -61,8 +56,8 @@ public class FreeRentFragment extends Fragment{
      * @return A new instance of fragment FreeRentFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static FreeRentFragment newInstance(String param1, String param2) {
-        FreeRentFragment fragment = new FreeRentFragment();
+    public static FreeRentFragmentOld newInstance(String param1, String param2) {
+        FreeRentFragmentOld fragment = new FreeRentFragmentOld();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -92,14 +87,14 @@ public class FreeRentFragment extends Fragment{
 
 
     String TAG = "1";
-    FreeNumbersParser parser;
+    FreeNumbersParserOld parser;
     ArrayList<HashMap<String,String>> dataList;
     RecyclerView free_recycle_view;
     LinearLayoutManager linearLayoutManager;
     TextInputEditText free_rent_search_entry;
 
     ShimmerFrameLayout shimmerFreeNumberLayout;
-    FreeNumberDataAdapter adapter;
+    FreeNumberDataAdapterOld adapter;
 
     RecyclerItemDecoration recyclerItemDecoration;
 
@@ -121,7 +116,7 @@ public class FreeRentFragment extends Fragment{
         linearLayoutManager = new LinearLayoutManager(getActivity());
         free_recycle_view.setLayoutManager(linearLayoutManager);
 
-        parser = new FreeNumbersParser();
+        parser = new FreeNumbersParserOld();
         new AsyncParse().execute();
 
         ButterKnife.bind(view);
@@ -350,7 +345,7 @@ public class FreeRentFragment extends Fragment{
 
 //            getData();
 
-            adapter = new FreeNumberDataAdapter(getActivity(), dataList);
+            adapter = new FreeNumberDataAdapterOld(getActivity(), dataList);
             free_recycle_view.setAdapter(adapter);
 
             recyclerItemDecoration = new RecyclerItemDecoration(getActivity(),

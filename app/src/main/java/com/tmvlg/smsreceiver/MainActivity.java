@@ -6,11 +6,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.transition.Fade;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toolbar;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.tmvlg.smsreceiver.ui.FreeRentFragment;
+import com.tmvlg.smsreceiver.ui.FreeRentFragmentOld;
 import com.tmvlg.smsreceiver.ui.ProfileFragment;
 import com.tmvlg.smsreceiver.ui.RentNumberFragment;
 
@@ -18,7 +17,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
 
     BottomNavigationView bottomNavigationView;
-    FreeRentFragment freeRentFragment = new FreeRentFragment();
+    FreeRentFragmentOld freeRentFragmentOld = new FreeRentFragmentOld();
     ProfileFragment profileFragment = new ProfileFragment();
     RentNumberFragment rentNumberFragment = new RentNumberFragment();
     Toolbar toolbar;
@@ -45,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.navigation_free_rent:
-                getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.fade_in, R.anim.fade_out).replace(R.id.container, freeRentFragment).commit();
+                getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.fade_in, R.anim.fade_out).replace(R.id.container, freeRentFragmentOld).commit();
                 return true;
             case R.id.navigation_rent_number:
                 getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.fade_in, R.anim.fade_out).replace(R.id.container, rentNumberFragment).commit();

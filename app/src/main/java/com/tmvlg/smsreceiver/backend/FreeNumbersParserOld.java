@@ -30,7 +30,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Scanner;
 
-public class FreeNumbersParser {
+public class FreeNumbersParserOld {
 
     private String TAG = "1";
 
@@ -467,7 +467,7 @@ public class FreeNumbersParser {
         return null;
     }
 
-    public FreeNumbersParser () {
+    public FreeNumbersParserOld() {
         numbersList = new ArrayList<>();
         messagesList = new ArrayList<>();
         numbersCountedByCountry = new HashMap<>();
