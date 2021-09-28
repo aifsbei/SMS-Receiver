@@ -262,25 +262,33 @@ class FreeNumbersParser {
 
     @Throws(MalformedURLException::class, ParseException::class)
     fun parse_messages(freeNumber: FreeNumber) {
+        Log.d(TAG, "parse_messages: STARTED")
         messagesList.clear()
         with(freeNumber) {
+            var formated_call_number = call_number
+            formated_call_number = call_number_prefix
+                    .substring(1) + formated_call_number
+                    .replace(" ", "")
+                    .replace("-", "")
             when (origin) {
                 "parse_1" -> {
-                    Log.d(TAG, call_number)
-                    parse_messages_1(call_number)
+                    Log.d(TAG, formated_call_number)
+                    parse_messages_1(formated_call_number)
                 }
                 "parse_2" -> {
-                    Log.d(TAG, call_number.substring(1))
-                    parse_messages_2(call_number.substring(1))
+                    Log.d(TAG, formated_call_number.substring(1))
+                    parse_messages_2(formated_call_number.substring(1))
                 }
                 "parse_3" -> {
-                    Log.d(TAG, call_number.substring(1))
-                    parse_messages_3(call_number)
+//                    Log.d(TAG, call_number.substring(1))
+                    Log.d(TAG, "parse_messages: $formated_call_number")
+                    parse_messages_3(formated_call_number)
                 }
                 "parse_4" -> {
-                    Log.d(TAG, call_number)
-                    parse_messages_4("+$call_number")
+                    Log.d(TAG, formated_call_number)
+                    parse_messages_4("+$formated_call_number")
                 }
+                else -> throw java.lang.RuntimeException("Unknown parse origin")
             }
         }
     }

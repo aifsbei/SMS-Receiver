@@ -12,6 +12,8 @@ interface FreeNumberRepository {
 
     fun filterFreeNumberListUseCase(query: String)
 
+    fun deleteFreeNumberList()
+
     suspend fun loadFreeNumberList() : Unit
 
 }

@@ -1,10 +1,12 @@
 package com.tmvlg.smsreceiver.presentation.freerent
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.app.ActivityOptionsCompat
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.tmvlg.smsreceiver.R
@@ -15,7 +17,7 @@ import com.tmvlg.smsreceiver.domain.freenumber.FreeNumber
 class FreeNumberDataAdapter : ListAdapter<FreeNumber, RecyclerView.ViewHolder>(FreeNumberDiffCallback()), ViewHolderStickyDecoration.Condition {
 
     var context: Context? = null
-    var onFreeNumberClickListener : OnFreeNumberClickListener? = null
+    var onFreeNumberClickListener: ((FreeNumber) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val layout = when (viewType) {
@@ -27,7 +29,7 @@ class FreeNumberDataAdapter : ListAdapter<FreeNumber, RecyclerView.ViewHolder>(F
                 parent,
                 false)
         context = parent.context!!
-        return when(viewType) {
+        return when (viewType) {
             VIEWTYPE_HEADER -> FreeNumberHeaderHolder(view)
             VIEWTYPE_ITEM -> FreeNumberItemHolder(view)
             else -> throw RuntimeException()
@@ -45,26 +47,21 @@ class FreeNumberDataAdapter : ListAdapter<FreeNumber, RecyclerView.ViewHolder>(F
 
                 Log.d("1", icon_path)
 
-                (holder as FreeNumberItemHolder).free_region_icon.setImageResource(resID!!)
+                with (holder as FreeNumberItemHolder) {
+                    free_region_icon.setImageResource(resID!!)
 //                Picasso.get().load(resID!!).into((holder as FreeNumberItemHolder).free_region_icon)
-
-
-                (holder as FreeNumberItemHolder).free_prefix.text = number.call_number_prefix
-                (holder as FreeNumberItemHolder).free_call_number.text = number.call_number
-                (holder as FreeNumberItemHolder).free_number_layout.setOnClickListener {
-                    onFreeNumberClickListener?.onFreeNumberClick(number)
-//            val intent = Intent(holder.itemView.context, FreeRentInfoActivity::class.java)
-//            intent.putExtra("free_region_icon", dataMap["free_region_icon"])
-//            intent.putExtra("free_prefix", dataMap["free_prefix"])
-//            intent.putExtra("free_call_number", dataMap["free_call_number"])
-//            intent.putExtra("origin", dataMap["origin"])
-//            val options = ActivityOptionsCompat.makeSceneTransitionAnimation((holder.itemView.context as Activity), holder.free_region_icon, "free_flag_transition")
-//            holder.itemView.context.startActivity(intent, options.toBundle())
+                    free_prefix.text = number.call_number_prefix
+                    free_call_number.text = number.call_number
+                    free_number_layout.setOnClickListener {
+                        onFreeNumberClickListener?.invoke(number)
+                    }
                 }
 
-                }
+            }
             FreeNumber.HEADER_TYPE -> {
-                (holder as FreeNumberHeaderHolder).country_name.text = number.counrty_name
+                with (holder as FreeNumberHeaderHolder) {
+                    country_name.text = number.counrty_name
+                }
             }
         }
 
@@ -91,14 +88,10 @@ class FreeNumberDataAdapter : ListAdapter<FreeNumber, RecyclerView.ViewHolder>(F
             return getItem(position).type == FreeNumber.HEADER_TYPE
         } catch (e: ArrayIndexOutOfBoundsException) {
             return false
+        } catch (e: IndexOutOfBoundsException) {
+            return false
         }
     }
-
-    interface OnFreeNumberClickListener {
-
-        fun onFreeNumberClick(freeNumber: FreeNumber)
-    }
-
 
     companion object {
 

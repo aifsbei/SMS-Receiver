@@ -12,8 +12,9 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:usesCleartextTraffic="true"
         android:theme="@style/Theme.SMSReceiver">
-        <activity android:name=".presentation.freerent.FreeRentInfoActivity"></activity>
+        <activity android:name=".presentation.freerent.FreeRentDetailActivity"></activity>
         <activity android:name=".presentation.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
