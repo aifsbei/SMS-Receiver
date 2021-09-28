@@ -315,8 +315,10 @@ class FreeNumbersParser {
                         origin = "",
                         icon_path = "",
                         type = FreeNumber.HEADER_TYPE)
-                tempNumberList.add(free_number)
-                countryName = new_countryName
+                if (!tempNumberList.contains(free_number)) {
+                    tempNumberList.add(free_number)
+                    countryName = new_countryName
+                }
             }
         }
         for (item in tempNumberList) {
