@@ -1,5 +1,6 @@
 package com.tmvlg.smsreceiver.data.freenumber
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.tmvlg.smsreceiver.data.FreeNumbersParser
@@ -23,12 +24,19 @@ object FreeNumberRepositoryImpl : FreeNumberRepository {
 //    }
 
     override fun addFreeNumber(freeNumber: FreeNumber) {
-        freeNumber.id = autoIncrementId++
+        if (freeNumber.id == FreeNumber.UNDEFINED_ID)
+            freeNumber.id = autoIncrementId++
         freeNumberList.add(freeNumber)
         updateList()
     }
 
+    override fun deleteFreeNumberList() {
+        clearList()
+        updateList()
+    }
+
     override fun getFreeNumberList(): LiveData<List<FreeNumber>> {
+        Log.d("1", "ok: get")
         return freeNumberLD
     }
 
@@ -48,6 +56,8 @@ object FreeNumberRepositoryImpl : FreeNumberRepository {
     }
 
     override suspend fun loadFreeNumberList() {
+        Log.d("1", "loadFreeNumberList: another load")
+        clearList()
         val parser = FreeNumbersParser()
         parser.parse_numbers()
         for (item in parser.numbersList) {
@@ -61,7 +71,6 @@ object FreeNumberRepositoryImpl : FreeNumberRepository {
 
     private fun clearList() {
         freeNumberList.clear()
-        updateList()
     }
 
 }

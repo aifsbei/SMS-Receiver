@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.freerent.FreeRentInfoActivity">
+    tools:context=".presentation.freerent.FreeRentDetailActivity">
 
 
 
@@ -124,12 +124,25 @@
                     android:id="@+id/free_call_number_info"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:elevation="2dp"
+                    android:paddingLeft="10dp"
+                    android:text=" 902 237 87 42"
+                    android:textColor="#FFFFFF"
+                    android:textSize="24sp"
+                    app:layout_constraintStart_toEndOf="@+id/free_call_prefix_info"
+                    app:layout_constraintTop_toTopOf="@+id/free_call_prefix_info" />
+
+                <TextView
+                    android:id="@+id/free_call_prefix_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="50dp"
                     android:elevation="2dp"
                     android:paddingLeft="10dp"
-                    android:text="+7 902 237 87 42"
+                    android:text="+7"
                     android:textColor="#FFFFFF"
                     android:textSize="24sp"
+                    android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="@+id/free_country_name_info"
                     app:layout_constraintTop_toBottomOf="@+id/free_country_name_info" />
 
@@ -138,7 +151,6 @@
                     android:layout_width="26dp"
                     android:layout_height="26dp"
                     android:layout_marginEnd="25dp"
-                    android:layout_marginRight="25dp"
                     android:elevation="2dp"
                     android:src="@drawable/outline_content_copy_24"
                     app:layout_constraintBottom_toBottomOf="@+id/free_call_number_info"
@@ -199,7 +211,7 @@
                     android:background="#AA55AA"
                     app:layout_constraintBottom_toBottomOf="@+id/free_copy_text_info"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/free_call_number_info"
+                    app:layout_constraintStart_toStartOf="@+id/free_call_prefix_info"
                     app:layout_constraintTop_toTopOf="@+id/free_copy_icon_info">
 
                 </View>

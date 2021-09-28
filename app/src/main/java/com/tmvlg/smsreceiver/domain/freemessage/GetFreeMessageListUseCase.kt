@@ -5,6 +5,6 @@ import androidx.lifecycle.LiveData
 class GetFreeMessageListUseCase(private val freeMessageRepository: FreeMessageRepository) {
 
     fun getFreeMessageList() : LiveData<List<FreeMessage>> {
-        return  freeMessageRepository.getFreeMessageList()
+        return freeMessageRepository.getFreeMessageList()
     }
 }

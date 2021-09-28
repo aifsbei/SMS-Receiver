@@ -1,5 +1,7 @@
 package com.tmvlg.smsreceiver.presentation.freerent
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -7,19 +9,16 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import android.widget.ImageView
+import androidx.core.app.ActivityOptionsCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import butterknife.ButterKnife
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.textfield.TextInputEditText
 import com.tmvlg.smsreceiver.R
 import com.tmvlg.smsreceiver.data.FreeNumbersParser
-import com.tmvlg.smsreceiver.util.RecyclerItemDecoration
-import com.tmvlg.smsreceiver.util.RecyclerItemDecoration.SectionCallback
-import com.tmvlg.smsreceiver.domain.freenumber.FreeNumber
 import java.util.*
 
 /**
@@ -30,12 +29,11 @@ import java.util.*
 class FreeRentFragment : Fragment() {
 
     var TAG = "1"
-    var parser: FreeNumbersParser? = null
-    var dataList: ArrayList<HashMap<String, String>>? = null
-    var free_recycle_view: RecyclerView? = null
+    var free_recycler_view: RecyclerView? = null
     var linearLayoutManager: LinearLayoutManager? = null
     var free_rent_search_entry: TextInputEditText? = null
     var shimmerFreeNumberLayout: ShimmerFrameLayout? = null
+    var free_region_icon: ImageView? = null
 
 
     private lateinit var viewModel: FreeRentViewModel
@@ -44,41 +42,46 @@ class FreeRentFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_free_rent, container, false)
-        dataList = ArrayList()
-        free_recycle_view = view.findViewById(R.id.free_recycle_view)
+        free_recycler_view = view.findViewById(R.id.free_recycle_view)
         shimmerFreeNumberLayout = view.findViewById(R.id.shimmer_free_rent_layout)
         free_rent_search_entry = view.findViewById(R.id.free_rent_search_entry)
+        free_region_icon = view.findViewById(R.id.free_region_icon)
         linearLayoutManager = LinearLayoutManager(activity)
-        free_recycle_view?.setLayoutManager(linearLayoutManager)
-        parser = FreeNumbersParser()
+        free_recycler_view?.setLayoutManager(linearLayoutManager)
         free_rent_search_entry?.addTextChangedListener(search_text_changed_listener)
+
+        Log.d(TAG, "onCreateView: CREATE VIEW")
+        shimmerFreeNumberLayout!!.visibility = View.VISIBLE
+        free_recycler_view!!.visibility = View.GONE
 
         viewModel = ViewModelProvider(this).get(FreeRentViewModel::class.java)
 
         viewModel.initRepository()
-//        shimmerFreeNumberLayout!!.visibility = View.GONE
-//        free_recycle_view!!.visibility = View.VISIBLE
+
         setupRecyclerView()
         viewModel.numberList.observe(viewLifecycleOwner) {
+            Log.d("1", "ok: INITED")
 
             freeNumberDataAdapter.submitList(it)
             shimmerFreeNumberLayout!!.visibility = View.GONE
-            free_recycle_view!!.visibility = View.VISIBLE
+            free_recycler_view!!.visibility = View.VISIBLE
             Log.d(TAG, "onCreateView: INIT2")
         }
         return view
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        viewModel.clearList()
+    }
 
     fun setupRecyclerView() {
         freeNumberDataAdapter = FreeNumberDataAdapter()
-        free_recycle_view?.adapter = freeNumberDataAdapter
+        free_recycler_view?.adapter = freeNumberDataAdapter
 
-        freeNumberDataAdapter.onFreeNumberClickListener = object : FreeNumberDataAdapter.OnFreeNumberClickListener {
-            override fun onFreeNumberClick(freeNumber: FreeNumber) {
-                Log.d(TAG, "onFreeNumberClick: clicked")
-            }
-
+        freeNumberDataAdapter.onFreeNumberClickListener = {
+            val intent = FreeRentDetailActivity.newIntentShowDetail(requireContext(), it.id)
+            startActivity(intent)
         }
     }
 
