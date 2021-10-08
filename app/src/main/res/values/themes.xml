@@ -29,6 +29,12 @@
 
 
 
+        <item name="circularProgressIndicatorStyle">@style/Widget.App.LinearProgressIndicator</item>
+
+
+
+
+
     </style>
 
     <style name="Theme.MyThemeOverlay_Toolbar" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
@@ -37,6 +43,17 @@
         <item name="colorOnPrimary">@android:color/transparent</item>
 
 
+    </style>
+
+
+
+    <style name="Widget.App.LinearProgressIndicator" parent="Widget.MaterialComponents.LinearProgressIndicator">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.LinearProgressIndicator</item>
+        <item name="trackThickness">5dp</item>
+    </style>
+
+    <style name="ThemeOverlay.App.LinearProgressIndicator" parent="">
+        <item name="colorPrimary">@color/green</item>
     </style>
 
 </resources>

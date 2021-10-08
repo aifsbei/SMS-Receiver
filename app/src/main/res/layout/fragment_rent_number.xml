@@ -1,51 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.RentNumberFragment">
-
-    <!-- TODO: Update blank fragment layout -->
-    <ImageButton
-        android:id="@+id/rent_number_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="70dp"
-        android:layout_marginLeft="70dp"
-        android:layout_marginEnd="70dp"
-        android:layout_marginRight="70dp"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:scaleType="fitCenter"
-        android:src="@drawable/rent_number_icon_2"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/balance">
-
-    </ImageButton>
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <TextView
-        android:id="@+id/balance"
+        android:id="@+id/rent_number_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginRight="15dp"
-        android:text="0.0 RUB"
-        android:textSize="21sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text="Temporary numbers"
+        android:textColor="@color/black"
+        android:textSize="24dp"
+        android:layout_margin="25dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/rent_number_recycler_view"/>
 
-    <ImageView
-        android:id="@+id/balance_icon"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/add_number_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="10dp"
-        android:layout_marginRight="10dp"
-        android:src="@drawable/round_account_balance_wallet_24"
-        app:layout_constraintBottom_toBottomOf="@+id/balance"
-        app:layout_constraintEnd_toStartOf="@+id/balance"
-        app:layout_constraintTop_toTopOf="@+id/balance" />
+        android:backgroundTint="@color/green"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_margin="25dp"
+        app:srcCompat="@drawable/round_add_24">
+
+    </com.google.android.material.floatingactionbutton.FloatingActionButton>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rent_number_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        tools:listitem="@layout/number_for_rent"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:layout_constraintTop_toBottomOf="@id/rent_number_header"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+
+    </androidx.recyclerview.widget.RecyclerView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
