@@ -1,5 +1,9 @@
 package com.tmvlg.smsreceiver.domain.numberforrent
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(tableName = "number_for_rent")
 data class NumberForRent (
     val call_number: String,
     val call_number_prefix: String,
@@ -9,6 +13,7 @@ data class NumberForRent (
     val service_icon: Int,
     val service_name: String,
     var time_left: Int,
+    @PrimaryKey(autoGenerate = false)
     var id: Int = UNDEFINED_ID
 ) {
     companion object {
