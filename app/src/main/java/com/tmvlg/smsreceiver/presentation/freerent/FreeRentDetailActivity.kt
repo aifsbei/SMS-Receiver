@@ -28,10 +28,14 @@ import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.button.MaterialButton
 import com.tmvlg.smsreceiver.R
 import com.tmvlg.smsreceiver.domain.freenumber.FreeNumber
+import org.kodein.di.Kodein
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.closestKodein
+import org.kodein.di.generic.instance
 import java.lang.RuntimeException
 import java.util.*
 
-class FreeRentDetailActivity : AppCompatActivity() {
+class FreeRentDetailActivity : AppCompatActivity(), KodeinAware {
     var TAG = "1"
     var arrow_back: ImageView? = null
     var free_country_flag: ImageView? = null
@@ -58,6 +62,10 @@ class FreeRentDetailActivity : AppCompatActivity() {
     private lateinit var viewModel: FreeRentDetailViewModel
     private lateinit var freeMessageDataAdapter: FreeMessageDataAdapter
     private var freeNumberId: Int = FreeNumber.UNDEFINED_ID
+
+    override val kodein by closestKodein()
+
+    private val viewModelFactory by instance<FreeRentDetailViewModelFactory>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -94,7 +102,10 @@ class FreeRentDetailActivity : AppCompatActivity() {
 
 
 
-        viewModel = ViewModelProvider(this).get(FreeRentDetailViewModel::class.java)
+        viewModel = ViewModelProvider(
+            this,
+            viewModelFactory
+        ).get(FreeRentDetailViewModel::class.java)
 
         parseIntent()
 

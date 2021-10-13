@@ -1,19 +1,15 @@
 package com.tmvlg.smsreceiver.presentation.freerent
 
-import android.app.Application
 import android.util.Log
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.tmvlg.smsreceiver.data.freenumber.FreeNumberRepositoryImpl
 import com.tmvlg.smsreceiver.domain.freenumber.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class FreeRentViewModel : ViewModel() {
-
-
-    private var repository:  FreeNumberRepository = FreeNumberRepositoryImpl
+class FreeRentViewModel(
+    private val repository: FreeNumberRepository
+): ViewModel() {
 
     private val addFreeNumberUseCase = AddFreeNumberUseCase(repository)
     private val getFreeNumberUseCase = GetFreeNumberUseCase(repository)

@@ -2,6 +2,7 @@ package com.tmvlg.smsreceiver.data.number
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.tmvlg.smsreceiver.data.db.NumberForRentDao
 import com.tmvlg.smsreceiver.data.freenumber.FreeNumberRepositoryImpl
 import com.tmvlg.smsreceiver.data.network.onlinesim.OnlineSimApiService
 import com.tmvlg.smsreceiver.domain.freenumber.FreeNumber
@@ -9,9 +10,10 @@ import com.tmvlg.smsreceiver.domain.numberforrent.NumberForRentRepository
 import com.tmvlg.smsreceiver.domain.numberforrent.NumberForRent
 import java.lang.RuntimeException
 
-object NumberForRentRepositoryImpl: NumberForRentRepository {
+class NumberForRentRepositoryImpl(
+    private val numberForRentDao: NumberForRentDao
+    ): NumberForRentRepository {
 
-//    private val onlineSimApiService: OnlineSimApiService()
 
     private val numberForRentListLD = MutableLiveData<List<NumberForRent>>()
 

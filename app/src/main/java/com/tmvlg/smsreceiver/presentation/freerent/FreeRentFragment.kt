@@ -19,6 +19,10 @@ import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.textfield.TextInputEditText
 import com.tmvlg.smsreceiver.R
 import com.tmvlg.smsreceiver.data.FreeNumbersParser
+import org.kodein.di.Kodein
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.x.closestKodein
+import org.kodein.di.generic.instance
 import java.util.*
 
 /**
@@ -26,7 +30,7 @@ import java.util.*
  * Use the [FreeRentFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class FreeRentFragment : Fragment() {
+class FreeRentFragment : Fragment(), KodeinAware {
 
     var TAG = "1"
     var free_recycler_view: RecyclerView? = null
@@ -38,6 +42,10 @@ class FreeRentFragment : Fragment() {
 
     private lateinit var viewModel: FreeRentViewModel
     private lateinit var freeNumberDataAdapter: FreeNumberDataAdapter
+
+    override val kodein by closestKodein()
+
+    private val freeRentViewModelFactory by instance<FreeRentViewModelFactory>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -54,7 +62,10 @@ class FreeRentFragment : Fragment() {
         shimmerFreeNumberLayout!!.visibility = View.VISIBLE
         free_recycler_view!!.visibility = View.GONE
 
-        viewModel = ViewModelProvider(this).get(FreeRentViewModel::class.java)
+        viewModel = ViewModelProvider(
+            this,
+            freeRentViewModelFactory
+        ).get(FreeRentViewModel::class.java)
 
         viewModel.initRepository()
 

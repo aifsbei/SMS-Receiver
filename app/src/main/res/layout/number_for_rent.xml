@@ -10,6 +10,11 @@
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:backgroundTint="@color/card_color"
+        android:layout_margin="8dp"
+        app:cardElevation="4dp"
+        app:cardUseCompatPadding="true"
+        app:cardCornerRadius="8dp"
         android:elevation="4dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout

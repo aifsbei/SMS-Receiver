@@ -34,6 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         tools:listitem="@layout/number_for_rent"
+        tools:itemCount="2"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:layout_constraintTop_toBottomOf="@id/rent_number_header"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -12,28 +12,37 @@ import com.tmvlg.smsreceiver.data.network.onlinesim.OnlineSimApiService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.x.closestKodein
+import org.kodein.di.generic.instance
 
 
-class RentNumberFragment : Fragment() {
+class RentNumberFragment : Fragment(), KodeinAware {
+
+    override val kodein by closestKodein()
 
     private lateinit var viewModel: RentNumberViewModel
 
+    private val factory: RentNumberViewModelFactory by instance()
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
 
-        viewModel = ViewModelProvider(this).get(RentNumberViewModel::class.java)
+        viewModel = ViewModelProvider(
+            this,
+            factory
+        ).get(RentNumberViewModel::class.java)
 
         viewModel.numberForRentList.observe(viewLifecycleOwner) {
 
         }
 
-        val apiService = OnlineSimApiService()
-
-        GlobalScope.launch(Dispatchers.Main) {
-            val getNumResponse = apiService.getNum("Facebook").await()
-            Log.d("1", "onCreateViewCoroutine: ${getNumResponse.tzid}")
-        }
+//        val apiService = OnlineSimApiService()
+//
+//        GlobalScope.launch(Dispatchers.Main) {
+//            val getNumResponse = apiService.getNum("Facebook").await()
+//            Log.d("1", "onCreateViewCoroutine: ${getNumResponse.tzid}")
+//        }
 
         return inflater.inflate(R.layout.fragment_rent_number_empty, container, false)
     }
