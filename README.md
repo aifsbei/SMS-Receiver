@@ -14,24 +14,17 @@ At this moment only free numbers are available. You should go to __free__ fragme
   <img src="https://imagizer.imageshack.com/img924/7569/n4Nj3A.png" width=300px></img>
    <img src="https://imagizer.imageshack.com/img922/1281/l7g7nv.png" width=300px></img>
 </p>
-
 Click on chosen number. You will get all the messages list. Copy this number to register and click refresh after registration.
 You will get registration code if nobody registered with this number yet.
-# 
-### Development
-This app is under development. At this moment it includes the following technologies:
-  - based on Clean architecture;
-  - Android architecture components;
-  - uses Kotlin language;
-  - Kotlin coroutines;
-  - MVVM; `not ready yet`
-  - Dagger2. `not ready yet`
-# 
-To contribute contact me on a github or make pull request.
-# 
+
 ### Coming soon
 As soon as possible there will be implemented modules of application mentioned in [About](https://github.com/aifsbei/SMS-Receiver#about). 
 There will be something like:
 <p>
   <img src="https://imagizer.imageshack.com/img924/9092/rystdA.png" width=300px></img>
 </p>
+
+#
+### Contribution
+To contribute contact me via email d4nila.leskov@yandex.ru
+#
