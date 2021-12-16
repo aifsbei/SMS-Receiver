@@ -31,7 +31,7 @@ class RentNumberFragment : Fragment(), KodeinAware {
         viewModel = ViewModelProvider(
             this,
             factory
-        ).get(RentNumberViewModel::class.java)
+        )[RentNumberViewModel::class.java]
 
         viewModel.numberForRentList.observe(viewLifecycleOwner) {
 

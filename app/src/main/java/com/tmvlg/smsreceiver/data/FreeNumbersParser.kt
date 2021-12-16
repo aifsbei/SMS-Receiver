@@ -45,12 +45,15 @@ class FreeNumbersParser {
                     Log.d(TAG, "null number prefix at $code")
                     continue
                 }
-                val free_number = FreeNumber(call_number = numbers[i].text().replace(prefix, "").replace("^\\s+".toRegex(), ""),
-                        call_number_prefix = prefix,
-                        country_code = code,
-                        counrty_name = countries[i].text(),
-                        origin = "parse_1",
-                        icon_path = "$code.xml")
+                val free_number = FreeNumber(
+                    call_number = numbers[i].text().replace(prefix, "")
+                        .replace("^\\s+".toRegex(), ""),
+                    call_number_prefix = prefix,
+                    country_code = code,
+                    counrty_name = countries[i].text(),
+                    origin = "parse_1",
+                    icon_path = "$code.xml"
+                )
                 numbersList.add(free_number)
             }
         } catch (e: IOException) {
@@ -66,9 +69,11 @@ class FreeNumbersParser {
             val messages = doc.select("div.list-item-content")
             val times = doc.select("span.list-item-meta > span")
             for (i in titles.indices) {
-                val free_message = FreeMessage(message_title = titles[i].text(),
-                        message_text = messages[i].text(),
-                        time_remained = times[i].text())
+                val free_message = FreeMessage(
+                    message_title = titles[i].text(),
+                    message_text = messages[i].text(),
+                    time_remained = times[i].text()
+                )
                 messagesList.add(free_message)
             }
         } catch (e: IOException) {
@@ -87,12 +92,15 @@ class FreeNumbersParser {
             for (i in numbers.indices) {
                 val prefix = "+7"
                 val code = "RU"
-                val free_number = FreeNumber(call_number = numbers[i].text().replace(prefix, "").replace("^\\s+".toRegex(), ""),
-                        call_number_prefix = prefix,
-                        country_code = code,
-                        counrty_name = "Russia",
-                        origin = "parse_2",
-                        icon_path = "$code.xml")
+                val free_number = FreeNumber(
+                    call_number = numbers[i].text().replace(prefix, "")
+                        .replace("^\\s+".toRegex(), ""),
+                    call_number_prefix = prefix,
+                    country_code = code,
+                    counrty_name = "Russia",
+                    origin = "parse_2",
+                    icon_path = "$code.xml"
+                )
                 numbersList.add(free_number)
             }
         } catch (e: IOException) {
@@ -112,9 +120,11 @@ class FreeNumbersParser {
             for (i in titles.indices) {
                 Log.d(TAG, "iteration++")
                 Log.d(TAG, titles[i].text())
-                val free_message = FreeMessage(message_title = titles[i].text(),
-                        message_text = messages[i].text(),
-                        time_remained = times[i].text())
+                val free_message = FreeMessage(
+                    message_title = titles[i].text(),
+                    message_text = messages[i].text(),
+                    time_remained = times[i].text()
+                )
                 messagesList.add(free_message)
             }
         } catch (e: IOException) {
@@ -147,12 +157,15 @@ class FreeNumbersParser {
                 Log.d(TAG, "#tab$code a")
                 for (j in numbers.indices) {
                     Log.d(TAG, numbers[j].text())
-                    val free_number = FreeNumber(call_number = numbers[j].text().replace(prefix, "").replace("^\\s+".toRegex(), ""),
-                            call_number_prefix = prefix,
-                            country_code = code,
-                            counrty_name = countries[i].text(),
-                            origin = "parse_3",
-                            icon_path = "$code.xml")
+                    val free_number = FreeNumber(
+                        call_number = numbers[j].text().replace(prefix, "")
+                            .replace("^\\s+".toRegex(), ""),
+                        call_number_prefix = prefix,
+                        country_code = code,
+                        counrty_name = countries[i].text(),
+                        origin = "parse_3",
+                        icon_path = "$code.xml"
+                    )
                     numbersList.add(free_number)
                 }
             }
@@ -173,9 +186,11 @@ class FreeNumbersParser {
             for (i in titles.indices) {
                 Log.d(TAG, "iteration++")
                 Log.d(TAG, titles[i].text())
-                val free_message = FreeMessage(message_title = titles[i].text(),
-                        message_text = messages[i].text(),
-                        time_remained = times[i].text())
+                val free_message = FreeMessage(
+                    message_title = titles[i].text(),
+                    message_text = messages[i].text(),
+                    time_remained = times[i].text()
+                )
                 messagesList.add(free_message)
             }
         } catch (e: IOException) {
@@ -197,7 +212,8 @@ class FreeNumbersParser {
             // int local_country_code = Integer.parseInt((String)jsonCountry.get("country"));
             val country_name_local = jsonCountry["country_text"] as String
             val local_country_code = (jsonCountry["country"] as Long).toInt()
-            val inline_numbers = parse_inline(URL("https://onlinesim.ru/api/getFreePhoneList?country=$local_country_code"))
+            val inline_numbers =
+                parse_inline(URL("https://onlinesim.ru/api/getFreePhoneList?country=$local_country_code"))
             val parse_numbers = JSONParser()
             val jobj_numbers = parse_numbers.parse(inline_numbers) as JSONObject
             val numbers_Array = jobj_numbers["numbers"] as JSONArray
@@ -220,12 +236,14 @@ class FreeNumbersParser {
                 val locale = Locale("", country_code)
                 val country_name = locale.displayCountry
                 Log.d(TAG, "parse_4: country_name $country_name")
-                val free_number = FreeNumber(call_number = call_number,
-                        call_number_prefix = country_prefix,
-                        country_code = country_code!!,
-                        counrty_name = country_name,
-                        origin = "parse_4",
-                        icon_path = "$country_code.xml")
+                val free_number = FreeNumber(
+                    call_number = call_number,
+                    call_number_prefix = country_prefix,
+                    country_code = country_code!!,
+                    counrty_name = country_name,
+                    origin = "parse_4",
+                    icon_path = "$country_code.xml"
+                )
                 //                temp.local_country = country_name;
 //                temp.local_country_code = local_country_code;
                 numbersList.add(free_number)
@@ -235,7 +253,8 @@ class FreeNumbersParser {
 
     @Throws(ParseException::class, MalformedURLException::class)
     fun parse_messages_4(phone: String) {
-        val inline_messages = parse_inline(URL("https://onlinesim.ru/api/getFreeMessageList?cpage=1&phone=$phone"))
+        val inline_messages =
+            parse_inline(URL("https://onlinesim.ru/api/getFreeMessageList?cpage=1&phone=$phone"))
         Log.d(TAG, "parse_messages_4: inline = $inline_messages")
         val parse_messages = JSONParser()
         val jobj_messages = parse_messages.parse(inline_messages) as JSONObject
@@ -253,9 +272,9 @@ class FreeNumbersParser {
     @Throws(ParseException::class, MalformedURLException::class)
     fun parse_numbers() {
         parse_1()
-        //        parse_2();
+//        parse_2();
         parse_3()
-        //        parse_4();
+//        parse_4();
         add_countrynames_to_list()
         sort_numbers()
     }
@@ -267,9 +286,9 @@ class FreeNumbersParser {
         with(freeNumber) {
             var formated_call_number = call_number
             formated_call_number = call_number_prefix
-                    .substring(1) + formated_call_number
-                    .replace(" ", "")
-                    .replace("-", "")
+                .substring(1) + formated_call_number
+                .replace(" ", "")
+                .replace("-", "")
             when (origin) {
                 "parse_1" -> {
                     Log.d(TAG, formated_call_number)
@@ -308,13 +327,15 @@ class FreeNumbersParser {
             val new_call_number_prefix = item.call_number_prefix
             val new_country_code = item.country_code
             if (!new_countryName.equals(countryName)) {
-                val free_number = FreeNumber(call_number = "",
-                        call_number_prefix = new_call_number_prefix,
-                        country_code = new_country_code,
-                        counrty_name = new_countryName,
-                        origin = "",
-                        icon_path = "",
-                        type = FreeNumber.HEADER_TYPE)
+                val free_number = FreeNumber(
+                    call_number = "",
+                    call_number_prefix = new_call_number_prefix,
+                    country_code = new_country_code,
+                    counrty_name = new_countryName,
+                    origin = "",
+                    icon_path = "",
+                    type = FreeNumber.HEADER_TYPE
+                )
                 if (!tempNumberList.contains(free_number)) {
                     tempNumberList.add(free_number)
                     countryName = new_countryName
@@ -328,7 +349,10 @@ class FreeNumbersParser {
 
     fun print_data() {
         for (cur_number in numbersList) {
-            Log.d(TAG, cur_number.call_number_prefix + " : " + cur_number.call_number + " : " + cur_number.country_code)
+            Log.d(
+                TAG,
+                cur_number.call_number_prefix + " : " + cur_number.call_number + " : " + cur_number.country_code
+            )
         }
     }
 

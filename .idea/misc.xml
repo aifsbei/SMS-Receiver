@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/aifsb/AndroidStudioProjects/SMSReceiver/app/src/main/res/drawable/round_arrow_back_24.xml" value="0.3310810810810811" />
+        <entry key="..\:/Users/aifsb/AndroidStudioProjects/SMSReceiver/app/src/main/res/layout/fragment_free_rent_detail.xml" value="0.2312206572769953" />
+      </map>
+    </option>
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>

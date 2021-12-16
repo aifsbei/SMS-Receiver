@@ -1,10 +1,6 @@
 package com.tmvlg.smsreceiver.presentation.freerent
 
-import android.view.View
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.tmvlg.smsreceiver.R
+import com.tmvlg.smsreceiver.databinding.FreeNumberHeaderBinding
 
-class FreeNumberHeaderHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    var country_name = itemView.findViewById<TextView>(R.id.country_name)
-}
+class FreeNumberHeaderHolder(val binding: FreeNumberHeaderBinding) : RecyclerView.ViewHolder(binding.root)

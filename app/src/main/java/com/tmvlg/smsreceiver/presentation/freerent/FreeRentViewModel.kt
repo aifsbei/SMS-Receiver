@@ -30,7 +30,7 @@ class FreeRentViewModel(
     }
 
     fun filterFreeNumberList(query: String) {
-        filterFreeNumberListUseCase.filterFreeNumberListUseCase(query)
+        filterFreeNumberListUseCase.filterFreeNumberList(query)
     }
 
     fun clearList() {

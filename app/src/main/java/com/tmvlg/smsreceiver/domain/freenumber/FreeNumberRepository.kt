@@ -10,7 +10,7 @@ interface FreeNumberRepository {
 
     fun getFreeNumber(freeNumberId: Int) : FreeNumber
 
-    fun filterFreeNumberListUseCase(query: String)
+    fun filterFreeNumberList(query: String)
 
     fun deleteFreeNumberList()
 

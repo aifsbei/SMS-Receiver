@@ -16,13 +16,6 @@ object FreeNumberRepositoryImpl : FreeNumberRepository {
 
     private var autoIncrementId = 0
 
-//    init {
-//        val parser = FreeNumbersParser()
-//        for (item in parser.numbersList) {
-//            addFreeNumber(item)
-//        }
-//    }
-
     override fun addFreeNumber(freeNumber: FreeNumber) {
         if (freeNumber.id == FreeNumber.UNDEFINED_ID)
             freeNumber.id = autoIncrementId++
@@ -45,7 +38,7 @@ object FreeNumberRepositoryImpl : FreeNumberRepository {
                 ?: throw RuntimeException("Number with id = $freeNumberId not found!")
     }
 
-    override fun filterFreeNumberListUseCase(query: String) {
+    override fun filterFreeNumberList(query: String) {
         val tempList = freeNumberList.toList().filter {
             it.counrty_name.lowercase().contains(query.lowercase()) ||
                     it.country_code.lowercase().contains(query.lowercase()) ||
