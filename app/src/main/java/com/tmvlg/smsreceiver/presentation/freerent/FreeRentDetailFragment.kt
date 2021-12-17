@@ -8,16 +8,19 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
 import android.os.Bundle
+import android.transition.Fade
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.palette.graphics.Palette
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.transition.Slide
 import com.tmvlg.smsreceiver.R
 import com.tmvlg.smsreceiver.databinding.FragmentFreeRentDetailBinding
 import com.tmvlg.smsreceiver.domain.freenumber.FreeNumber
@@ -63,6 +66,7 @@ class FreeRentDetailFragment : Fragment(), KodeinAware {
         if (savedInstanceState != null) {
             loadState(savedInstanceState)
         }
+
         binding.freeMessagesRecycleView.layoutManager = LinearLayoutManager(requireContext())
 
         binding.shimmerFreeRentInfoLayout.visibility = View.VISIBLE
@@ -92,7 +96,7 @@ class FreeRentDetailFragment : Fragment(), KodeinAware {
 
         binding.arrowBack.setOnClickListener {
             Log.d(TAG, "onViewCreated: POP")
-            requireActivity().supportFragmentManager.popBackStackImmediate()
+            requireActivity().supportFragmentManager.popBackStack()
         }
 
         binding.freeCopyIconInfo.setOnClickListener {
@@ -142,14 +146,20 @@ class FreeRentDetailFragment : Fragment(), KodeinAware {
         textColor = ContextCompat.getColor(requireContext(), R.color.design_default_color_secondary_variant)
 
         val palette = Palette.from(srcBitmap).generate()
-        var vibrantSwatch = palette.mutedSwatch
-        if (vibrantSwatch == null) {
-            vibrantSwatch = palette.vibrantSwatch
+        val vibrantSwatch = palette.mutedSwatch
+            ?: palette.vibrantSwatch
+            ?: palette.dominantSwatch
+            ?: palette.lightMutedSwatch
+            ?: palette.lightVibrantSwatch
+            ?: palette.darkMutedSwatch
+            ?: palette.darkVibrantSwatch
+        if (vibrantSwatch != null) {
+            baseColor = vibrantSwatch.rgb
+            textColor = vibrantSwatch.titleTextColor
+            Log.d(TAG, "baseColor = $baseColor")
+            Log.d(TAG, "textColor = $textColor")
         }
-        baseColor = vibrantSwatch!!.rgb
-        textColor = vibrantSwatch.titleTextColor
-        Log.d(TAG, "baseColor = $baseColor")
-        Log.d(TAG, "textColor = $textColor")
+
 
         freeMessageDataAdapter.baseColor = baseColor
 

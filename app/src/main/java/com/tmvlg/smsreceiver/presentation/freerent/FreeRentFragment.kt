@@ -1,6 +1,7 @@
 package com.tmvlg.smsreceiver.presentation.freerent
 
 import android.os.Bundle
+import android.transition.Fade
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -34,7 +35,6 @@ class FreeRentFragment : Fragment(), KodeinAware {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentFreeRentBinding.inflate(inflater, container, false)
-
         return binding.root
     }
 
@@ -83,7 +83,8 @@ class FreeRentFragment : Fragment(), KodeinAware {
 
         freeNumberDataAdapter.onFreeNumberClickListener = {
             requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.container, FreeRentDetailFragment.newInstance(it.id))
+                .setCustomAnimations(R.anim.fragment_in, R.anim.fragment_out, R.anim.fragment_in, R.anim.fragment_out)
+                .add(R.id.container, FreeRentDetailFragment.newInstance(it.id))
                 .addToBackStack("details")
                 .commit()
         }

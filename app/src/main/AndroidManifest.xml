@@ -15,7 +15,11 @@
         android:supportsRtl="true"
         android:usesCleartextTraffic="true"
         android:theme="@style/Theme.SMSReceiver">
-        <activity android:name=".presentation.MainActivity">
+        <activity android:name=".presentation.MainActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
+            android:exported="true"
+            android:windowSoftInputMode="adjustNothing">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

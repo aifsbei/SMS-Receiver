@@ -1,8 +1,8 @@
-package com.tmvlg.smsreceiver.data.network.onlinesim
+package com.tmvlg.smsreceiver.data.network.rentnumbersapi.onlinesim
 
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.tmvlg.smsreceiver.data.network.ConnectivityInterceptor
-import com.tmvlg.smsreceiver.data.network.onlinesim.pojo.GetNumResponse
+import com.tmvlg.smsreceiver.data.network.rentnumbersapi.onlinesim.pojo.GetNumResponse
 import com.tmvlg.smsreceiver.internal.constants
 import kotlinx.coroutines.Deferred
 import okhttp3.Interceptor

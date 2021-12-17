@@ -2,15 +2,15 @@ package com.tmvlg.smsreceiver.data
 
 import android.util.Log
 import com.google.i18n.phonenumbers.PhoneNumberUtil
-import com.tmvlg.smsreceiver.util.CountryCodes
-import com.tmvlg.smsreceiver.util.Iso2Phone
+import com.tmvlg.smsreceiver.data.network.freenumbersapi.onlinesimfree.OnlineSimFreeApi
+import com.tmvlg.smsreceiver.data.network.freenumbersapi.onlinesimfree.models.CountriesResponse
+import com.tmvlg.smsreceiver.data.network.freenumbersapi.onlinesimfree.models.MessagesResponse
+import com.tmvlg.smsreceiver.data.network.freenumbersapi.onlinesimfree.models.NumbersResponse
 import com.tmvlg.smsreceiver.domain.freemessage.FreeMessage
 import com.tmvlg.smsreceiver.domain.freenumber.FreeNumber
-import org.json.simple.JSONArray
-import org.json.simple.JSONObject
-import org.json.simple.parser.JSONParser
 import org.json.simple.parser.ParseException
 import org.jsoup.Jsoup
+import retrofit2.Response
 import java.io.IOException
 import java.net.HttpURLConnection
 import java.net.MalformedURLException
@@ -18,7 +18,6 @@ import java.net.URL
 import java.util.*
 
 class FreeNumbersParser {
-    private val TAG = "1"
     val numbersList = mutableListOf<FreeNumber>()
     val messagesList = mutableListOf<FreeMessage>()
 
@@ -33,15 +32,14 @@ class FreeNumbersParser {
             val numbers = doc.select("h4.number-boxes-item-number")
             val countries = doc.select("h5.number-boxes-item-country")
             Log.d(TAG, numbers.text())
-            val codes = CountryCodes()
             for (i in numbers.indices) {
-                val code = codes.getCode(countries[i].text())
+                val code = getCountryCodeByName(countries[i].text())
                 if (code == null) {
                     Log.d(TAG, "null country code at " + countries[i].text())
                     continue
                 }
-                val prefix = Iso2Phone.getPhone(code)
-                if (prefix == null || prefix.contains("and")) {
+                val prefix = getPrefixByCountryCode(code)
+                if (prefix == null) {
                     Log.d(TAG, "null number prefix at $code")
                     continue
                 }
@@ -140,15 +138,15 @@ class FreeNumbersParser {
         try {
             val doc = Jsoup.connect("https://online-sms.org/").get()
             val countries = doc.select("h4.titlecoutry")
-            val codes = CountryCodes()
             for (i in countries.indices) {
-                Log.d(TAG, countries[i].text())
-                val code = codes.getCode(countries[i].text())
+                val countryName = countries[i].text()
+                Log.d(TAG, countryName)
+                val code = getCountryCodeByName(countryName)
                 if (code == null) {
-                    Log.d(TAG, "null country code at " + countries[i].text())
+                    Log.d(TAG, "null country code at " + countryName)
                     continue
                 }
-                val prefix = Iso2Phone.getPhone(code)
+                val prefix = getPrefixByCountryCode(code)
                 if (prefix == null || prefix.contains("and")) {
                     Log.d(TAG, "null number prefix at $code")
                     continue
@@ -156,13 +154,15 @@ class FreeNumbersParser {
                 val numbers = doc.select("#tab$code a")
                 Log.d(TAG, "#tab$code a")
                 for (j in numbers.indices) {
-                    Log.d(TAG, numbers[j].text())
+                    val number = numbers[j].text()
+                    Log.d(TAG, number)
+                    val numberFormatted = numbers[j].text().replace(prefix, "")
+                        .replace("^\\s+".toRegex(), "")
                     val free_number = FreeNumber(
-                        call_number = numbers[j].text().replace(prefix, "")
-                            .replace("^\\s+".toRegex(), ""),
+                        call_number = numberFormatted,
                         call_number_prefix = prefix,
                         country_code = code,
-                        counrty_name = countries[i].text(),
+                        counrty_name = countryName,
                         origin = "parse_3",
                         icon_path = "$code.xml"
                     )
@@ -201,80 +201,61 @@ class FreeNumbersParser {
 
     @Throws(ParseException::class, MalformedURLException::class)
     fun parse_4() {
-        val inline_countries = parse_inline(URL("https://onlinesim.ru/api/getFreeCountryList"))
-        val parse_countries = JSONParser()
-        val jobj_countries = parse_countries.parse(inline_countries) as JSONObject
-        val countries_Array = jobj_countries["countries"] as JSONArray
-        for (i in countries_Array.indices) {
-            val jsonCountry = countries_Array[i] as JSONObject
-            print(" << jsonCountry >> ")
-            println(jsonCountry)
-            // int local_country_code = Integer.parseInt((String)jsonCountry.get("country"));
-            val country_name_local = jsonCountry["country_text"] as String
-            val local_country_code = (jsonCountry["country"] as Long).toInt()
-            val inline_numbers =
-                parse_inline(URL("https://onlinesim.ru/api/getFreePhoneList?country=$local_country_code"))
-            val parse_numbers = JSONParser()
-            val jobj_numbers = parse_numbers.parse(inline_numbers) as JSONObject
-            val numbers_Array = jobj_numbers["numbers"] as JSONArray
-            for (j in numbers_Array.indices) {
-                val jsonNumber = numbers_Array[j] as JSONObject
-                print(" >>>> jsonNumber: ")
-                println(jsonNumber)
-                val call_number = jsonNumber["number"] as String
-                val full_number = jsonNumber["full_number"] as String
-                val country_prefix = full_number.replace(call_number, "")
-                val phoneUtil = PhoneNumberUtil.getInstance()
-                var country_code: String? = ""
-                try {
-                    // phone must begin with '+'
-                    val numberProto = phoneUtil.parse(full_number, "")
-                    country_code = phoneUtil.getRegionCodeForCountryCode(numberProto.countryCode)
-                } catch (e: Exception) {
-                    System.err.println("NumberParseException was thrown: $e")
-                }
-                val locale = Locale("", country_code)
-                val country_name = locale.displayCountry
-                Log.d(TAG, "parse_4: country_name $country_name")
-                val free_number = FreeNumber(
-                    call_number = call_number,
-                    call_number_prefix = country_prefix,
-                    country_code = country_code!!,
-                    counrty_name = country_name,
+        val countriesResponse: Response<CountriesResponse> = OnlineSimFreeApi
+            .retrofitService
+            .getCountryNames()
+            .execute() ?: return
+        val countriesBody = countriesResponse.body() ?: return
+        countriesBody.countries.forEach {
+
+            val numbersResponse: Response<NumbersResponse> = OnlineSimFreeApi
+                .retrofitService
+                .getFreeNumbers(it.country)
+                .execute()
+
+            val numbersBody: NumbersResponse = numbersResponse.body() ?: return
+            numbersBody.numbers.forEach {
+
+                val countryCode: String = getCountryCodeByNumber(it.fullNumber)
+                val countryName = getCountryNameByCode(countryCode)
+
+                val freeNumber = FreeNumber(
+                    call_number = it.number,
+                    call_number_prefix = "+${it.country}",
+                    country_code = countryCode,
+                    counrty_name = countryName,
                     origin = "parse_4",
-                    icon_path = "$country_code.xml"
+                    icon_path = "${countryCode.uppercase()}.xml"
                 )
-                //                temp.local_country = country_name;
-//                temp.local_country_code = local_country_code;
-                numbersList.add(free_number)
+                numbersList.add(freeNumber)
             }
         }
     }
 
     @Throws(ParseException::class, MalformedURLException::class)
-    fun parse_messages_4(phone: String) {
-        val inline_messages =
-            parse_inline(URL("https://onlinesim.ru/api/getFreeMessageList?cpage=1&phone=$phone"))
-        Log.d(TAG, "parse_messages_4: inline = $inline_messages")
-        val parse_messages = JSONParser()
-        val jobj_messages = parse_messages.parse(inline_messages) as JSONObject
-        val messages_Array = jobj_messages["messages"] as JSONArray
-        Log.d(TAG, "parse_messages_4: MessagesAray size: " + messages_Array.size)
-        for (i in messages_Array.indices) {
-            val jsonMessage = messages_Array[i] as JSONObject
-            print(" << jsonMessage >> ")
-            println(jsonMessage)
-            //            String country_name_local = (String)jsonMessage.get("country_text");
-//            int local_country_code = (int) (long) jsonMessage.get("country");
+    fun parse_messages_4(phone: String, prefix: String) {
+        val messagesResponse: Response<MessagesResponse> = OnlineSimFreeApi
+            .retrofitService
+            .getFreeMessages(phone, prefix)
+            .execute() ?: return
+        val messagesBody = messagesResponse.body() ?: return
+        messagesBody.messages.data.forEach{
+            val free_message = FreeMessage(
+                message_title = it.inNumber,
+                message_text = it.text,
+                time_remained = it.dataHumans
+            )
+            messagesList.add(free_message)
+
         }
     }
 
     @Throws(ParseException::class, MalformedURLException::class)
     fun parse_numbers() {
         parse_1()
-//        parse_2();
-        parse_3()
-//        parse_4();
+//        parse_2()
+//        parse_3()
+        parse_4()
         add_countrynames_to_list()
         sort_numbers()
     }
@@ -304,8 +285,8 @@ class FreeNumbersParser {
                     parse_messages_3(formated_call_number)
                 }
                 "parse_4" -> {
-                    Log.d(TAG, formated_call_number)
-                    parse_messages_4("+$formated_call_number")
+                    Log.d(TAG, call_number)
+                    parse_messages_4(call_number, call_number_prefix)
                 }
                 else -> throw java.lang.RuntimeException("Unknown parse origin")
             }
@@ -320,7 +301,9 @@ class FreeNumbersParser {
     }
 
     fun add_countrynames_to_list() {
-        var countryName = numbersList[0].counrty_name
+        if (numbersList.isEmpty())
+            return
+        var countryName = ""
         var tempNumberList = mutableListOf<FreeNumber>()
         for (item in numbersList) {
             val new_countryName = item.counrty_name
@@ -356,7 +339,37 @@ class FreeNumbersParser {
         }
     }
 
+    private fun getCountryCodeByNumber(fullNumber: String): String {
+        val phoneUtil = PhoneNumberUtil.getInstance()
+        var country_code: String = ""
+        try {
+            // phone must begin with '+'
+            val numberProto = phoneUtil.parse(fullNumber, "")
+            country_code = phoneUtil.getRegionCodeForCountryCode(numberProto.countryCode)
+        } catch (e: Exception) {
+            System.err.println("NumberParseException was thrown: $e")
+        }
+        return country_code
+    }
+
+    private fun getPrefixByCountryCode(countryCode: String): String {
+        return "+${PhoneNumberUtil.getInstance().getCountryCodeForRegion(countryCode)}"
+    }
+
+    private fun getCountryNameByCode(countryCode: String): String {
+        val loc = Locale("en_US", countryCode)
+        return loc.getDisplayCountry(Locale.ENGLISH)
+    }
+
+    private fun getCountryCodeByName(countryName: String): String? {
+        val countryCode = Locale.getISOCountries()
+            .find { Locale("", it).getDisplayCountry(Locale.ENGLISH) == countryName }
+        return countryCode
+    }
+
     companion object {
+        private const val TAG = "1"
+
         fun parse_inline(url: URL): String {
             // URL url = new URL("https://google.com");
             try {

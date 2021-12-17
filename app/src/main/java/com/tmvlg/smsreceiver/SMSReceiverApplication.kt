@@ -2,12 +2,11 @@ package com.tmvlg.smsreceiver
 
 import android.app.Application
 import com.tmvlg.smsreceiver.data.db.NumberDatabase
-import com.tmvlg.smsreceiver.data.db.NumberForRentDao
 import com.tmvlg.smsreceiver.data.freemessage.FreeMessageRepositoryImpl
 import com.tmvlg.smsreceiver.data.freenumber.FreeNumberRepositoryImpl
 import com.tmvlg.smsreceiver.data.network.ConnectivityInterceptor
 import com.tmvlg.smsreceiver.data.network.ConnectivityInterceptorImpl
-import com.tmvlg.smsreceiver.data.network.onlinesim.OnlineSimApiService
+import com.tmvlg.smsreceiver.data.network.rentnumbersapi.onlinesim.OnlineSimApiService
 import com.tmvlg.smsreceiver.data.number.NumberForRentRepositoryImpl
 import com.tmvlg.smsreceiver.domain.freemessage.FreeMessageRepository
 import com.tmvlg.smsreceiver.domain.freenumber.FreeNumberRepository
