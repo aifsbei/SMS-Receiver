@@ -56,6 +56,11 @@ class FreeRentDetailFragment : Fragment(), KodeinAware {
     ): View {
         _binding = FragmentFreeRentDetailBinding.inflate(inflater, container, false)
 
+        viewModel = ViewModelProvider(
+            this,
+            viewModelFactory
+        )[FreeRentDetailViewModel::class.java]
+
         return binding.root
     }
 
@@ -69,11 +74,6 @@ class FreeRentDetailFragment : Fragment(), KodeinAware {
 
         binding.shimmerFreeRentInfoLayout.visibility = View.VISIBLE
         binding.freeMessagesRecycleView.visibility = View.GONE
-
-        viewModel = ViewModelProvider(
-            this,
-            viewModelFactory
-        )[FreeRentDetailViewModel::class.java]
 
         viewModel.initMessageRepository(freeNumberId)
 
