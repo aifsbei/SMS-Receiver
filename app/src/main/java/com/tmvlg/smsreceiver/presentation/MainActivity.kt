@@ -3,11 +3,12 @@ package com.tmvlg.smsreceiver.presentation
 import android.os.Bundle
 import android.transition.Fade
 import android.view.MenuItem
-import android.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.tmvlg.smsreceiver.R
 import com.tmvlg.smsreceiver.presentation.freerent.FreeRentFragment
+import com.tmvlg.smsreceiver.presentation.profile.ProfileFragment
+import com.tmvlg.smsreceiver.presentation.rent.RentNumberFragment
 
 class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
     var freeRentFragment = FreeRentFragment()

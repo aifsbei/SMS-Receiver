@@ -10,6 +10,8 @@ import androidx.core.app.ActivityOptionsCompat
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.tmvlg.smsreceiver.R
+import com.tmvlg.smsreceiver.databinding.FreeNumberBinding
+import com.tmvlg.smsreceiver.databinding.FreeNumberHeaderBinding
 import com.tmvlg.smsreceiver.util.ViewHolderStickyDecoration
 import com.tmvlg.smsreceiver.domain.freenumber.FreeNumber
 
@@ -20,18 +22,18 @@ class FreeNumberDataAdapter : ListAdapter<FreeNumber, RecyclerView.ViewHolder>(F
     var onFreeNumberClickListener: ((FreeNumber) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val layout = when (viewType) {
-            VIEWTYPE_HEADER -> R.layout.free_number_header
-            VIEWTYPE_ITEM -> R.layout.free_number
+
+        val inflater = LayoutInflater.from(parent.context)
+        val binding = when (viewType) {
+            VIEWTYPE_HEADER -> FreeNumberHeaderBinding.inflate(inflater, parent, false)
+            VIEWTYPE_ITEM -> FreeNumberBinding.inflate(inflater, parent, false)
             else -> throw RuntimeException()
         }
-        val view = LayoutInflater.from(parent.context).inflate(layout,
-                parent,
-                false)
+
         context = parent.context!!
         return when (viewType) {
-            VIEWTYPE_HEADER -> FreeNumberHeaderHolder(view)
-            VIEWTYPE_ITEM -> FreeNumberItemHolder(view)
+            VIEWTYPE_HEADER -> FreeNumberHeaderHolder(binding as FreeNumberHeaderBinding)
+            VIEWTYPE_ITEM -> FreeNumberItemHolder(binding as FreeNumberBinding)
             else -> throw RuntimeException()
         }
     }
@@ -48,11 +50,11 @@ class FreeNumberDataAdapter : ListAdapter<FreeNumber, RecyclerView.ViewHolder>(F
                 Log.d("1", icon_path)
 
                 with (holder as FreeNumberItemHolder) {
-                    free_region_icon.setImageResource(resID!!)
+                    binding.freeRegionIcon.setImageResource(resID!!)
 //                Picasso.get().load(resID!!).into((holder as FreeNumberItemHolder).free_region_icon)
-                    free_prefix.text = number.call_number_prefix
-                    free_call_number.text = number.call_number
-                    free_number_layout.setOnClickListener {
+                    binding.freePrefix.text = number.call_number_prefix
+                    binding.freeCallNumber.text = number.call_number
+                    binding.freeNumberLayout.setOnClickListener {
                         onFreeNumberClickListener?.invoke(number)
                     }
                 }
@@ -60,7 +62,7 @@ class FreeNumberDataAdapter : ListAdapter<FreeNumber, RecyclerView.ViewHolder>(F
             }
             FreeNumber.HEADER_TYPE -> {
                 with (holder as FreeNumberHeaderHolder) {
-                    country_name.text = number.counrty_name
+                    binding.countryName.text = number.counrty_name
                 }
             }
         }

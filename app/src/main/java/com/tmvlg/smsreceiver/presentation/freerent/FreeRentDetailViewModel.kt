@@ -3,8 +3,6 @@ package com.tmvlg.smsreceiver.presentation.freerent
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.tmvlg.smsreceiver.data.freemessage.FreeMessageRepositoryImpl
-import com.tmvlg.smsreceiver.data.freenumber.FreeNumberRepositoryImpl
 import com.tmvlg.smsreceiver.domain.freemessage.DeleteFreeMessageListUseCase
 import com.tmvlg.smsreceiver.domain.freemessage.FreeMessageRepository
 import com.tmvlg.smsreceiver.domain.freemessage.GetFreeMessageListUseCase
@@ -15,10 +13,10 @@ import com.tmvlg.smsreceiver.domain.freenumber.GetFreeNumberUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class FreeRentDetailViewModel : ViewModel() {
-
-    private var messageRepository : FreeMessageRepository = FreeMessageRepositoryImpl
-    private var numberRepository : FreeNumberRepository = FreeNumberRepositoryImpl
+class FreeRentDetailViewModel(
+    private val numberRepository: FreeNumberRepository,
+    private val messageRepository: FreeMessageRepository
+): ViewModel() {
 
     private val getFreeNumberUseCase = GetFreeNumberUseCase(numberRepository)
     private val getFreeMessageListUseCase = GetFreeMessageListUseCase(messageRepository)
