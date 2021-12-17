@@ -1,21 +1,18 @@
-package com.tmvlg.smsreceiver.presentation.freerent
+package com.tmvlg.smsreceiver.presentation.freerent.freemessagelist
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.tmvlg.smsreceiver.R
 import com.tmvlg.smsreceiver.databinding.FreeMessageBinding
 import com.tmvlg.smsreceiver.domain.freemessage.FreeMessage
-import java.util.*
 
-class FreeMessageDataAdapter : ListAdapter<FreeMessage, RecyclerView.ViewHolder>(FreeMessageDiffCallback()) {
+class FreeMessageDataAdapter : ListAdapter<FreeMessage, RecyclerView.ViewHolder>(
+    FreeMessageDiffCallback()
+) {
 
     var baseColor: Int? = null
 

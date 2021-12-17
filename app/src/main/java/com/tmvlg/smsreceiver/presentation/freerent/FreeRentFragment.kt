@@ -1,8 +1,6 @@
 package com.tmvlg.smsreceiver.presentation.freerent
 
 import android.os.Bundle
-import android.transition.Fade
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tmvlg.smsreceiver.R
 import com.tmvlg.smsreceiver.databinding.FragmentFreeRentBinding
+import com.tmvlg.smsreceiver.presentation.freerent.freenumberlist.FreeNumberDataAdapter
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
 import org.kodein.di.generic.instance

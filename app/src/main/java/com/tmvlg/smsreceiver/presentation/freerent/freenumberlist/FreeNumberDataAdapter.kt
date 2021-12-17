@@ -1,22 +1,21 @@
-package com.tmvlg.smsreceiver.presentation.freerent
+package com.tmvlg.smsreceiver.presentation.freerent.freenumberlist
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.app.ActivityOptionsCompat
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.tmvlg.smsreceiver.R
 import com.tmvlg.smsreceiver.databinding.FreeNumberBinding
 import com.tmvlg.smsreceiver.databinding.FreeNumberHeaderBinding
 import com.tmvlg.smsreceiver.util.ViewHolderStickyDecoration
 import com.tmvlg.smsreceiver.domain.freenumber.FreeNumber
 
 
-class FreeNumberDataAdapter : ListAdapter<FreeNumber, RecyclerView.ViewHolder>(FreeNumberDiffCallback()), ViewHolderStickyDecoration.Condition {
+class FreeNumberDataAdapter : ListAdapter<FreeNumber, RecyclerView.ViewHolder>(
+    FreeNumberDiffCallback()
+), ViewHolderStickyDecoration.Condition {
 
     var context: Context? = null
     var onFreeNumberClickListener: ((FreeNumber) -> Unit)? = null

@@ -1,4 +1,4 @@
-package com.tmvlg.smsreceiver.presentation.freerent
+package com.tmvlg.smsreceiver.presentation.freerent.freenumberlist
 
 import androidx.recyclerview.widget.RecyclerView
 import com.tmvlg.smsreceiver.databinding.FreeNumberHeaderBinding

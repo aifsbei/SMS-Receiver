@@ -1,4 +1,4 @@
-package com.tmvlg.smsreceiver.presentation.freerent
+package com.tmvlg.smsreceiver.presentation.freerent.freenumberlist
 
 import androidx.recyclerview.widget.DiffUtil
 import com.tmvlg.smsreceiver.domain.freenumber.FreeNumber
