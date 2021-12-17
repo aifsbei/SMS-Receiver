@@ -1,4 +1,4 @@
-package com.tmvlg.smsreceiver.presentation.rent
+package com.tmvlg.smsreceiver.presentation.rent.numberforrentlist
 
 import android.view.View
 import android.widget.ImageView

@@ -1,4 +1,4 @@
-package com.tmvlg.smsreceiver.presentation.rent
+package com.tmvlg.smsreceiver.presentation.rent.numberforrentlist
 
 import androidx.recyclerview.widget.DiffUtil
 import com.tmvlg.smsreceiver.domain.numberforrent.NumberForRent

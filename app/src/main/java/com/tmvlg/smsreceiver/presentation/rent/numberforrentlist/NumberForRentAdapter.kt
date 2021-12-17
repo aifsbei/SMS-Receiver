@@ -1,4 +1,4 @@
-package com.tmvlg.smsreceiver.presentation.rent
+package com.tmvlg.smsreceiver.presentation.rent.numberforrentlist
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,7 +7,9 @@ import com.tmvlg.smsreceiver.R
 import com.tmvlg.smsreceiver.databinding.NumberForRentBinding
 import com.tmvlg.smsreceiver.domain.numberforrent.NumberForRent
 
-class NumberForRentAdapter : ListAdapter<NumberForRent, NumberForRentViewHolder>(NumberForRentDiffCallback()) {
+class NumberForRentAdapter : ListAdapter<NumberForRent, NumberForRentViewHolder>(
+    NumberForRentDiffCallback()
+) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NumberForRentViewHolder {
         val layout = R.layout.number_for_rent
