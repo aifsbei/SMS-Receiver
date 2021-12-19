@@ -9,6 +9,8 @@ import java.lang.RuntimeException
 
 class NewNumberPagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
 
+    // TODO("Отключить свайп вправо")
+
     override fun getItemCount(): Int {
         return 3
     }

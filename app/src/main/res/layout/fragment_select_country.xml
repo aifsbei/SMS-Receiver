@@ -22,6 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/card_color"
+        android:layout_marginTop="25dp"
         app:cardElevation="4dp"
         app:cardUseCompatPadding="true"
         app:cardCornerRadius="8dp"
@@ -40,11 +41,11 @@
 
             <ImageView
                 android:id="@+id/country_icon"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:src="@drawable/flag_bi"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
             </ImageView>
@@ -53,28 +54,70 @@
                 android:id="@+id/country_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
                 android:text="Russia"
                 android:textColor="@color/black"
-                android:textSize="21sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/country_icon"
-                app:layout_constraintTop_toTopOf="@+id/country_icon">
+                android:textSize="24sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
             </TextView>
 
             <TextView
+                android:id="@+id/default_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:text="(Default)"
-                android:textColor="#a4a4a4"
-                android:textSize="21sp"
+                android:text="default"
+                android:textColor="@color/control_color"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="@+id/country_name"
+                app:layout_constraintTop_toBottomOf="@+id/country_name">
+
+            </TextView>
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_country_code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="#RU"
+                android:paddingRight="2dp"
+                android:paddingLeft="2dp"
+                app:layout_constraintStart_toStartOf="@+id/default_label"
+                app:layout_constraintTop_toBottomOf="@id/default_label" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_prefix"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="2dp"
+                android:paddingLeft="2dp"
+                android:text="#+7"
+                android:layout_marginLeft="2dp"
+                app:layout_constraintBottom_toBottomOf="@+id/chip_country_code"
+                app:layout_constraintStart_toEndOf="@+id/chip_country_code"
+                app:layout_constraintTop_toTopOf="@+id/chip_country_code" />
+
+            <Button
+                android:id="@+id/change_country_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:backgroundTint="@color/button_main"
+                android:text="Change"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/chip_country_code">
+
+            </Button>
+
+            <ImageView
+                android:id="@+id/settings"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:src="@drawable/round_more_vert_24"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-            </TextView>
+            </ImageView>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import com.tmvlg.smsreceiver.R
 import com.tmvlg.smsreceiver.databinding.FragmentSelectCountryBinding
 import com.tmvlg.smsreceiver.presentation.rent.newnumber.pager.adapter.NewNumberPagerAdapter
+import com.tmvlg.smsreceiver.presentation.rent.newnumber.pager.selectcountry.search.SearchCountryFragment
 import java.lang.RuntimeException
 
 class SelectCountryFragment : Fragment() {
@@ -38,6 +39,14 @@ class SelectCountryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.changeCountryButton.setOnClickListener {
+            requireActivity().supportFragmentManager.beginTransaction()
+                .setCustomAnimations(R.anim.fragment_in, R.anim.fade_out, R.anim.fade_in, R.anim.fragment_out)
+                .add(R.id.container, SearchCountryFragment.newInstance())
+                .addToBackStack("search_country")
+                .commit()
+        }
 
     }
 

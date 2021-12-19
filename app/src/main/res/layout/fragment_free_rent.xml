@@ -27,7 +27,7 @@
             android:id="@+id/free_rent_search_entry"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Поиск"
+            android:hint="Search"
             />
 
     </com.google.android.material.textfield.TextInputLayout>

@@ -69,7 +69,7 @@
             android:layout_marginTop="18dp"
             android:layout_marginBottom="32dp"
             android:text="Cancel"
-            android:textColor="#4CAF50"
+            android:textColor="@color/green"
             app:layout_constraintEnd_toStartOf="@id/next_button"
             app:layout_constraintTop_toBottomOf="@id/pager"
             app:layout_constraintBottom_toBottomOf="parent">

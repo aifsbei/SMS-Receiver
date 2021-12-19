@@ -3,15 +3,15 @@
 
     <item android:id="@+id/navigation_rent_number"
         android:icon="@drawable/round_sim_card_24"
-        android:title="Аренда"/>
+        android:title="Rent a number"/>
 
     <item android:id="@+id/navigation_free_rent"
         android:icon="@drawable/round_money_off_24"
-        android:title="Бесплатные"/>
+        android:title="Public"/>
 
     <item android:id="@+id/navigation_profile"
         android:icon="@drawable/round_person_24"
-        android:title="Профиль"/>
+        android:title="Profile"/>
 
 
 

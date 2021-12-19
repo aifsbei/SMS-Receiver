@@ -133,46 +133,6 @@ class NewNumberFragment : Fragment() {
 
             }
         }
-//        val scaleDownX = ObjectAnimator.ofFloat(
-//            binding.buttonsContainer,
-//            "scaleX",
-//            0.5f
-//        ).apply {
-//            setDuration(300)
-//            start()
-//        }
-//        val scaleDownY = ObjectAnimator.ofFloat(
-//            binding.buttonsContainer,
-//            "scaleY",
-//            0.5f
-//        ).apply {
-//            setDuration(300)
-//        }
-//        val scaleUpX = ObjectAnimator.ofFloat(
-//            binding.buttonsContainer,
-//            "scaleX",
-//            1f
-//        ).apply {
-//            setDuration(300)
-//        }
-//        val scaleUpY = ObjectAnimator.ofFloat(
-//            binding.buttonsContainer,
-//            "scaleY",
-//            1f
-//        ).apply {
-//            setDuration(300)
-//        }
-
-
-
-//        val scaleDown = AnimatorSet()
-//        scaleDown.play(scaleDownX).with(scaleDownY)
-//        val scaleUp = AnimatorSet()
-//        scaleDown.play(scaleUpX).with(scaleUpY)
-//
-//        val toggleScale = AnimatorSet()
-//        toggleScale.playSequentially(scaleDown, scaleUp)
-//        toggleScale.start()
     }
 
     override fun onDestroyView() {
