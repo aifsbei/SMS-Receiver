@@ -16,7 +16,7 @@ import org.kodein.di.android.x.closestKodein
 import org.kodein.di.generic.instance
 
 
-class RentNumberFragment : Fragment(), KodeinAware {
+class   RentNumberFragment : Fragment(), KodeinAware {
 
     override val kodein by closestKodein()
 

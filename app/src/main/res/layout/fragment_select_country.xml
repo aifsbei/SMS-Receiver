@@ -12,7 +12,7 @@
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Select a country"
+        android:text="Step 1. Select a country"
         android:textColor="@color/black"
         android:textSize="24dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -36,17 +36,20 @@
             android:id="@+id/country_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="20dp"
->
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="20dp"
+            android:paddingBottom="10dp">
 
             <ImageView
                 android:id="@+id/country_icon"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
                 android:src="@drawable/flag_bi"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toBottomOf="@+id/settings">
 
             </ImageView>
 
@@ -78,7 +81,7 @@
                 android:id="@+id/chip_country_code"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="#RU"
+                android:text="# RU"
                 android:paddingRight="2dp"
                 android:paddingLeft="2dp"
                 app:layout_constraintStart_toStartOf="@+id/default_label"
@@ -90,7 +93,7 @@
                 android:layout_height="wrap_content"
                 android:paddingRight="2dp"
                 android:paddingLeft="2dp"
-                android:text="#+7"
+                android:text="# +7"
                 android:layout_marginLeft="2dp"
                 app:layout_constraintBottom_toBottomOf="@+id/chip_country_code"
                 app:layout_constraintStart_toEndOf="@+id/chip_country_code"
@@ -98,14 +101,18 @@
 
             <Button
                 android:id="@+id/change_country_button"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:backgroundTint="@color/button_main"
+                android:layout_marginTop="10dp"
                 android:text="Change"
+                android:textColor="@color/green"
+                app:icon="@drawable/round_chevron_right_24"
+                app:iconTint="@color/green"
+                app:iconGravity="textEnd"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/chip_country_code">
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/country_icon">
 
             </Button>
 

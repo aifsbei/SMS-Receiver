@@ -3,7 +3,7 @@ package com.tmvlg.smsreceiver.data.network.freenumbersapi.onlinesimfree.models
 
 import com.google.gson.annotations.SerializedName
 
-data class Data(
+data class DataModel(
     @SerializedName("created_at")
     val createdAt: String, // 2021-12-17 01:12:07
     @SerializedName("data_humans")

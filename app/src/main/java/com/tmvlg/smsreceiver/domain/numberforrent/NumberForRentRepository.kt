@@ -1,7 +1,7 @@
 package com.tmvlg.smsreceiver.domain.numberforrent
 
 import androidx.lifecycle.LiveData
-import kotlin.Number
+import com.tmvlg.smsreceiver.domain.numberforrent.searchnumber.Country
 
 interface NumberForRentRepository {
 
