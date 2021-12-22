@@ -56,6 +56,11 @@ class FreeRentDetailFragment : Fragment(), KodeinAware {
     ): View {
         _binding = FragmentFreeRentDetailBinding.inflate(inflater, container, false)
 
+        viewModel = ViewModelProvider(
+            this,
+            viewModelFactory
+        )[FreeRentDetailViewModel::class.java]
+
         return binding.root
     }
 
@@ -69,11 +74,6 @@ class FreeRentDetailFragment : Fragment(), KodeinAware {
 
         binding.shimmerFreeRentInfoLayout.visibility = View.VISIBLE
         binding.freeMessagesRecycleView.visibility = View.GONE
-
-        viewModel = ViewModelProvider(
-            this,
-            viewModelFactory
-        )[FreeRentDetailViewModel::class.java]
 
         viewModel.initMessageRepository(freeNumberId)
 
@@ -144,13 +144,14 @@ class FreeRentDetailFragment : Fragment(), KodeinAware {
         textColor = ContextCompat.getColor(requireContext(), R.color.design_default_color_secondary_variant)
 
         val palette = Palette.from(srcBitmap).generate()
-        val vibrantSwatch = palette.mutedSwatch
+        val vibrantSwatch = palette.dominantSwatch
             ?: palette.vibrantSwatch
-            ?: palette.dominantSwatch
+//            ?: palette.dominantSwatch
             ?: palette.lightMutedSwatch
             ?: palette.lightVibrantSwatch
             ?: palette.darkMutedSwatch
             ?: palette.darkVibrantSwatch
+            ?: palette.mutedSwatch
         if (vibrantSwatch != null) {
             baseColor = vibrantSwatch.rgb
             textColor = vibrantSwatch.titleTextColor
@@ -194,7 +195,7 @@ class FreeRentDetailFragment : Fragment(), KodeinAware {
         val clipboard = requireActivity().getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
         val clip = ClipData.newPlainText("Clipboard", call_number_extended)
         clipboard.setPrimaryClip(clip)
-        Toast.makeText(requireContext(), "Номер скопирован!", Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireContext(), "Successfuly copied!", Toast.LENGTH_SHORT).show()
     }
 
     private fun getBitmap(drawableRes: Int): Bitmap {

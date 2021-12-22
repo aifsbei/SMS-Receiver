@@ -3,11 +3,15 @@ package com.tmvlg.smsreceiver.data
 import android.util.Log
 import com.google.i18n.phonenumbers.PhoneNumberUtil
 import com.tmvlg.smsreceiver.data.network.freenumbersapi.onlinesimfree.OnlineSimFreeApi
-import com.tmvlg.smsreceiver.data.network.freenumbersapi.onlinesimfree.models.CountriesResponse
+import com.tmvlg.smsreceiver.data.network.freenumbersapi.onlinesimfree.models.FreeCountriesResponse
 import com.tmvlg.smsreceiver.data.network.freenumbersapi.onlinesimfree.models.MessagesResponse
 import com.tmvlg.smsreceiver.data.network.freenumbersapi.onlinesimfree.models.NumbersResponse
 import com.tmvlg.smsreceiver.domain.freemessage.FreeMessage
 import com.tmvlg.smsreceiver.domain.freenumber.FreeNumber
+import com.tmvlg.smsreceiver.util.getCountryCodeByName
+import com.tmvlg.smsreceiver.util.getCountryCodeByNumber
+import com.tmvlg.smsreceiver.util.getCountryNameByCode
+import com.tmvlg.smsreceiver.util.getPrefixByCountryCode
 import org.json.simple.parser.ParseException
 import org.jsoup.Jsoup
 import retrofit2.Response
@@ -33,16 +37,8 @@ class FreeNumbersParser {
             val countries = doc.select("h5.number-boxes-item-country")
             Log.d(TAG, numbers.text())
             for (i in numbers.indices) {
-                val code = getCountryCodeByName(countries[i].text())
-                if (code == null) {
-                    Log.d(TAG, "null country code at " + countries[i].text())
-                    continue
-                }
-                val prefix = getPrefixByCountryCode(code)
-                if (prefix == null) {
-                    Log.d(TAG, "null number prefix at $code")
-                    continue
-                }
+                val code = getCountryCodeByName(countries[i].text()) ?: continue
+                val prefix = getPrefixByCountryCode(code) ?: continue
                 val free_number = FreeNumber(
                     call_number = numbers[i].text().replace(prefix, "")
                         .replace("^\\s+".toRegex(), ""),
@@ -141,11 +137,7 @@ class FreeNumbersParser {
             for (i in countries.indices) {
                 val countryName = countries[i].text()
                 Log.d(TAG, countryName)
-                val code = getCountryCodeByName(countryName)
-                if (code == null) {
-                    Log.d(TAG, "null country code at " + countryName)
-                    continue
-                }
+                val code = getCountryCodeByName(countryName) ?: continue
                 val prefix = getPrefixByCountryCode(code)
                 if (prefix == null || prefix.contains("and")) {
                     Log.d(TAG, "null number prefix at $code")
@@ -201,11 +193,11 @@ class FreeNumbersParser {
 
     @Throws(ParseException::class, MalformedURLException::class)
     fun parse_4() {
-        val countriesResponse: Response<CountriesResponse> = OnlineSimFreeApi
+        val freeCountriesResponse: Response<FreeCountriesResponse> = OnlineSimFreeApi
             .retrofitService
             .getCountryNames()
             .execute() ?: return
-        val countriesBody = countriesResponse.body() ?: return
+        val countriesBody = freeCountriesResponse.body() ?: return
         countriesBody.countries.forEach {
 
             val numbersResponse: Response<NumbersResponse> = OnlineSimFreeApi
@@ -217,7 +209,7 @@ class FreeNumbersParser {
             numbersBody.numbers.forEach {
 
                 val countryCode: String = getCountryCodeByNumber(it.fullNumber)
-                val countryName = getCountryNameByCode(countryCode)
+                val countryName = getCountryNameByCode(countryCode) ?: return
 
                 val freeNumber = FreeNumber(
                     call_number = it.number,
@@ -250,12 +242,72 @@ class FreeNumbersParser {
         }
     }
 
+    fun parse_5() {
+        try {
+            val doc = Jsoup.connect("https://receive-smss.com/").get()
+            val numbers = doc.select("h4.number-boxes-itemm-number")
+            val countries = doc.select("h5.number-boxes-item-country")
+            val numberType = doc.select("a.number-boxes-item-button")
+
+            for (i in numbers.indices) {
+                if (numberType[i].text() == "premium") {
+                    continue
+                }
+                else {
+                    val code = getCountryCodeByName(countries[i].text()) ?: continue
+                    val prefix = getPrefixByCountryCode(code) ?: continue
+                    val free_number = FreeNumber(
+                        call_number = numbers[i].text().replace(prefix, "")
+                            .replace("^\\s+".toRegex(), ""),
+                        call_number_prefix = prefix,
+                        country_code = code,
+                        counrty_name = countries[i].text(),
+                        origin = "parse_5",
+                        icon_path = "$code.xml"
+                    )
+                    numbersList.add(free_number)
+                }
+            }
+
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+    }
+
+    fun parse_messages_5(number: String) {
+        try {
+            val doc = Jsoup.connect("https://receive-smss.com/sms/$number/").get()
+
+            val sender = doc.select("tr > td.wr3pc52sel1757:nth-child(1)")
+//            val messageCode = doc.select("span.btncp1 > b")
+            val messageBody = doc.select("tr > td.wr3pc52sel1757:nth-child(2)")
+            val time = doc.select("tr > td.wr3pc52sel1757:nth-child(3) > span")
+
+            for (i in sender.indices) {
+                val messageTitleFormatted = sender[i].text().replace("a\"", "")
+                val timeRemainedFormatted = "${time[i].text()} ago"
+                val free_message = FreeMessage(
+                    message_title = messageTitleFormatted,
+                    message_text = messageBody[i].text(),
+                    time_remained = timeRemainedFormatted
+                )
+                messagesList.add(free_message)
+            }
+            println(messagesList)
+
+        } catch (e: IOException) {
+            println("parsing error")
+            e.printStackTrace()
+        }
+    }
+
     @Throws(ParseException::class, MalformedURLException::class)
     fun parse_numbers() {
         parse_1()
 //        parse_2()
-//        parse_3()
+        parse_3()
         parse_4()
+        parse_5()
         add_countrynames_to_list()
         sort_numbers()
     }
@@ -287,6 +339,10 @@ class FreeNumbersParser {
                 "parse_4" -> {
                     Log.d(TAG, call_number)
                     parse_messages_4(call_number, call_number_prefix)
+                }
+                "parse_5" -> {
+                    Log.d(TAG, call_number)
+                    parse_messages_5(formated_call_number)
                 }
                 else -> throw java.lang.RuntimeException("Unknown parse origin")
             }
@@ -339,33 +395,7 @@ class FreeNumbersParser {
         }
     }
 
-    private fun getCountryCodeByNumber(fullNumber: String): String {
-        val phoneUtil = PhoneNumberUtil.getInstance()
-        var country_code: String = ""
-        try {
-            // phone must begin with '+'
-            val numberProto = phoneUtil.parse(fullNumber, "")
-            country_code = phoneUtil.getRegionCodeForCountryCode(numberProto.countryCode)
-        } catch (e: Exception) {
-            System.err.println("NumberParseException was thrown: $e")
-        }
-        return country_code
-    }
 
-    private fun getPrefixByCountryCode(countryCode: String): String {
-        return "+${PhoneNumberUtil.getInstance().getCountryCodeForRegion(countryCode)}"
-    }
-
-    private fun getCountryNameByCode(countryCode: String): String {
-        val loc = Locale("en_US", countryCode)
-        return loc.getDisplayCountry(Locale.ENGLISH)
-    }
-
-    private fun getCountryCodeByName(countryName: String): String? {
-        val countryCode = Locale.getISOCountries()
-            .find { Locale("", it).getDisplayCountry(Locale.ENGLISH) == countryName }
-        return countryCode
-    }
 
     companion object {
         private const val TAG = "1"

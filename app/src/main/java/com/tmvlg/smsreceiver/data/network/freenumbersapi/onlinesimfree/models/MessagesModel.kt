@@ -3,10 +3,10 @@ package com.tmvlg.smsreceiver.data.network.freenumbersapi.onlinesimfree.models
 
 import com.google.gson.annotations.SerializedName
 
-data class Messages(
+data class MessagesModel(
     @SerializedName("current_page")
     val currentPage: Int, // 1
-    val `data`: List<Data>,
+    val `data`: List<DataModel>,
     @SerializedName("first_page_url")
     val firstPageUrl: String, // https://onlinesim.ru/api/getFreeMessageList?page=1
     val from: Int, // 1
@@ -14,7 +14,7 @@ data class Messages(
     val lastPage: Int, // 565
     @SerializedName("last_page_url")
     val lastPageUrl: String, // https://onlinesim.ru/api/getFreeMessageList?page=565
-    val links: List<Link>,
+    val links: List<LinkModel>,
     @SerializedName("next_page_url")
     val nextPageUrl: String, // https://onlinesim.ru/api/getFreeMessageList?page=2
     val path: String, // https://onlinesim.ru/api/getFreeMessageList

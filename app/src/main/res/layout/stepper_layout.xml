@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:padding="12dp">
+
+    <FrameLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/tv_step1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1"
+            android:textColor="@color/black"
+            android:textSize="21sp"
+            android:layout_gravity="center">
+
+        </TextView>
+
+        <ImageView
+            android:id="@+id/iv_step1"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:visibility="invisible"
+            android:background="@drawable/round_indicator_unfilled"
+            android:layout_gravity="center">
+
+        </ImageView>
+
+    </FrameLayout>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@color/control_color"
+        android:layout_weight="1"
+        android:layout_marginTop="13dp">
+
+    </View>
+
+    <FrameLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/tv_step2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2"
+            android:textColor="@color/black"
+            android:visibility="invisible"
+            android:textSize="21sp"
+            android:layout_gravity="center">
+
+        </TextView>
+
+        <ImageView
+            android:id="@+id/iv_step2"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:background="@drawable/round_indicator_unfilled"
+            android:layout_gravity="center">
+
+        </ImageView>
+
+    </FrameLayout>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@color/control_color"
+        android:layout_weight="1"
+        android:layout_marginTop="13dp">
+
+    </View>
+
+    <FrameLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/tv_step3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="3"
+            android:visibility="invisible"
+            android:textColor="@color/black"
+            android:textSize="21sp"
+            android:layout_gravity="center">
+
+        </TextView>
+
+        <ImageView
+            android:id="@+id/iv_step3"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:background="@drawable/round_indicator_unfilled"
+            android:layout_gravity="center">
+
+        </ImageView>
+
+    </FrameLayout>
+
+</LinearLayout>

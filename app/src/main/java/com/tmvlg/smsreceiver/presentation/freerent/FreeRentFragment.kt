@@ -34,6 +34,12 @@ class FreeRentFragment : Fragment(), KodeinAware {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentFreeRentBinding.inflate(inflater, container, false)
+
+        viewModel = ViewModelProvider(
+            this,
+            freeRentViewModelFactory
+        )[FreeRentViewModel::class.java]
+
         return binding.root
     }
 
@@ -46,14 +52,8 @@ class FreeRentFragment : Fragment(), KodeinAware {
 
         }
 
-
         binding.shimmerFreeRentLayout.visibility = View.VISIBLE
         binding.freeRecycleView.visibility = View.GONE
-
-        viewModel = ViewModelProvider(
-            this,
-            freeRentViewModelFactory
-        )[FreeRentViewModel::class.java]
 
         viewModel.initRepository()
 
