@@ -180,7 +180,7 @@
                     android:layout_height="wrap_content"
                     android:backgroundTint="#AA55AA"
                     android:elevation="2dp"
-                    android:text="Обновить"
+                    android:text="refresh"
                     android:textColor="#FFFFFF"
                     android:textSize="11sp"
                     app:cornerRadius="4dp"
