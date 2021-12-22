@@ -3,14 +3,30 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/aifsb/AndroidStudioProjects/SMSReceiver/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.22239583333333332" />
         <entry key="..\:/Users/aifsb/AndroidStudioProjects/SMSReceiver/app/src/main/res/drawable/button_main.xml" value="0.2359375" />
+        <entry key="..\:/Users/aifsb/AndroidStudioProjects/SMSReceiver/app/src/main/res/drawable/item_selected.xml" value="0.22239583333333332" />
+        <entry key="..\:/Users/aifsb/AndroidStudioProjects/SMSReceiver/app/src/main/res/drawable/outline_content_copy_24.xml" value="0.22239583333333332" />
+        <entry key="..\:/Users/aifsb/AndroidStudioProjects/SMSReceiver/app/src/main/res/drawable/round_account_balance_wallet_24.xml" value="0.22239583333333332" />
+        <entry key="..\:/Users/aifsb/AndroidStudioProjects/SMSReceiver/app/src/main/res/drawable/round_add_24.xml" value="0.22239583333333332" />
         <entry key="..\:/Users/aifsb/AndroidStudioProjects/SMSReceiver/app/src/main/res/drawable/round_arrow_back_24.xml" value="0.3310810810810811" />
+        <entry key="..\:/Users/aifsb/AndroidStudioProjects/SMSReceiver/app/src/main/res/drawable/round_chevron_right_24.xml" value="0.22239583333333332" />
         <entry key="..\:/Users/aifsb/AndroidStudioProjects/SMSReceiver/app/src/main/res/drawable/round_error_24.xml" value="0.3828125" />
+        <entry key="..\:/Users/aifsb/AndroidStudioProjects/SMSReceiver/app/src/main/res/drawable/round_help_outline_24.xml" value="0.22239583333333332" />
         <entry key="..\:/Users/aifsb/AndroidStudioProjects/SMSReceiver/app/src/main/res/drawable/round_indicator_success.xml" value="0.2171875" />
         <entry key="..\:/Users/aifsb/AndroidStudioProjects/SMSReceiver/app/src/main/res/drawable/round_indicator_unfilled.xml" value="0.2171875" />
         <entry key="..\:/Users/aifsb/AndroidStudioProjects/SMSReceiver/app/src/main/res/drawable/round_manage_search_24.xml" value="0.2359375" />
+        <entry key="..\:/Users/aifsb/AndroidStudioProjects/SMSReceiver/app/src/main/res/drawable/round_money_off_24.xml" value="0.22239583333333332" />
         <entry key="..\:/Users/aifsb/AndroidStudioProjects/SMSReceiver/app/src/main/res/drawable/round_more_vert_24.xml" value="0.2359375" />
         <entry key="..\:/Users/aifsb/AndroidStudioProjects/SMSReceiver/app/src/main/res/drawable/round_new_releases_24.xml" value="0.2296875" />
+        <entry key="..\:/Users/aifsb/AndroidStudioProjects/SMSReceiver/app/src/main/res/drawable/round_person_24.xml" value="0.22239583333333332" />
+        <entry key="..\:/Users/aifsb/AndroidStudioProjects/SMSReceiver/app/src/main/res/drawable/round_refresh_24.xml" value="0.22239583333333332" />
+        <entry key="..\:/Users/aifsb/AndroidStudioProjects/SMSReceiver/app/src/main/res/drawable/round_search_24.xml" value="0.22239583333333332" />
+        <entry key="..\:/Users/aifsb/AndroidStudioProjects/SMSReceiver/app/src/main/res/drawable/round_sim_card_24.xml" value="0.22239583333333332" />
+        <entry key="..\:/Users/aifsb/AndroidStudioProjects/SMSReceiver/app/src/main/res/drawable/time_remained.xml" value="0.22239583333333332" />
+        <entry key="..\:/Users/aifsb/AndroidStudioProjects/SMSReceiver/app/src/main/res/layout/activity_main.xml" value="0.20625" />
+        <entry key="..\:/Users/aifsb/AndroidStudioProjects/SMSReceiver/app/src/main/res/layout/activity_main_free.xml" value="0.20625" />
+        <entry key="..\:/Users/aifsb/AndroidStudioProjects/SMSReceiver/app/src/main/res/layout/fragment_about.xml" value="0.20625" />
         <entry key="..\:/Users/aifsb/AndroidStudioProjects/SMSReceiver/app/src/main/res/layout/fragment_free_rent.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/aifsb/AndroidStudioProjects/SMSReceiver/app/src/main/res/layout/fragment_free_rent_detail.xml" value="0.2312206572769953" />
         <entry key="..\:/Users/aifsb/AndroidStudioProjects/SMSReceiver/app/src/main/res/layout/fragment_new_number.xml" value="0.22" />
@@ -25,6 +41,7 @@
         <entry key="..\:/Users/aifsb/AndroidStudioProjects/SMSReceiver/app/src/main/res/layout/new_number_fragment.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/aifsb/AndroidStudioProjects/SMSReceiver/app/src/main/res/layout/number_for_rent.xml" value="0.21979166666666666" />
         <entry key="..\:/Users/aifsb/AndroidStudioProjects/SMSReceiver/app/src/main/res/layout/stepper_layout.xml" value="0.22" />
+        <entry key="..\:/Users/aifsb/AndroidStudioProjects/SMSReceiver/app/src/main/res/menu/free_bottom_navigation_menu.xml" value="0.20625" />
         <entry key="..\:/Users/aifsb/AndroidStudioProjects/SMSReceiver/app/src/main/res/xml/flag_undefined.xml" value="0.36666666666666664" />
       </map>
     </option>

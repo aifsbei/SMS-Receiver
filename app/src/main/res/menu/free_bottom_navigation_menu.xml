@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/navigation_free_rent"
+        android:icon="@drawable/round_money_off_24"
+        android:title="Free numbers"/>
+
+    <item android:id="@+id/navigation_about"
+        android:icon="@drawable/round_help_outline_24"
+        android:title="About"/>
+
+
+
+</menu>
