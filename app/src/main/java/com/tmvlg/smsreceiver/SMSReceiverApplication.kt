@@ -10,10 +10,14 @@ import com.tmvlg.smsreceiver.data.network.rentnumbersapi.onlinesim.OnlineSimApiS
 import com.tmvlg.smsreceiver.data.network.rentnumbersapi.onlinesim.old.OnlineSimApiServiceOld
 import com.tmvlg.smsreceiver.data.number.NumberForRentRepositoryImpl
 import com.tmvlg.smsreceiver.data.number.searchnumber.SearchCountryRepositoryImpl
+import com.tmvlg.smsreceiver.data.preferences.SettingsPreferenceProvider
+import com.tmvlg.smsreceiver.data.settings.SettingsRepositoryImpl
 import com.tmvlg.smsreceiver.domain.freemessage.FreeMessageRepository
 import com.tmvlg.smsreceiver.domain.freenumber.FreeNumberRepository
 import com.tmvlg.smsreceiver.domain.numberforrent.NumberForRentRepository
 import com.tmvlg.smsreceiver.domain.numberforrent.searchnumber.SearchCountryRepository
+import com.tmvlg.smsreceiver.domain.settings.SettingsRepository
+import com.tmvlg.smsreceiver.presentation.about.AboutViewModelFactory
 import com.tmvlg.smsreceiver.presentation.freerent.FreeRentDetailViewModelFactory
 import com.tmvlg.smsreceiver.presentation.freerent.FreeRentViewModelFactory
 import com.tmvlg.smsreceiver.presentation.rent.RentNumberViewModelFactory
@@ -46,6 +50,10 @@ class SMSReceiverApplication: Application(), KodeinAware {
         bind() from provider { FreeRentDetailViewModelFactory(instance(), instance()) }
 
         bind<SearchCountryRepository>() with singleton { SearchCountryRepositoryImpl }
+
+        bind() from singleton { SettingsPreferenceProvider(instance()) }
+        bind<SettingsRepository>() with singleton { SettingsRepositoryImpl(instance()) }
+        bind() from provider { AboutViewModelFactory(instance()) }
     }
 
 }

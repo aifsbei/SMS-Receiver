@@ -18,6 +18,7 @@ import retrofit2.Response
 import java.io.IOException
 import java.net.HttpURLConnection
 import java.net.MalformedURLException
+import java.net.SocketTimeoutException
 import java.net.URL
 import java.util.*
 
@@ -193,52 +194,60 @@ class FreeNumbersParser {
 
     @Throws(ParseException::class, MalformedURLException::class)
     fun parse_4() {
-        val freeCountriesResponse: Response<FreeCountriesResponse> = OnlineSimFreeApi
-            .retrofitService
-            .getCountryNames()
-            .execute() ?: return
-        val countriesBody = freeCountriesResponse.body() ?: return
-        countriesBody.countries.forEach {
-
-            val numbersResponse: Response<NumbersResponse> = OnlineSimFreeApi
+        try {
+            val freeCountriesResponse: Response<FreeCountriesResponse> = OnlineSimFreeApi
                 .retrofitService
-                .getFreeNumbers(it.country)
-                .execute()
+                .getCountryNames()
+                .execute() ?: return
+            val countriesBody = freeCountriesResponse.body() ?: return
+            countriesBody.countries.forEach {
 
-            val numbersBody: NumbersResponse = numbersResponse.body() ?: return
-            numbersBody.numbers.forEach {
+                val numbersResponse: Response<NumbersResponse> = OnlineSimFreeApi
+                    .retrofitService
+                    .getFreeNumbers(it.country)
+                    .execute()
 
-                val countryCode: String = getCountryCodeByNumber(it.fullNumber)
-                val countryName = getCountryNameByCode(countryCode) ?: return
+                val numbersBody: NumbersResponse = numbersResponse.body() ?: return
+                numbersBody.numbers.forEach {
 
-                val freeNumber = FreeNumber(
-                    call_number = it.number,
-                    call_number_prefix = "+${it.country}",
-                    country_code = countryCode,
-                    counrty_name = countryName,
-                    origin = "parse_4",
-                    icon_path = "${countryCode.uppercase()}.xml"
-                )
-                numbersList.add(freeNumber)
+                    val countryCode: String = getCountryCodeByNumber(it.fullNumber)
+                    val countryName = getCountryNameByCode(countryCode) ?: return
+
+                    val freeNumber = FreeNumber(
+                        call_number = it.number,
+                        call_number_prefix = "+${it.country}",
+                        country_code = countryCode,
+                        counrty_name = countryName,
+                        origin = "parse_4",
+                        icon_path = "${countryCode.uppercase()}.xml"
+                    )
+                    numbersList.add(freeNumber)
+                }
             }
+        } catch (e: SocketTimeoutException) {
+            Log.d(TAG, "parse_4: timeout")
         }
     }
 
     @Throws(ParseException::class, MalformedURLException::class)
     fun parse_messages_4(phone: String, prefix: String) {
-        val messagesResponse: Response<MessagesResponse> = OnlineSimFreeApi
-            .retrofitService
-            .getFreeMessages(phone, prefix)
-            .execute() ?: return
-        val messagesBody = messagesResponse.body() ?: return
-        messagesBody.messages.data.forEach{
-            val free_message = FreeMessage(
-                message_title = it.inNumber,
-                message_text = it.text,
-                time_remained = it.dataHumans
-            )
-            messagesList.add(free_message)
+        try {
+            val messagesResponse: Response<MessagesResponse> = OnlineSimFreeApi
+                .retrofitService
+                .getFreeMessages(phone, prefix)
+                .execute() ?: return
+            val messagesBody = messagesResponse.body() ?: return
+            messagesBody.messages.data.forEach {
+                val free_message = FreeMessage(
+                    message_title = it.inNumber,
+                    message_text = it.text,
+                    time_remained = it.dataHumans
+                )
+                messagesList.add(free_message)
 
+            }
+        } catch (e: SocketTimeoutException) {
+            Log.d(TAG, "parse_messages_4: timeout")
         }
     }
 

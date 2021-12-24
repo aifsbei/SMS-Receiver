@@ -80,8 +80,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:paddingTop="10dp"
-                        android:paddingBottom="10dp"
+                        android:paddingTop="15dp"
+                        android:paddingBottom="15dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/settings_separator">
@@ -109,6 +109,7 @@
                         </TextView>
 
                         <com.google.android.material.switchmaterial.SwitchMaterial
+                            android:id="@+id/dark_theme_switch"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_gravity="center_vertical"
@@ -123,8 +124,8 @@
                         android:id="@+id/copy_method"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingTop="10dp"
-                        android:paddingBottom="10dp"
+                        android:paddingTop="15dp"
+                        android:paddingBottom="15dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/dark_mode_layout">
@@ -152,6 +153,7 @@
                         </TextView>
 
                         <com.google.android.material.switchmaterial.SwitchMaterial
+                            android:id="@+id/copy_prefix_switch"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_gravity="center_vertical"
@@ -211,8 +213,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:paddingTop="10dp"
-                        android:paddingBottom="10dp"
+                        android:paddingTop="15dp"
+                        android:paddingBottom="15dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/about_separator">
@@ -252,8 +254,8 @@
                         android:id="@+id/contact_layout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingTop="10dp"
-                        android:paddingBottom="10dp"
+                        android:paddingTop="15dp"
+                        android:paddingBottom="15dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/how_to_use_layout">
@@ -289,14 +291,54 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/report_a_bug_layout"
+                        android:id="@+id/rate_layout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingTop="10dp"
-                        android:paddingBottom="10dp"
+                        android:paddingTop="15dp"
+                        android:paddingBottom="15dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/contact_layout">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="0"
+                            android:src="@drawable/round_star_rate_24">
+
+                        </ImageView>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_weight="1"
+                            android:text="Rate this app"
+                            android:textColor="@color/black"
+                            android:textSize="21sp">
+
+                        </TextView>
+
+                        <ImageView
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:src="@drawable/round_chevron_right_24"
+                            app:tint="#AEAEAE" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/report_a_bug_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="15dp"
+                        android:paddingBottom="15dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/rate_layout">
 
                         <ImageView
                             android:layout_width="24dp"
