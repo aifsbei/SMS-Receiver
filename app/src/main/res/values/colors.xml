@@ -9,5 +9,22 @@
     <color name="white">#FFFFFFFF</color>
     <color name="green">#4CAF50</color>
     <color name="card_color">#FAFAFA</color>
+    <color name="transparent">#00000000</color>
+    <color name="edit_text_color">#eaeaea</color>
+
     <color name="control_color">#a4a4a4</color>
+    <color name="shimmer_color">#dddddd</color>
+    <color name="dark_primary_color">#323232</color>
+    <color name="windowBackground">#161616</color>
+    <color name="colorSurface">#252525</color>
+
+    <color name="primaryColor">#e89d41</color>
+    <color name="primaryLightColor">#ffce70</color>
+    <color name="primaryDarkColor">#b16f0c</color>
+    <color name="secondaryColor">#6ab43e</color>
+    <color name="secondaryLightColor">#9ce76d</color>
+    <color name="secondaryDarkColor">#378405</color>
+    <color name="primaryTextColor">#000000</color>
+    <color name="secondaryTextColor">#000000</color>
+
 </resources>

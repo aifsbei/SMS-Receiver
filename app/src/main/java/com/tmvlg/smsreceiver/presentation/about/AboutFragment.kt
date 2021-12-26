@@ -58,6 +58,8 @@ class AboutFragment : Fragment(), KodeinAware {
         viewModel.darkThemeSelected.observe(viewLifecycleOwner) {
             binding.darkThemeSwitch.isChecked = it
 
+            binding.darkThemeSwitch.jumpDrawablesToCurrentState()
+
             viewModel.darkThemeSelected.removeObserver { viewLifecycleOwner }
 
             binding.darkThemeSwitch.setOnCheckedChangeListener { compoundButton, b ->
@@ -71,6 +73,7 @@ class AboutFragment : Fragment(), KodeinAware {
         }
         viewModel.copySettingsSelected.observe(viewLifecycleOwner) {
             binding.copyPrefixSwitch.isChecked = it
+            binding.copyPrefixSwitch.jumpDrawablesToCurrentState()
 
             viewModel.copySettingsSelected.removeObserver { viewLifecycleOwner }
 

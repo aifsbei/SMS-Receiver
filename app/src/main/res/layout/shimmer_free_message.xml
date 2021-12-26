@@ -33,9 +33,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
                     android:layout_marginTop="5dp"
-                    android:background="#dddddd"
+                    android:background="?attr/colorControlHighlight"
                     android:text="HEADER NAME"
-                    android:textColor="#dddddd"
+                    android:textColor="?attr/colorControlHighlight"
                     android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -56,8 +56,8 @@
                         android:layout_marginTop="10dp"
                         android:layout_marginEnd="50dp"
                         android:layout_marginBottom="15dp"
-                        android:background="#dddddd"
-                        android:textColor="#dddddd" />
+                        android:background="?attr/colorControlHighlight"
+                        android:textColor="?attr/colorControlHighlight" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -65,8 +65,8 @@
                         android:layout_marginStart="15dp"
                         android:layout_marginEnd="225dp"
                         android:layout_marginBottom="15dp"
-                        android:textColor="#dddddd"
-                        android:background="#dddddd"/>
+                        android:textColor="?attr/colorControlHighlight"
+                        android:background="?attr/colorControlHighlight"/>
 
 
 
@@ -78,12 +78,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="15dp"
-                    android:background="#dddddd"
+                    android:background="?attr/colorControlHighlight"
                     android:padding="2dp"
                     android:paddingStart="8dp"
                     android:paddingEnd="8dp"
                     android:text="5 минут назад"
-                    android:textColor="#dddddd"
+                    android:textColor="?attr/colorControlHighlight"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/free_message_header_shimmer" />
 

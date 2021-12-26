@@ -114,6 +114,8 @@ dependencies {
     // ViewPager2
     implementation("androidx.viewpager2:viewpager2:1.0.0")
 
+    //DroidParts ClearableTextView
+    implementation 'org.droidparts:droidparts-misc:3.2.5'
 }
 repositories {
     mavenCentral()

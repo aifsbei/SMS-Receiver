@@ -5,17 +5,23 @@
 <!--        <item name="colorPrimary">@color/purple_500</item>-->
         <item name="colorPrimary">#737373</item>
 <!--        <item name="colorPrimaryVariant">@color/purple_700</item>-->
-        <item name="colorPrimaryVariant">#1E1E1E</item>
+        <item name="colorPrimaryVariant">@color/primaryDarkColor</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_700</item>
+        <item name="colorSecondary">@color/secondaryColor</item>
+        <item name="colorSecondaryVariant">@color/secondaryDarkColor</item>
         <item name="colorOnSecondary">@color/black</item>
+<!--        <item name="colorOnSecondary">?android:attr/textColorSecondary</item>-->
+
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">@null</item>
         <!-- Customize your theme here. -->
         <item name="android:windowContentTransitions">true</item>
 
+        <item name="colorSurface">@color/white</item>
+        <item name="colorOnSurface">@color/white</item>
+
+        <item name="customColorValue">@color/edit_text_color</item>
 
 <!--        <item name="colorControlNormal">@color/material_on_surface_stroke</item>-->
 <!--        <item name="colorControlHighlight">@color/design_default_color_primary</item>-->
@@ -32,7 +38,9 @@
         <item name="circularProgressIndicatorStyle">@style/Widget.App.LinearProgressIndicator</item>
 
 
+        <item name="colorControlHighlight">@color/shimmer_color</item>
 
+        <item name="android:windowBackground">@color/white</item>
 
 
     </style>
@@ -54,6 +62,16 @@
 
     <style name="ThemeOverlay.App.LinearProgressIndicator" parent="">
         <item name="colorPrimary">@color/green</item>
+    </style>
+
+    <style name="TextInputLayoutTheme" parent="Widget.Design.TextInputLayout">
+        <item name="colorPrimary">@color/control_color</item>
+        <item name="colorOnSurface">@color/colorSurface</item>
+    </style>
+
+    <style name="SwitchStyle" parent="Widget.MaterialComponents.CompoundButton.Switch">
+        <item name="colorOnSurface">@color/control_color</item>
+        <item name="colorSecondary">@color/secondaryColor</item>
     </style>
 
 </resources>

@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="55dp"
-    android:background="#FFFFFF">
+    android:layout_height="55dp">
 
     <TextView
         android:id="@+id/country_name_shimmer"
@@ -14,8 +13,8 @@
         android:layout_marginLeft="25dp"
         android:layout_marginTop="10dp"
         android:text="CountryName"
-        android:background="#dddddd"
-        android:textColor="#dddddd"
+        android:background="?attr/colorControlHighlight"
+        android:textColor="@color/transparent"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -29,7 +28,7 @@
         android:layout_marginTop="5dp"
         android:layout_marginEnd="20dp"
         android:layout_marginRight="20dp"
-        android:background="#1F000000"
+        android:background="?attr/colorControlHighlight"
         android:paddingBottom="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

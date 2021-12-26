@@ -47,7 +47,7 @@ class FreeRentFragment : Fragment(), KodeinAware {
         super.onViewCreated(view, savedInstanceState)
 
         binding.freeRecycleView.layoutManager = LinearLayoutManager(requireContext())
-        binding.freeRentSearchEntry.addTextChangedListener {
+        binding.searchEditText.addTextChangedListener {
             viewModel.filterFreeNumberList(it.toString())
 
         }

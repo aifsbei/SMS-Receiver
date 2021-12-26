@@ -80,13 +80,7 @@ class FreeRentDetailFragment : Fragment(), KodeinAware {
         setupRecyclerView()
         init_data()
 
-        viewModel.messageList.observe(viewLifecycleOwner) {
-            freeMessageDataAdapter.submitList(it)
-            if (it.isNotEmpty()) {
-                binding.shimmerFreeRentInfoLayout.visibility = View.GONE
-                binding.freeMessagesRecycleView.visibility = View.VISIBLE
-            }
-        }
+        observeViewModel()
 
         binding.refreshButton.setOnClickListener {
             viewModel.initMessageRepository(freeNumberId)
@@ -99,6 +93,22 @@ class FreeRentDetailFragment : Fragment(), KodeinAware {
 
         binding.freeCopyIconInfo.setOnClickListener {
             copyNumber()
+        }
+    }
+
+    private fun observeViewModel() {
+        viewModel.getFactException.observe(viewLifecycleOwner) { e ->
+            if (e != null) {
+                Toast.makeText(requireContext(), "Please, reload this page", Toast.LENGTH_SHORT).show()
+                requireActivity().supportFragmentManager.popBackStack()
+            }
+        }
+        viewModel.messageList.observe(viewLifecycleOwner) {
+            freeMessageDataAdapter.submitList(it)
+            if (it.isNotEmpty()) {
+                binding.shimmerFreeRentInfoLayout.visibility = View.GONE
+                binding.freeMessagesRecycleView.visibility = View.VISIBLE
+            }
         }
     }
 

@@ -6,10 +6,10 @@
     android:layout_height="match_parent"
     tools:context=".presentation.freerent.FreeRentFragment">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/free_rent_search_layout"
+    <org.droidparts.widget.ClearableEditText
+        android:id="@+id/search_edit_text"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_marginStart="25dp"
         android:layout_marginLeft="25dp"
         android:layout_marginTop="25dp"
@@ -18,19 +18,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:startIconDrawable="@drawable/round_search_24"
-        app:endIconMode="clear_text"
-        android:textColorHint="#777777"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        android:hint="Search"
+        android:maxLines="1"
+        android:background="@drawable/edit_text_drawable"
+        android:drawablePadding="10dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:drawableLeft="@drawable/round_search_24"
+        android:drawableRight="@drawable/round_clear_24">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/free_rent_search_entry"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Search"
-            />
-
-    </com.google.android.material.textfield.TextInputLayout>
+    </org.droidparts.widget.ClearableEditText>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/free_recycle_view"
@@ -42,7 +39,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/free_rent_search_layout" />
+        app:layout_constraintTop_toBottomOf="@+id/search_edit_text" />
 
 
     <com.facebook.shimmer.ShimmerFrameLayout
@@ -54,7 +51,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/free_rent_search_layout" >
+        app:layout_constraintTop_toBottomOf="@+id/search_edit_text" >
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

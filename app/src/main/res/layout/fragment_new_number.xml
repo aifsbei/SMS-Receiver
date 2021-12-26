@@ -26,7 +26,7 @@
             android:translationZ="2dp"
             android:visibility="visible"
             android:src="@drawable/round_arrow_back_24"
-            app:tint="@color/black"/>
+            app:tint="?attr/colorOnSecondary"/>
 
         <include layout="@layout/stepper_layout"
             android:layout_width="wrap_content"
@@ -69,7 +69,7 @@
             android:layout_marginTop="18dp"
             android:layout_marginBottom="32dp"
             android:text="Cancel"
-            android:textColor="@color/green"
+            android:textColor="?attr/colorSecondary"
             app:layout_constraintEnd_toStartOf="@id/next_button"
             app:layout_constraintTop_toBottomOf="@id/pager"
             app:layout_constraintBottom_toBottomOf="parent">
@@ -80,7 +80,7 @@
             android:id="@+id/next_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/button_main"
+            android:backgroundTint="?attr/colorSecondary"
             android:layout_marginStart="10dp"
             android:layout_marginTop="18dp"
             android:layout_marginBottom="32dp"

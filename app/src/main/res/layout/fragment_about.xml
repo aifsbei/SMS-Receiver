@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
         android:text="About"
-        android:textColor="@color/black"
+        android:textColor="?attr/colorOnSecondary"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -37,7 +37,6 @@
                 android:id="@+id/settings_cv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
                 app:cardUseCompatPadding="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -47,6 +46,7 @@
                     android:id="@+id/settings_layout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:background="?attr/colorSurface"
                     android:padding="20dp"
                     android:paddingBottom="10dp">
 
@@ -55,7 +55,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="SETTINGS"
-                        android:textColor="#6F000000"
+                        android:textColor="?attr/colorControlNormal"
                         android:textSize="14sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
@@ -68,7 +68,7 @@
                         android:layout_height="1dp"
                         android:layout_marginTop="3dp"
                         android:layout_marginBottom="10dp"
-                        android:background="#6F000000"
+                        android:background="?android:colorControlHighlight"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/settings_label">
@@ -103,7 +103,7 @@
                             android:layout_marginEnd="10dp"
                             android:layout_weight="1"
                             android:text="Dark Theme"
-                            android:textColor="@color/black"
+                            android:textColor="?attr/colorOnSecondary"
                             android:textSize="21sp">
 
                         </TextView>
@@ -114,6 +114,7 @@
                             android:layout_height="match_parent"
                             android:layout_gravity="center_vertical"
                             android:layout_weight="0"
+                            android:theme="@style/SwitchStyle"
                             android:checked="false">
 
                         </com.google.android.material.switchmaterial.SwitchMaterial>
@@ -147,7 +148,7 @@
                             android:layout_marginEnd="10dp"
                             android:layout_weight="1"
                             android:text="Copy prefix"
-                            android:textColor="@color/black"
+                            android:textColor="?attr/colorOnSecondary"
                             android:textSize="21sp">
 
                         </TextView>
@@ -158,6 +159,8 @@
                             android:layout_height="match_parent"
                             android:layout_gravity="center_vertical"
                             android:layout_weight="0"
+                            android:theme="@style/SwitchStyle"
+
                             android:checked="false">
 
                         </com.google.android.material.switchmaterial.SwitchMaterial>
@@ -181,6 +184,7 @@
                     android:id="@+id/about_layout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:background="?attr/colorSurface"
                     android:padding="20dp"
                     android:paddingBottom="10dp">
 
@@ -189,7 +193,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="ABOUT"
-                        android:textColor="#6F000000"
+                        android:textColor="?colorControlNormal"
                         android:textSize="14sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
@@ -201,7 +205,7 @@
                         android:layout_width="0dp"
                         android:layout_height="1dp"
                         android:layout_marginTop="3dp"
-                        android:background="#6F000000"
+                        android:background="?colorControlHighlight"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/about_label">
@@ -236,7 +240,7 @@
                             android:layout_marginEnd="10dp"
                             android:layout_weight="1"
                             android:text="How to use"
-                            android:textColor="@color/black"
+                            android:textColor="?attr/colorOnSecondary"
                             android:textSize="21sp">
 
                         </TextView>
@@ -246,7 +250,7 @@
                             android:layout_width="32dp"
                             android:layout_height="32dp"
                             android:src="@drawable/round_chevron_right_24"
-                            app:tint="#AEAEAE" />
+                            app:tint="?attr/colorControlNormal" />
 
                     </LinearLayout>
 
@@ -277,7 +281,7 @@
                             android:layout_marginEnd="10dp"
                             android:layout_weight="1"
                             android:text="Contact us"
-                            android:textColor="@color/black"
+                            android:textColor="?attr/colorOnSecondary"
                             android:textSize="21sp">
 
                         </TextView>
@@ -286,7 +290,7 @@
                             android:layout_width="32dp"
                             android:layout_height="32dp"
                             android:src="@drawable/round_chevron_right_24"
-                            app:tint="#AEAEAE" />
+                            app:tint="?attr/colorControlNormal" />
 
                     </LinearLayout>
 
@@ -317,7 +321,7 @@
                             android:layout_marginEnd="10dp"
                             android:layout_weight="1"
                             android:text="Rate this app"
-                            android:textColor="@color/black"
+                            android:textColor="?attr/colorOnSecondary"
                             android:textSize="21sp">
 
                         </TextView>
@@ -326,7 +330,7 @@
                             android:layout_width="32dp"
                             android:layout_height="32dp"
                             android:src="@drawable/round_chevron_right_24"
-                            app:tint="#AEAEAE" />
+                            app:tint="?attr/colorControlNormal" />
 
                     </LinearLayout>
 
@@ -357,7 +361,7 @@
                             android:layout_marginEnd="10dp"
                             android:layout_weight="1"
                             android:text="Report a bug"
-                            android:textColor="@color/black"
+                            android:textColor="?attr/colorOnSecondary"
                             android:textSize="21sp">
 
                         </TextView>
@@ -366,7 +370,7 @@
                             android:layout_width="32dp"
                             android:layout_height="32dp"
                             android:src="@drawable/round_chevron_right_24"
-                            app:tint="#AEAEAE" />
+                            app:tint="?attr/colorControlNormal" />
 
                     </LinearLayout>
 
