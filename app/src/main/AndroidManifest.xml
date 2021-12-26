@@ -17,7 +17,8 @@
         android:usesCleartextTraffic="true">
         <activity
             android:name=".presentation.MainActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustNothing" />
         <activity
             android:name=".presentation.MainActivityFree"
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"

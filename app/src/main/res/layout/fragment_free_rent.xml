@@ -19,6 +19,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:hint="Search"
+        android:inputType="text"
+        android:imeOptions="actionDone"
         android:maxLines="1"
         android:background="@drawable/edit_text_drawable"
         android:drawablePadding="10dp"
