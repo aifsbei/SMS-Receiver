@@ -219,6 +219,9 @@
                         android:layout_marginTop="10dp"
                         android:paddingTop="15dp"
                         android:paddingBottom="15dp"
+                        android:background="@drawable/ripple_settings_item"
+                        android:clickable="true"
+                        android:focusable="true"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/about_separator">
@@ -260,6 +263,9 @@
                         android:layout_height="wrap_content"
                         android:paddingTop="15dp"
                         android:paddingBottom="15dp"
+                        android:background="@drawable/ripple_settings_item"
+                        android:clickable="true"
+                        android:focusable="true"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/how_to_use_layout">
@@ -300,6 +306,9 @@
                         android:layout_height="wrap_content"
                         android:paddingTop="15dp"
                         android:paddingBottom="15dp"
+                        android:background="@drawable/ripple_settings_item"
+                        android:clickable="true"
+                        android:focusable="true"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/contact_layout">
@@ -340,6 +349,9 @@
                         android:layout_height="wrap_content"
                         android:paddingTop="15dp"
                         android:paddingBottom="15dp"
+                        android:background="@drawable/ripple_settings_item"
+                        android:clickable="true"
+                        android:focusable="true"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/rate_layout">

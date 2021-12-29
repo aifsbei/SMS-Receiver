@@ -35,7 +35,7 @@
                     android:layout_marginTop="5dp"
                     android:background="?attr/colorControlHighlight"
                     android:text="HEADER NAME"
-                    android:textColor="?attr/colorControlHighlight"
+                    android:textColor="@color/transparent"
                     android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -83,7 +83,7 @@
                     android:paddingStart="8dp"
                     android:paddingEnd="8dp"
                     android:text="5 минут назад"
-                    android:textColor="?attr/colorControlHighlight"
+                    android:textColor="@color/transparent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/free_message_header_shimmer" />
 

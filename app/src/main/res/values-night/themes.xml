@@ -34,6 +34,9 @@
 
         <item name="android:windowBackground">@color/windowBackground</item>
 
+        <item name="itemRippleColor">@color/ripple_material_dark</item>
+
+
 
 
     </style>

@@ -38,6 +38,10 @@ class SettingsPreferenceProvider(context: Context) {
         )
     }
 
+    fun isThemeSet(): Boolean {
+        return preference.contains(KEY_DARK_THEME_ENABLED)
+    }
+
     companion object {
         const val SETTINGS_PREFERENCES = "settingsprefs"
         const val KEY_DARK_THEME_ENABLED = "keyDarkThemeEnabled"

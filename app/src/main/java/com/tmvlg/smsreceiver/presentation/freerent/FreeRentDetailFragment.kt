@@ -14,6 +14,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.ColorUtils
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.palette.graphics.Palette
@@ -22,9 +23,12 @@ import com.tmvlg.smsreceiver.R
 import com.tmvlg.smsreceiver.databinding.FragmentFreeRentDetailBinding
 import com.tmvlg.smsreceiver.domain.freenumber.FreeNumber
 import com.tmvlg.smsreceiver.presentation.freerent.freemessagelist.FreeMessageDataAdapter
+import com.tmvlg.smsreceiver.util.calculateAverageColor
+import com.tmvlg.smsreceiver.util.getBitmap
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
 import org.kodein.di.generic.instance
+import kotlin.reflect.typeOf
 
 class FreeRentDetailFragment : Fragment(), KodeinAware {
     var baseColor = 0
@@ -97,9 +101,10 @@ class FreeRentDetailFragment : Fragment(), KodeinAware {
     }
 
     private fun observeViewModel() {
-        viewModel.getFactException.observe(viewLifecycleOwner) { e ->
+        viewModel.getFreeNumberException.observe(viewLifecycleOwner) { e ->
             if (e != null) {
-                Toast.makeText(requireContext(), "Please, reload this page", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Please, reload this page", Toast.LENGTH_SHORT)
+                    .show()
                 requireActivity().supportFragmentManager.popBackStack()
             }
         }
@@ -139,7 +144,7 @@ class FreeRentDetailFragment : Fragment(), KodeinAware {
 
 
     fun init_data() {
-        val freeNumber = viewModel.getFreeNumber(freeNumberId)
+        val freeNumber = viewModel.getFreeNumber(freeNumberId) ?: return
         call_number_extended = freeNumber.call_number
         call_number_extended = call_number_extended!!.replace("-", "");
         call_number_extended = call_number_extended!!.replace(" ", "");
@@ -149,24 +154,37 @@ class FreeRentDetailFragment : Fragment(), KodeinAware {
             "xml",
             requireActivity().packageName
         )
-        val srcBitmap = getBitmap(flag_resID)
-        baseColor = ContextCompat.getColor(requireContext(), R.color.design_default_color_background)
-        textColor = ContextCompat.getColor(requireContext(), R.color.design_default_color_secondary_variant)
+        val srcBitmap = requireContext().getBitmap(flag_resID)
+        baseColor =
+            ContextCompat.getColor(requireContext(), R.color.design_default_color_background)
+        textColor =
+            ContextCompat.getColor(requireContext(), R.color.design_default_color_secondary_variant)
+
+        val darkMode = viewModel.isDarkTheme()
 
         val palette = Palette.from(srcBitmap).generate()
-        val vibrantSwatch = palette.dominantSwatch
-            ?: palette.vibrantSwatch
-//            ?: palette.dominantSwatch
-            ?: palette.lightMutedSwatch
-            ?: palette.lightVibrantSwatch
-            ?: palette.darkMutedSwatch
-            ?: palette.darkVibrantSwatch
-            ?: palette.mutedSwatch
-        if (vibrantSwatch != null) {
-            baseColor = vibrantSwatch.rgb
-            textColor = vibrantSwatch.titleTextColor
-            Log.d(TAG, "baseColor = $baseColor")
-            Log.d(TAG, "textColor = $textColor")
+        val baseColor: Int = if (darkMode) {
+            palette.lightVibrantSwatch?.rgb ?: ColorUtils.blendARGB(
+                palette.vibrantSwatch?.rgb
+                    ?: palette.lightMutedSwatch?.rgb
+                    ?: palette.mutedSwatch?.rgb
+                    ?: palette.darkVibrantSwatch?.rgb
+                    ?: palette.darkMutedSwatch?.rgb
+                    ?: palette.dominantSwatch?.rgb
+                    ?: Color.BLACK,
+                Color.WHITE,
+                0.5F
+            )
+        } else {
+            palette.dominantSwatch?.rgb
+                ?: palette.vibrantSwatch?.rgb
+//            ?: palette.dominantSwatch?.rgb
+                ?: palette.lightMutedSwatch?.rgb
+                ?: palette.lightVibrantSwatch?.rgb
+                ?: palette.darkMutedSwatch?.rgb
+                ?: palette.darkVibrantSwatch?.rgb
+                ?: palette.mutedSwatch?.rgb
+                ?: Color.GRAY
         }
 
 
@@ -202,26 +220,17 @@ class FreeRentDetailFragment : Fragment(), KodeinAware {
     }
 
     fun copyNumber() {
+        val clipData = if (viewModel.doCopyPrefix()) {
+            binding.freeCallPrefixInfo.text.toString() + binding.freeCallNumberInfo.text.toString()
+        } else {
+            binding.freeCallNumberInfo.text
+        }
         val clipboard = requireActivity().getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
-        val clip = ClipData.newPlainText("Clipboard", call_number_extended)
+        val clip = ClipData.newPlainText("Clipboard", clipData)
         clipboard.setPrimaryClip(clip)
         Toast.makeText(requireContext(), "Successfuly copied!", Toast.LENGTH_SHORT).show()
     }
 
-    private fun getBitmap(drawableRes: Int): Bitmap {
-        val drawable = resources.getDrawable(drawableRes)
-        val canvas = Canvas()
-        val bitmap = Bitmap.createBitmap(
-            drawable.intrinsicWidth,
-            drawable.intrinsicHeight,
-            Bitmap.Config.ARGB_8888
-        )
-        canvas.setBitmap(bitmap)
-        drawable.setBounds(0, 0, drawable.intrinsicWidth, drawable.intrinsicHeight)
-        drawable.draw(canvas)
-
-        return bitmap
-    }
 
     companion object {
         private const val TAG = "1"

@@ -40,6 +40,8 @@
 
         <item name="colorControlHighlight">@color/shimmer_color</item>
 
+        <item name="itemRippleColor">@color/ripple_material_light</item>
+
         <item name="android:windowBackground">@color/white</item>
 
 

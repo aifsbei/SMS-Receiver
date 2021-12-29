@@ -39,6 +39,10 @@ class SMSReceiverApplication: Application(), KodeinAware {
         bind<ConnectivityInterceptor>() with singleton { ConnectivityInterceptorImpl(instance()) }
         bind() from singleton { OnlineSimApiServiceOld(instance()) }
 
+        bind() from singleton { SettingsPreferenceProvider(instance()) }
+        bind<SettingsRepository>() with singleton { SettingsRepositoryImpl(instance()) }
+        bind() from provider { AboutViewModelFactory(instance()) }
+
         bind<NumberForRentRepository>() with singleton { NumberForRentRepositoryImpl(instance()) }
         bind() from provider { RentNumberViewModelFactory(instance()) }
         bind() from provider { SearchCountryViewModelFactory(instance()) }
@@ -47,13 +51,10 @@ class SMSReceiverApplication: Application(), KodeinAware {
         bind() from provider { FreeRentViewModelFactory(instance()) }
 
         bind<FreeMessageRepository>() with singleton { FreeMessageRepositoryImpl }
-        bind() from provider { FreeRentDetailViewModelFactory(instance(), instance()) }
+        bind() from provider { FreeRentDetailViewModelFactory(instance(), instance(), instance()) }
 
         bind<SearchCountryRepository>() with singleton { SearchCountryRepositoryImpl }
 
-        bind() from singleton { SettingsPreferenceProvider(instance()) }
-        bind<SettingsRepository>() with singleton { SettingsRepositoryImpl(instance()) }
-        bind() from provider { AboutViewModelFactory(instance()) }
     }
 
 }

@@ -56,6 +56,7 @@
                     android:translationZ="2dp"
                     android:visibility="visible"
                     android:src="@drawable/round_arrow_back_24"
+                    android:background="@drawable/ripple_circle"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 

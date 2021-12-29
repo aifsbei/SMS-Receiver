@@ -12,6 +12,7 @@ import com.tmvlg.smsreceiver.R
 import com.tmvlg.smsreceiver.data.preferences.SettingsPreferenceProvider
 import com.tmvlg.smsreceiver.presentation.about.AboutFragment
 import com.tmvlg.smsreceiver.presentation.freerent.FreeRentFragment
+import com.tmvlg.smsreceiver.util.isDarkThemeOn
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.closestKodein
@@ -29,10 +30,19 @@ class MainActivityFree : AppCompatActivity(), BottomNavigationView.OnNavigationI
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
+        val themeSet = settingsPreferenceProvider.isThemeSet()
+
+        if (!themeSet) {
+            val isSystemThemeDark = this.isDarkThemeOn()
+            settingsPreferenceProvider.saveSettings(isSystemThemeDark, null)
+        }
+
         val darkMode = settingsPreferenceProvider.getSettings().get(SettingsPreferenceProvider.KEY_DARK_THEME_ENABLED) ?: false
 
         if (darkMode)
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        else
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
         super.onCreate(savedInstanceState)
 

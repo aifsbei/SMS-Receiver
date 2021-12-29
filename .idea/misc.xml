@@ -12,6 +12,8 @@
         <entry key="..\:/Users/aifsb/AndroidStudioProjects/SMSReceiver/app/src/main/res/drawable/ic_launcher_background.xml" value="0.3828125" />
         <entry key="..\:/Users/aifsb/AndroidStudioProjects/SMSReceiver/app/src/main/res/drawable/item_selected.xml" value="0.22239583333333332" />
         <entry key="..\:/Users/aifsb/AndroidStudioProjects/SMSReceiver/app/src/main/res/drawable/outline_content_copy_24.xml" value="0.22239583333333332" />
+        <entry key="..\:/Users/aifsb/AndroidStudioProjects/SMSReceiver/app/src/main/res/drawable/ripple_circle.xml" value="0.22135416666666666" />
+        <entry key="..\:/Users/aifsb/AndroidStudioProjects/SMSReceiver/app/src/main/res/drawable/ripple_settings_item.xml" value="0.3828125" />
         <entry key="..\:/Users/aifsb/AndroidStudioProjects/SMSReceiver/app/src/main/res/drawable/round_account_balance_wallet_24.xml" value="0.22239583333333332" />
         <entry key="..\:/Users/aifsb/AndroidStudioProjects/SMSReceiver/app/src/main/res/drawable/round_add_24.xml" value="0.22239583333333332" />
         <entry key="..\:/Users/aifsb/AndroidStudioProjects/SMSReceiver/app/src/main/res/drawable/round_arrow_back_24.xml" value="0.3310810810810811" />
@@ -42,7 +44,7 @@
         <entry key="..\:/Users/aifsb/AndroidStudioProjects/SMSReceiver/app/src/main/res/layout/activity_main_free.xml" value="0.33" />
         <entry key="..\:/Users/aifsb/AndroidStudioProjects/SMSReceiver/app/src/main/res/layout/fragment_about.xml" value="0.22" />
         <entry key="..\:/Users/aifsb/AndroidStudioProjects/SMSReceiver/app/src/main/res/layout/fragment_free_rent.xml" value="0.20520833333333333" />
-        <entry key="..\:/Users/aifsb/AndroidStudioProjects/SMSReceiver/app/src/main/res/layout/fragment_free_rent_detail.xml" value="0.32637923041261013" />
+        <entry key="..\:/Users/aifsb/AndroidStudioProjects/SMSReceiver/app/src/main/res/layout/fragment_free_rent_detail.xml" value="0.2350835322195704" />
         <entry key="..\:/Users/aifsb/AndroidStudioProjects/SMSReceiver/app/src/main/res/layout/fragment_new_number.xml" value="0.22" />
         <entry key="..\:/Users/aifsb/AndroidStudioProjects/SMSReceiver/app/src/main/res/layout/fragment_pay_for_number.xml" value="0.20104166666666667" />
         <entry key="..\:/Users/aifsb/AndroidStudioProjects/SMSReceiver/app/src/main/res/layout/fragment_profile.xml" value="0.20520833333333333" />
