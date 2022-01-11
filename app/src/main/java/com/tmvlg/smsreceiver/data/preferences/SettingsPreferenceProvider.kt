@@ -42,9 +42,27 @@ class SettingsPreferenceProvider(context: Context) {
         return preference.contains(KEY_DARK_THEME_ENABLED)
     }
 
+    fun saveHowToUseState(state: Boolean) {
+        preference.edit().putBoolean(
+            KEY_HOW_TO_USE_STATE,
+            state
+        ).apply()
+    }
+
+    fun getHowToUseState(): Boolean {
+        val state = preference.getBoolean(
+            KEY_HOW_TO_USE_STATE,
+            false
+        )
+        return state
+    }
+
     companion object {
         const val SETTINGS_PREFERENCES = "settingsprefs"
         const val KEY_DARK_THEME_ENABLED = "keyDarkThemeEnabled"
         const val KEY_COPY_PREFIX_ENABLED = "keyCopyPrefixEnabled"
+        const val KEY_HOW_TO_USE_STATE = "keyHowToUseState"
+        const val STATE_SHOWN = true
+        const val STATE_NOT_SHOWN = false
     }
 }

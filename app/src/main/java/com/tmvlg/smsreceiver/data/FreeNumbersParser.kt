@@ -8,10 +8,7 @@ import com.tmvlg.smsreceiver.data.network.freenumbersapi.onlinesimfree.models.Me
 import com.tmvlg.smsreceiver.data.network.freenumbersapi.onlinesimfree.models.NumbersResponse
 import com.tmvlg.smsreceiver.domain.freemessage.FreeMessage
 import com.tmvlg.smsreceiver.domain.freenumber.FreeNumber
-import com.tmvlg.smsreceiver.util.getCountryCodeByName
-import com.tmvlg.smsreceiver.util.getCountryCodeByNumber
-import com.tmvlg.smsreceiver.util.getCountryNameByCode
-import com.tmvlg.smsreceiver.util.getPrefixByCountryCode
+import com.tmvlg.smsreceiver.util.*
 import org.json.simple.parser.ParseException
 import org.jsoup.Jsoup
 import retrofit2.Response
@@ -261,8 +258,7 @@ class FreeNumbersParser {
             for (i in numbers.indices) {
                 if (numberType[i].text() == "premium") {
                     continue
-                }
-                else {
+                } else {
                     val code = getCountryCodeByName(countries[i].text()) ?: continue
                     val prefix = getPrefixByCountryCode(code) ?: continue
                     val free_number = FreeNumber(
@@ -319,6 +315,9 @@ class FreeNumbersParser {
         parse_5()
         add_countrynames_to_list()
         sort_numbers()
+        for (number in numbersList) {
+            Log.d(TAG, "parse_numbers: $number")
+        }
     }
 
     @Throws(MalformedURLException::class, ParseException::class)
@@ -359,9 +358,9 @@ class FreeNumbersParser {
     }
 
     fun sort_numbers() {
-        Collections.sort(numbersList) { o1, o2 ->
+        numbersList.sortWith { o1, o2 ->
             val comparision = o1.counrty_name.compareTo(o2.counrty_name)
-            Integer.compare(comparision, 0)
+            comparision.compareTo(0)
         }
     }
 
@@ -369,12 +368,12 @@ class FreeNumbersParser {
         if (numbersList.isEmpty())
             return
         var countryName = ""
-        var tempNumberList = mutableListOf<FreeNumber>()
+        val tempNumberList = mutableListOf<FreeNumber>()
         for (item in numbersList) {
             val new_countryName = item.counrty_name
             val new_call_number_prefix = item.call_number_prefix
             val new_country_code = item.country_code
-            if (!new_countryName.equals(countryName)) {
+            if (new_countryName != countryName) {
                 val free_number = FreeNumber(
                     call_number = "",
                     call_number_prefix = new_call_number_prefix,
@@ -384,7 +383,7 @@ class FreeNumbersParser {
                     icon_path = "",
                     type = FreeNumber.HEADER_TYPE
                 )
-                if (!tempNumberList.contains(free_number)) {
+                if (!tempNumberList.containsCountryName(free_number.counrty_name)) {
                     tempNumberList.add(free_number)
                     countryName = new_countryName
                 }
@@ -403,7 +402,6 @@ class FreeNumbersParser {
             )
         }
     }
-
 
 
     companion object {

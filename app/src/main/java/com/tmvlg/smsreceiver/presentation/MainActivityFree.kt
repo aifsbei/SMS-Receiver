@@ -1,5 +1,6 @@
 package com.tmvlg.smsreceiver.presentation
 
+import android.content.Intent
 import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -12,6 +13,7 @@ import com.tmvlg.smsreceiver.R
 import com.tmvlg.smsreceiver.data.preferences.SettingsPreferenceProvider
 import com.tmvlg.smsreceiver.presentation.about.AboutFragment
 import com.tmvlg.smsreceiver.presentation.freerent.FreeRentFragment
+import com.tmvlg.smsreceiver.presentation.howtouse.HowToUseActivity
 import com.tmvlg.smsreceiver.util.isDarkThemeOn
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
@@ -30,19 +32,7 @@ class MainActivityFree : AppCompatActivity(), BottomNavigationView.OnNavigationI
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
-        val themeSet = settingsPreferenceProvider.isThemeSet()
-
-        if (!themeSet) {
-            val isSystemThemeDark = this.isDarkThemeOn()
-            settingsPreferenceProvider.saveSettings(isSystemThemeDark, null)
-        }
-
-        val darkMode = settingsPreferenceProvider.getSettings().get(SettingsPreferenceProvider.KEY_DARK_THEME_ENABLED) ?: false
-
-        if (darkMode)
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-        else
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        preSetTheme()
 
         super.onCreate(savedInstanceState)
 
@@ -60,10 +50,19 @@ class MainActivityFree : AppCompatActivity(), BottomNavigationView.OnNavigationI
             return
         }
 
-        val fade = Fade()
-        window.enterTransition = fade
-        window.exitTransition = fade
+        setupFade()
         bottomNavigationView.setSelectedItemId(R.id.navigation_free_rent)
+
+    }
+
+    override fun onStart() {
+        super.onStart()
+        if (settingsPreferenceProvider.getHowToUseState() == SettingsPreferenceProvider.STATE_NOT_SHOWN) {
+            settingsPreferenceProvider.saveHowToUseState(SettingsPreferenceProvider.STATE_SHOWN)
+            val intent = Intent(this, HowToUseActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+            startActivity(intent)
+        }
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -84,6 +83,28 @@ class MainActivityFree : AppCompatActivity(), BottomNavigationView.OnNavigationI
         super.onSaveInstanceState(outState)
         val currentNightMode = nightMode
         outState.putInt("theme", currentNightMode?:-100)
+    }
+
+    private fun preSetTheme() {
+        val themeSet = settingsPreferenceProvider.isThemeSet()
+
+        if (!themeSet) {
+            val isSystemThemeDark = this.isDarkThemeOn()
+            settingsPreferenceProvider.saveSettings(isSystemThemeDark, null)
+        }
+
+        val darkMode = settingsPreferenceProvider.getSettings().get(SettingsPreferenceProvider.KEY_DARK_THEME_ENABLED) ?: false
+
+        if (darkMode)
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        else
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+    }
+
+    private fun setupFade() {
+        val fade = Fade()
+        window.enterTransition = fade
+        window.exitTransition = fade
     }
 
 }

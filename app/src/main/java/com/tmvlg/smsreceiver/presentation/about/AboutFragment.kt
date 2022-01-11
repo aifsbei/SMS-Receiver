@@ -1,6 +1,7 @@
 package com.tmvlg.smsreceiver.presentation.about
 
 import android.content.Intent
+import android.net.Uri
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.util.Log
@@ -14,6 +15,8 @@ import com.tmvlg.smsreceiver.data.preferences.SettingsPreferenceProvider
 import com.tmvlg.smsreceiver.databinding.FragmentAboutBinding
 import com.tmvlg.smsreceiver.presentation.MainActivity
 import com.tmvlg.smsreceiver.presentation.MainActivityFree
+import com.tmvlg.smsreceiver.presentation.howtouse.HowToUseActivity
+import com.tmvlg.smsreceiver.presentation.howtouse.HowToUseFragment
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
@@ -52,6 +55,24 @@ class AboutFragment : Fragment(), KodeinAware {
         observeViewModel()
 
         viewModel.loadSettings()
+
+        binding.contactLayout.setOnClickListener {
+            val emailIntent = Intent(Intent.ACTION_SENDTO, Uri.fromParts(
+                "mailto", "d4nila.leskov@yandex.ru", null
+            ))
+            emailIntent.putExtra(Intent.EXTRA_SUBJECT, "SMS Receiver")
+            startActivity(Intent.createChooser(emailIntent, "Select app to contact us"))
+        }
+
+        binding.rateLayout.setOnClickListener {
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=PackageName")))
+        }
+        binding.howToUseLayout.setOnClickListener {
+            val intent = Intent(requireActivity(), HowToUseActivity::class.java)
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent)
+        }
+
     }
 
     private fun observeViewModel() {

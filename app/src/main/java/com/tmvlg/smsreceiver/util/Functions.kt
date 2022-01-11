@@ -10,6 +10,7 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
 import android.util.Log
+import com.tmvlg.smsreceiver.domain.freenumber.FreeNumber
 
 
 fun Context.isDarkThemeOn(): Boolean {
@@ -79,4 +80,12 @@ fun Context.getBitmap(drawableRes: Int): Bitmap {
     drawable.draw(canvas)
 
     return bitmap
+}
+
+fun List<FreeNumber>.containsCountryName(countryName: String): Boolean {
+    this.forEach {
+        if (it.counrty_name == countryName)
+            return true
+    }
+    return false
 }

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".presentation.rent.newnumber.NewNumberFragment"
+    android:background="?attr/colorOnSurface">
+
+
+
+    <ImageView
+        android:id="@+id/cancel_button"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginTop="25dp"
+        android:elevation="2dp"
+        android:translationZ="2dp"
+        android:visibility="visible"
+        android:src="@drawable/round_clear_24"
+        app:tint="?attr/colorOnSecondary"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/next_button"
+        app:layout_constraintTop_toBottomOf="@id/cancel_button">
+
+    </androidx.viewpager2.widget.ViewPager2>
+
+
+    <include
+        android:id="@+id/stepper"
+        layout="@layout/stepper_small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        app:layout_constraintBottom_toBottomOf="@+id/next_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/next_button" />
+
+
+<!--    <ImageView-->
+<!--        android:id="@+id/next_button"-->
+<!--        android:layout_width="32dp"-->
+<!--        android:layout_height="32dp"-->
+<!--        android:backgroundTint="?attr/colorSecondary"-->
+<!--        android:layout_marginStart="10dp"-->
+<!--        android:layout_marginTop="18dp"-->
+<!--        android:layout_marginBottom="32dp"-->
+<!--        android:layout_marginEnd="25dp"-->
+<!--        android:background="@drawable/round_chevron_right_24"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/pager"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent">-->
+
+<!--    </ImageView>-->
+
+
+    <Button
+        android:id="@+id/next_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginBottom="32dp"
+        android:layout_marginEnd="10dp"
+        android:text="NEXT"
+        android:textColor="?attr/colorSecondary"
+        android:drawableRight="@drawable/round_chevron_right_24"
+        android:drawableTint="?attr/colorSecondary"
+        android:background="?android:attr/selectableItemBackground"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/pager"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+    </Button>
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

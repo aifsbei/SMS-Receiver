@@ -181,7 +181,7 @@
                 app:layout_constraintTop_toBottomOf="@id/settings_cv">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/about_layout"
+                    android:id="@+id/other_layout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="?attr/colorSurface"
@@ -189,10 +189,10 @@
                     android:paddingBottom="10dp">
 
                     <TextView
-                        android:id="@+id/about_label"
+                        android:id="@+id/other_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="ABOUT"
+                        android:text="OTHER"
                         android:textColor="?colorControlNormal"
                         android:textSize="14sp"
                         app:layout_constraintStart_toStartOf="parent"
@@ -208,7 +208,7 @@
                         android:background="?colorControlHighlight"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/about_label">
+                        app:layout_constraintTop_toBottomOf="@id/other_label">
 
                     </View>
 
@@ -330,49 +330,6 @@
                             android:layout_marginEnd="10dp"
                             android:layout_weight="1"
                             android:text="Rate this app"
-                            android:textColor="?attr/colorOnSecondary"
-                            android:textSize="21sp">
-
-                        </TextView>
-
-                        <ImageView
-                            android:layout_width="32dp"
-                            android:layout_height="32dp"
-                            android:src="@drawable/round_chevron_right_24"
-                            app:tint="?attr/colorControlNormal" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/report_a_bug_layout"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="15dp"
-                        android:paddingBottom="15dp"
-                        android:background="@drawable/ripple_settings_item"
-                        android:clickable="true"
-                        android:focusable="true"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/rate_layout">
-
-                        <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:layout_gravity="center_vertical"
-                            android:layout_weight="0"
-                            android:src="@drawable/round_bug_report_24">
-
-                        </ImageView>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginEnd="10dp"
-                            android:layout_weight="1"
-                            android:text="Report a bug"
                             android:textColor="?attr/colorOnSecondary"
                             android:textSize="21sp">
 

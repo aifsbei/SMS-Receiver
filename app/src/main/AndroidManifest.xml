@@ -16,6 +16,9 @@
         android:theme="@style/Theme.SMSReceiver"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".presentation.howtouse.HowToUseActivity"
+            android:exported="false" />
+        <activity
             android:name=".presentation.MainActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustNothing" />
