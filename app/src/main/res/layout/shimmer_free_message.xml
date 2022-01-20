@@ -57,7 +57,7 @@
                         android:layout_marginEnd="50dp"
                         android:layout_marginBottom="15dp"
                         android:background="?attr/colorControlHighlight"
-                        android:textColor="?attr/colorControlHighlight" />
+                        android:textColor="@color/transparent" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -65,7 +65,7 @@
                         android:layout_marginStart="15dp"
                         android:layout_marginEnd="225dp"
                         android:layout_marginBottom="15dp"
-                        android:textColor="?attr/colorControlHighlight"
+                        android:textColor="@color/transparent"
                         android:background="?attr/colorControlHighlight"/>
 
 

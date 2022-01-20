@@ -18,6 +18,8 @@
         <item name="colorSurface">@color/colorSurface</item>
         <item name="colorOnSurface">@color/windowBackground</item>
 
+        <item name="colorOnPrimarySurface">@color/windowBackground</item>
+
         <item name="customColorValue">@color/colorSurface</item>
 
 
@@ -46,6 +48,12 @@
         <item name="android:textColorPrimary">@android:color/transparent</item>
         <item name="colorOnPrimary">@android:color/transparent</item>
         <item name="contentScrim">@android:color/transparent</item>
+        <item name="customColorValue">@color/colorSurface</item>
+        <item name="colorSecondary">@color/secondaryColor</item>
+        <item name="colorSecondaryVariant">@color/red</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <item name="colorControlNormal">#d0d0d0</item>
+        <item name="colorOnSurface">@color/windowBackground</item>
 
     </style>
 

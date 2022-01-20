@@ -69,8 +69,82 @@
             <include layout="@layout/shimmer_free_number"></include>
             <include layout="@layout/shimmer_free_number"></include>
             <include layout="@layout/shimmer_free_number"></include>
+            <include layout="@layout/shimmer_free_number_header"></include>
+            <include layout="@layout/shimmer_free_number"></include>
+            <include layout="@layout/shimmer_free_number"></include>
+            <include layout="@layout/shimmer_free_number"></include>
 
         </LinearLayout>
     </com.facebook.shimmer.ShimmerFrameLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/no_connection_layout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/search_edit_text"
+        app:layout_constraintStart_toStartOf="@id/search_edit_text"
+        app:layout_constraintTop_toBottomOf="@+id/search_edit_text">
+
+        <ImageView
+            android:id="@+id/globe_icon"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:src="@drawable/round_public_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.150" />
+
+        <ImageView
+            android:id="@+id/error_on_globe_icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/round_error_24"
+            app:tint="?attr/colorSecondaryVariant"
+            app:layout_constraintBottom_toBottomOf="@+id/globe_icon"
+            app:layout_constraintEnd_toEndOf="@+id/globe_icon" />
+
+        <TextView
+            android:id="@+id/no_connection_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="No Internet connection!"
+            android:textSize="24dp"
+            android:textColor="?attr/colorOnSecondary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/globe_icon" />
+
+        <TextView
+            android:id="@+id/no_connection_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="Turn on Wi-Fi or Cellular data and then reload this page"
+            android:textAlignment="center"
+            android:textSize="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/no_connection_title">
+
+        </TextView>
+
+        <Button
+            android:id="@+id/reload_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:text="Click here to Reload"
+            android:textColor="?attr/colorSecondary"
+            android:backgroundTint="?attr/customColorValue"
+            app:layout_constraintEnd_toEndOf="@+id/no_connection_description"
+            app:layout_constraintStart_toStartOf="@+id/no_connection_description"
+            app:layout_constraintTop_toBottomOf="@+id/no_connection_description" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

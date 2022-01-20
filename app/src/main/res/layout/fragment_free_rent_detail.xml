@@ -26,7 +26,9 @@
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/Theme.MyThemeOverlay_Toolbar">
+        android:theme="@style/Theme.MyThemeOverlay_Toolbar"
+        android:background="?attr/colorSurface"
+        app:elevation="0dp">
 
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
@@ -42,6 +44,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="?attr/colorOnSurface"
                 app:layout_collapseMode="parallax">
 
 
@@ -170,7 +173,6 @@
                     android:id="@+id/free_copy_text_info"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
                     android:elevation="2dp"
                     android:text="Copy"
                     android:textColor="#FFFFFF"
@@ -229,11 +231,11 @@
                     android:id="@+id/shimmer_free_rent_info_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:visibility="visible"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/free_country_flag"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     tools:ignore="MissingConstraints">
 
                     <LinearLayout
@@ -244,13 +246,6 @@
                         <!--add  several shimmer placeholder layout -->
 
                         <include layout="@layout/shimmer_free_message"></include>
-
-                        <include layout="@layout/shimmer_free_message"></include>
-
-                        <include layout="@layout/shimmer_free_message"></include>
-
-                        <include layout="@layout/shimmer_free_message"></include>
-
                         <include layout="@layout/shimmer_free_message"></include>
                         <include layout="@layout/shimmer_free_message"></include>
                         <include layout="@layout/shimmer_free_message"></include>
@@ -259,13 +254,74 @@
                         <include layout="@layout/shimmer_free_message"></include>
                         <include layout="@layout/shimmer_free_message"></include>
                         <include layout="@layout/shimmer_free_message"></include>
-
                         <include layout="@layout/shimmer_free_message"></include>
-
+                        <include layout="@layout/shimmer_free_message"></include>
+                        <include layout="@layout/shimmer_free_message"></include>
+                        <include layout="@layout/shimmer_free_message"></include>
                         <include layout="@layout/shimmer_free_message"></include>
 
                     </LinearLayout>
                 </com.facebook.shimmer.ShimmerFrameLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/no_connection_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:background="?attr/colorOnSurface"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginEnd="25dp"
+                    android:layout_marginTop="50dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/free_country_flag">
+
+                    <ImageView
+                        android:id="@+id/globe_icon"
+                        android:layout_width="72dp"
+                        android:layout_height="72dp"
+                        android:src="@drawable/round_public_24"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                    <ImageView
+                        android:id="@+id/error_on_globe_icon"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/round_error_24"
+                        app:tint="?attr/colorSecondaryVariant"
+                        app:layout_constraintBottom_toBottomOf="@+id/globe_icon"
+                        app:layout_constraintEnd_toEndOf="@+id/globe_icon" />
+
+                    <TextView
+                        android:id="@+id/no_connection_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:text="No Internet connection!"
+                        android:textSize="24dp"
+                        android:textColor="?attr/colorOnSecondary"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/globe_icon" />
+
+                    <TextView
+                        android:id="@+id/no_connection_description"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:text="Turn on Wi-Fi or Cellular data and click refresh button"
+                        android:textAlignment="center"
+                        android:textColor="?attr/colorControlNormal"
+                        android:textSize="16dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/no_connection_title">
+
+                    </TextView>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

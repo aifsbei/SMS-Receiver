@@ -24,12 +24,13 @@ object FreeNumberRepositoryImpl : FreeNumberRepository {
     }
 
     override fun deleteFreeNumberList() {
+//        Log.d("1", "task: delete")
         clearList()
         updateList()
     }
 
     override fun getFreeNumberList(): LiveData<List<FreeNumber>> {
-        Log.d("1", "ok: get")
+//        Log.d("1", "task: get")
         return freeNumberLD
     }
 
@@ -49,11 +50,11 @@ object FreeNumberRepositoryImpl : FreeNumberRepository {
     }
 
     override suspend fun loadFreeNumberList() {
-        Log.d("1", "loadFreeNumberList: another load")
+//        Log.d("1", "task: load")
         clearList()
         val parser = FreeNumbersParser()
-        parser.parse_numbers()
-        for (item in parser.numbersList) {
+        val numbers = parser.parse_numbers()
+        for (item in numbers) {
             addFreeNumber(item)
         }
     }

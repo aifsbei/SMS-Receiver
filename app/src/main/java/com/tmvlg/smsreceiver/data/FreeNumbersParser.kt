@@ -17,18 +17,17 @@ import java.net.HttpURLConnection
 import java.net.MalformedURLException
 import java.net.SocketTimeoutException
 import java.net.URL
+import java.text.SimpleDateFormat
 import java.util.*
 
 class FreeNumbersParser {
-    val numbersList = mutableListOf<FreeNumber>()
-    val messagesList = mutableListOf<FreeMessage>()
-
 
     /////////////////////////////////////////////////////////////
     //////////https://sms-online.co/receive-free-sms/////////////
     /////////////////////////////////////////////////////////////
 
-    fun parse_1() {
+    fun parse_1(): List<FreeNumber> {
+        val numbersList = mutableListOf<FreeNumber>()
         try {
             val doc = Jsoup.connect("https://sms-online.co/receive-free-sms").get()
             val numbers = doc.select("h4.number-boxes-item-number")
@@ -48,13 +47,15 @@ class FreeNumbersParser {
                 )
                 numbersList.add(free_number)
             }
-        } catch (e: IOException) {
+        } catch (t: Throwable) {
             Log.d(TAG, "parsing error at parse_1")
-            e.printStackTrace()
+            t.printStackTrace()
         }
+        return numbersList
     }
 
-    fun parse_messages_1(callnumber: String) {
+    fun parse_messages_1(callnumber: String): List<FreeMessage> {
+        val messagesList = mutableListOf<FreeMessage>()
         try {
             val doc = Jsoup.connect("https://sms-online.co/receive-free-sms/$callnumber").get()
             val titles = doc.select("h3.list-item-title")
@@ -68,16 +69,18 @@ class FreeNumbersParser {
                 )
                 messagesList.add(free_message)
             }
-        } catch (e: IOException) {
+        } catch (t: Throwable) {
             Log.d(TAG, "parsing error at parse_messages_1")
-            e.printStackTrace()
+            t.printStackTrace()
         }
+        return messagesList
     }
 
     /////////////////////////////////////////////////////////////
     ////////////////////https:///smska.us////////////////////////
     /////////////////////////////////////////////////////////////
-    fun parse_2() {
+    fun parse_2(): List<FreeNumber> {
+        val numbersList = mutableListOf<FreeNumber>()
         try {
             val doc = Jsoup.connect("https://smska.us/").get()
             val numbers = doc.select("div.phone_number")
@@ -95,40 +98,52 @@ class FreeNumbersParser {
                 )
                 numbersList.add(free_number)
             }
-        } catch (e: IOException) {
+        } catch (t: Throwable) {
             Log.d(TAG, "parsing error at parse_2")
-            e.printStackTrace()
+            t.printStackTrace()
         }
+        return numbersList
     }
 
-    fun parse_messages_2(callnumber: String) {
+    fun parse_messages_2(callnumber: String): List<FreeMessage> {
+        val messagesList = mutableListOf<FreeMessage>()
         try {
-            val doc = Jsoup.connect("https://smska.us/").get()
-            val titles = doc.select("div#$callnumber div:nth-child(1)")
-            val messages = doc.select("div#$callnumber > div.textsms")
-            val times = doc.select("div#$callnumber > div.smsdate")
-            Log.d(TAG, "div#$callnumber > div.bodysms")
-            Log.d(TAG, titles.html())
+            val doc = Jsoup.connect("https://smska.us/AjaxPublic/sms/")
+                .header("Content-Type", "application/x-www-form-urlencoded")
+                .header("X-Requested-With", "XMLHttpRequest")
+                .data("n", callnumber)
+                .post()
+
+            val titles = doc.select("div.bodysms > div.smsnumber")
+            val messages = doc.select("div.bodysms > div.textsms")
+            val times = doc.select("div.bodysms > div.smsdate")
+
             for (i in titles.indices) {
-                Log.d(TAG, "iteration++")
-                Log.d(TAG, titles[i].text())
+                val time = times[i].text()
+                val dateTime = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+                    .parse(time)
+                    ?: return messagesList
+                val timeFormatted = Date(dateTime.time).getTimeAgo(TimeZone.getTimeZone("Europe/Moscow"))
                 val free_message = FreeMessage(
                     message_title = titles[i].text(),
                     message_text = messages[i].text(),
-                    time_remained = times[i].text()
+                    time_remained = timeFormatted
                 )
                 messagesList.add(free_message)
             }
-        } catch (e: IOException) {
+
+        } catch (t: Throwable) {
             Log.d(TAG, "parsing error at parse_messages_2")
-            e.printStackTrace()
+            t.printStackTrace()
         }
+        return messagesList
     }
 
     /////////////////////////////////////////////////////////////
     ////////////////////https://online-sms.org/////////////////
     /////////////////////////////////////////////////////////////
-    fun parse_3() {
+    fun parse_3(): List<FreeNumber> {
+        val numbersList = mutableListOf<FreeNumber>()
         try {
             val doc = Jsoup.connect("https://online-sms.org/").get()
             val countries = doc.select("h4.titlecoutry")
@@ -159,13 +174,15 @@ class FreeNumbersParser {
                     numbersList.add(free_number)
                 }
             }
-        } catch (e: IOException) {
+        } catch (t: Throwable) {
             Log.d(TAG, "parsing error at parse_3")
-            e.printStackTrace()
+            t.printStackTrace()
         }
+        return numbersList
     }
 
-    fun parse_messages_3(callnumber: String) {
+    fun parse_messages_3(callnumber: String): List<FreeMessage> {
+        val messagesList = mutableListOf<FreeMessage>()
         try {
             val doc = Jsoup.connect("https://online-sms.org/free-phone-number-$callnumber").get()
             val titles = doc.select("table > tbody > tr > td:nth-child(1)")
@@ -183,20 +200,21 @@ class FreeNumbersParser {
                 )
                 messagesList.add(free_message)
             }
-        } catch (e: IOException) {
+        } catch (t: Throwable) {
             Log.d(TAG, "parsing error at parse_messages_3")
-            e.printStackTrace()
+            t.printStackTrace()
         }
+        return messagesList
     }
 
-    @Throws(ParseException::class, MalformedURLException::class)
-    fun parse_4() {
+    fun parse_4(): List<FreeNumber> {
+        val numbersList = mutableListOf<FreeNumber>()
         try {
             val freeCountriesResponse: Response<FreeCountriesResponse> = OnlineSimFreeApi
                 .retrofitService
                 .getCountryNames()
-                .execute() ?: return
-            val countriesBody = freeCountriesResponse.body() ?: return
+                .execute() ?: return numbersList
+            val countriesBody = freeCountriesResponse.body() ?: return numbersList
             countriesBody.countries.forEach {
 
                 val numbersResponse: Response<NumbersResponse> = OnlineSimFreeApi
@@ -204,11 +222,11 @@ class FreeNumbersParser {
                     .getFreeNumbers(it.country)
                     .execute()
 
-                val numbersBody: NumbersResponse = numbersResponse.body() ?: return
+                val numbersBody: NumbersResponse = numbersResponse.body() ?: return numbersList
                 numbersBody.numbers.forEach {
 
                     val countryCode: String = getCountryCodeByNumber(it.fullNumber)
-                    val countryName = getCountryNameByCode(countryCode) ?: return
+                    val countryName = getCountryNameByCode(countryCode) ?: return numbersList
 
                     val freeNumber = FreeNumber(
                         call_number = it.number,
@@ -221,19 +239,22 @@ class FreeNumbersParser {
                     numbersList.add(freeNumber)
                 }
             }
-        } catch (e: SocketTimeoutException) {
-            Log.d(TAG, "parse_4: timeout")
+        } catch (t: Throwable) {
+            if (t is SocketTimeoutException)
+                Log.d(TAG, "parse_messages_4: timeout")
+            Log.d(TAG, "parse_messages_4 error")
         }
+        return numbersList
     }
 
-    @Throws(ParseException::class, MalformedURLException::class)
-    fun parse_messages_4(phone: String, prefix: String) {
+    fun parse_messages_4(phone: String, prefix: String): List<FreeMessage> {
+        val messagesList = mutableListOf<FreeMessage>()
         try {
             val messagesResponse: Response<MessagesResponse> = OnlineSimFreeApi
                 .retrofitService
                 .getFreeMessages(phone, prefix)
-                .execute() ?: return
-            val messagesBody = messagesResponse.body() ?: return
+                .execute() ?: return messagesList
+            val messagesBody = messagesResponse.body() ?: return messagesList
             messagesBody.messages.data.forEach {
                 val free_message = FreeMessage(
                     message_title = it.inNumber,
@@ -243,12 +264,16 @@ class FreeNumbersParser {
                 messagesList.add(free_message)
 
             }
-        } catch (e: SocketTimeoutException) {
-            Log.d(TAG, "parse_messages_4: timeout")
+        } catch (t: Throwable) {
+            if (t is SocketTimeoutException)
+                Log.d(TAG, "parse_messages_4: timeout")
+            Log.d(TAG, "parse_messages_4 error")
         }
+        return messagesList
     }
 
-    fun parse_5() {
+    fun parse_5(): List<FreeNumber> {
+        val numbersList = mutableListOf<FreeNumber>()
         try {
             val doc = Jsoup.connect("https://receive-smss.com/").get()
             val numbers = doc.select("h4.number-boxes-itemm-number")
@@ -274,12 +299,14 @@ class FreeNumbersParser {
                 }
             }
 
-        } catch (e: IOException) {
-            e.printStackTrace()
+        } catch (t: Throwable) {
+            t.printStackTrace()
         }
+        return numbersList
     }
 
-    fun parse_messages_5(number: String) {
+    fun parse_messages_5(number: String): List<FreeMessage> {
+        val messagesList = mutableListOf<FreeMessage>()
         try {
             val doc = Jsoup.connect("https://receive-smss.com/sms/$number/").get()
 
@@ -300,30 +327,31 @@ class FreeNumbersParser {
             }
             println(messagesList)
 
-        } catch (e: IOException) {
+        } catch (t: Throwable) {
             println("parsing error")
-            e.printStackTrace()
+            t.printStackTrace()
         }
+        return messagesList
     }
 
-    @Throws(ParseException::class, MalformedURLException::class)
-    fun parse_numbers() {
-        parse_1()
-//        parse_2()
-        parse_3()
-        parse_4()
-        parse_5()
-        add_countrynames_to_list()
-        sort_numbers()
-        for (number in numbersList) {
-            Log.d(TAG, "parse_numbers: $number")
-        }
+    fun parse_numbers(): List<FreeNumber> {
+        val tempFreeNumberList = mutableListOf<FreeNumber>()
+        tempFreeNumberList += parse_1()
+        tempFreeNumberList += parse_2()
+        tempFreeNumberList += parse_3()
+        tempFreeNumberList += parse_4()
+        tempFreeNumberList += parse_5()
+        add_countrynames_to_list(tempFreeNumberList)
+        sort_numbers(tempFreeNumberList)
+//        for (number in tempFreeNumberList) {
+//            Log.d(TAG, "parse_numbers: $number")
+//        }
+        return tempFreeNumberList
     }
 
-    @Throws(MalformedURLException::class, ParseException::class)
-    fun parse_messages(freeNumber: FreeNumber) {
+    fun parse_messages(freeNumber: FreeNumber): List<FreeMessage> {
         Log.d(TAG, "parse_messages: STARTED")
-        messagesList.clear()
+        val tempMessagesList = mutableListOf<FreeMessage>()
         with(freeNumber) {
             var formated_call_number = call_number
             formated_call_number = call_number_prefix
@@ -333,38 +361,39 @@ class FreeNumbersParser {
             when (origin) {
                 "parse_1" -> {
                     Log.d(TAG, formated_call_number)
-                    parse_messages_1(formated_call_number)
+                    tempMessagesList += parse_messages_1(formated_call_number)
                 }
                 "parse_2" -> {
                     Log.d(TAG, formated_call_number.substring(1))
-                    parse_messages_2(formated_call_number.substring(1))
+                    tempMessagesList += parse_messages_2(formated_call_number.substring(1))
                 }
                 "parse_3" -> {
 //                    Log.d(TAG, call_number.substring(1))
                     Log.d(TAG, "parse_messages: $formated_call_number")
-                    parse_messages_3(formated_call_number)
+                    tempMessagesList += parse_messages_3(formated_call_number)
                 }
                 "parse_4" -> {
                     Log.d(TAG, call_number)
-                    parse_messages_4(call_number, call_number_prefix)
+                    tempMessagesList += parse_messages_4(call_number, call_number_prefix)
                 }
                 "parse_5" -> {
                     Log.d(TAG, call_number)
-                    parse_messages_5(formated_call_number)
+                    tempMessagesList += parse_messages_5(formated_call_number)
                 }
                 else -> throw java.lang.RuntimeException("Unknown parse origin")
             }
         }
+        return tempMessagesList
     }
 
-    fun sort_numbers() {
-        numbersList.sortWith { o1, o2 ->
+    fun sort_numbers(numbersList: List<FreeNumber>) {
+        (numbersList as MutableList<FreeNumber>).sortWith { o1, o2 ->
             val comparision = o1.counrty_name.compareTo(o2.counrty_name)
             comparision.compareTo(0)
         }
     }
 
-    fun add_countrynames_to_list() {
+    fun add_countrynames_to_list(numbersList: List<FreeNumber>) {
         if (numbersList.isEmpty())
             return
         var countryName = ""
@@ -390,11 +419,11 @@ class FreeNumbersParser {
             }
         }
         for (item in tempNumberList) {
-            numbersList.add(0, item)
+            (numbersList as MutableList<FreeNumber>).add(0, item)
         }
     }
 
-    fun print_data() {
+    fun print_data(numbersList: List<FreeNumber>) {
         for (cur_number in numbersList) {
             Log.d(
                 TAG,

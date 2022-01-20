@@ -21,6 +21,9 @@
         <item name="colorSurface">@color/white</item>
         <item name="colorOnSurface">@color/white</item>
 
+        <item name="colorOnPrimarySurface">@color/card_color</item>
+
+
         <item name="customColorValue">@color/edit_text_color</item>
 
 <!--        <item name="colorControlNormal">@color/material_on_surface_stroke</item>-->
@@ -51,8 +54,12 @@
         <item name="colorPrimary">@android:color/transparent</item>
         <item name="android:textColorPrimary">@android:color/white</item>
         <item name="colorOnPrimary">@android:color/transparent</item>
-
-
+        <item name="colorControlHighlight">@color/shimmer_color</item>
+        <item name="customColorValue">@color/edit_text_color</item>w
+        <item name="colorSecondary">@color/secondaryColor</item>
+        <item name="colorSecondaryVariant">@color/red</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <item name="colorControlNormal">#737373</item>
     </style>
 
 

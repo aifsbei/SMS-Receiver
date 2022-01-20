@@ -25,6 +25,7 @@ import com.tmvlg.smsreceiver.domain.freenumber.FreeNumber
 import com.tmvlg.smsreceiver.presentation.freerent.freemessagelist.FreeMessageDataAdapter
 import com.tmvlg.smsreceiver.util.calculateAverageColor
 import com.tmvlg.smsreceiver.util.getBitmap
+import com.tmvlg.smsreceiver.util.isOnline
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
 import org.kodein.di.generic.instance
@@ -76,10 +77,17 @@ class FreeRentDetailFragment : Fragment(), KodeinAware {
 
         binding.freeMessagesRecycleView.layoutManager = LinearLayoutManager(requireContext())
 
-        binding.shimmerFreeRentInfoLayout.visibility = View.VISIBLE
+//        binding.shimmerFreeRentInfoLayout.visibility = View.VISIBLE
         binding.freeMessagesRecycleView.visibility = View.GONE
 
-        viewModel.initMessageRepository(freeNumberId)
+        if (requireContext().isOnline()) {
+            binding.shimmerFreeRentInfoLayout.visibility = View.VISIBLE
+            viewModel.initMessageRepository(freeNumberId)
+        }
+        else {
+            binding.noConnectionLayout.visibility = View.VISIBLE
+            binding.shimmerFreeRentInfoLayout.visibility = View.INVISIBLE
+        }
 
         setupRecyclerView()
         init_data()
@@ -87,7 +95,17 @@ class FreeRentDetailFragment : Fragment(), KodeinAware {
         observeViewModel()
 
         binding.refreshButton.setOnClickListener {
-            viewModel.initMessageRepository(freeNumberId)
+            binding.freeMessagesRecycleView.visibility = View.GONE
+
+            if (requireContext().isOnline()) {
+                binding.noConnectionLayout.visibility = View.GONE
+                binding.shimmerFreeRentInfoLayout.visibility = View.VISIBLE
+                viewModel.initMessageRepository(freeNumberId)
+            }
+            else {
+                binding.noConnectionLayout.visibility = View.VISIBLE
+                binding.shimmerFreeRentInfoLayout.visibility = View.INVISIBLE
+            }
         }
 
         binding.arrowBack.setOnClickListener {

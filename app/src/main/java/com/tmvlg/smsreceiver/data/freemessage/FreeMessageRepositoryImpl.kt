@@ -52,8 +52,8 @@ object FreeMessageRepositoryImpl : FreeMessageRepository {
         Log.d("1", "loadFreeMessageList: another load")
         clearList()
         val parser = FreeNumbersParser()
-        parser.parse_messages(freeNumber)
-        for (item in parser.messagesList) {
+        val messages = parser.parse_messages(freeNumber)
+        for (item in messages) {
             addFreeMessage(item)
         }
     }

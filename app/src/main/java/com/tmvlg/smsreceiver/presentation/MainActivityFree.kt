@@ -8,6 +8,7 @@ import android.transition.Fade
 import android.util.Log
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatDelegate
+import com.google.android.gms.ads.MobileAds
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.tmvlg.smsreceiver.R
 import com.tmvlg.smsreceiver.data.preferences.SettingsPreferenceProvider
@@ -32,6 +33,8 @@ class MainActivityFree : AppCompatActivity(), BottomNavigationView.OnNavigationI
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
+        Log.d("1", "task: start activity")
+
         preSetTheme()
 
         super.onCreate(savedInstanceState)
@@ -50,13 +53,18 @@ class MainActivityFree : AppCompatActivity(), BottomNavigationView.OnNavigationI
             return
         }
 
+        Log.d("1", "task: end activity")
+
+        setupAds()
         setupFade()
         bottomNavigationView.setSelectedItemId(R.id.navigation_free_rent)
+
 
     }
 
     override fun onStart() {
         super.onStart()
+        Log.d("1", "task: onStart")
         if (settingsPreferenceProvider.getHowToUseState() == SettingsPreferenceProvider.STATE_NOT_SHOWN) {
             settingsPreferenceProvider.saveHowToUseState(SettingsPreferenceProvider.STATE_SHOWN)
             val intent = Intent(this, HowToUseActivity::class.java)
@@ -86,6 +94,7 @@ class MainActivityFree : AppCompatActivity(), BottomNavigationView.OnNavigationI
     }
 
     private fun preSetTheme() {
+        Log.d("1", "task: preSetTheme")
         val themeSet = settingsPreferenceProvider.isThemeSet()
 
         if (!themeSet) {
@@ -95,16 +104,22 @@ class MainActivityFree : AppCompatActivity(), BottomNavigationView.OnNavigationI
 
         val darkMode = settingsPreferenceProvider.getSettings().get(SettingsPreferenceProvider.KEY_DARK_THEME_ENABLED) ?: false
 
-        if (darkMode)
+        if (darkMode) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-        else
+        }
+        else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        }
     }
 
     private fun setupFade() {
         val fade = Fade()
         window.enterTransition = fade
         window.exitTransition = fade
+    }
+
+    private fun setupAds() {
+        MobileAds.initialize(this) {}
     }
 
 }
