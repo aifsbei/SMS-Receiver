@@ -21,7 +21,7 @@ import org.kodein.di.KodeinAware
 import org.kodein.di.android.closestKodein
 import org.kodein.di.generic.instance
 
-class MainActivityFree : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener, KodeinAware {
+class MainActivityFree : AppCompatActivity(), KodeinAware {
     var freeRentFragment = FreeRentFragment()
     var aboutFragment = AboutFragment()
 
@@ -35,30 +35,37 @@ class MainActivityFree : AppCompatActivity(), BottomNavigationView.OnNavigationI
 
         Log.d("1", "task: start activity")
 
-        preSetTheme()
+//        preSetTheme()
 
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_main_free)
 
-        nightMode = AppCompatDelegate.getDefaultNightMode()
 
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottom_navigation)
-        bottomNavigationView.setOnNavigationItemSelectedListener(this)
-
-        val previousNightMode = savedInstanceState?.getInt("theme")
-        val currentNightMode = AppCompatDelegate.getDefaultNightMode()
-        if (previousNightMode != null && previousNightMode != currentNightMode) {
-            bottomNavigationView.setSelectedItemId(R.id.navigation_about)
-            return
+        bottomNavigationView.setOnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.navigation_free_rent -> {
+                    supportFragmentManager.beginTransaction().setCustomAnimations(R.anim.fade_in, R.anim.fade_out).replace(R.id.container, freeRentFragment).commit()
+                }
+                R.id.navigation_about -> {
+                    supportFragmentManager.beginTransaction().setCustomAnimations(R.anim.fade_in, R.anim.fade_out).replace(R.id.container, aboutFragment).commit()
+                }
+            }
+            true
         }
-
-        Log.d("1", "task: end activity")
 
         setupAds()
         setupFade()
-        bottomNavigationView.setSelectedItemId(R.id.navigation_free_rent)
 
+        if (hasThemeChanged(savedInstanceState)) {
+            bottomNavigationView.selectedItemId = R.id.navigation_about
+            return
+        }
+
+        bottomNavigationView.selectedItemId = R.id.navigation_free_rent
+
+        Log.d("1", "task: end activity")
 
     }
 
@@ -73,44 +80,22 @@ class MainActivityFree : AppCompatActivity(), BottomNavigationView.OnNavigationI
         }
     }
 
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.navigation_free_rent -> {
-                supportFragmentManager.beginTransaction().setCustomAnimations(R.anim.fade_in, R.anim.fade_out).replace(R.id.container, freeRentFragment).commit()
-                return true
-            }
-            R.id.navigation_about -> {
-                supportFragmentManager.beginTransaction().setCustomAnimations(R.anim.fade_in, R.anim.fade_out).replace(R.id.container, aboutFragment).commit()
-                return true
-            }
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        val currentNightMode = nightMode
+        outState.putInt(THEME_ID, currentNightMode ?: UNDEFINED_THEME)
+    }
+
+    private fun hasThemeChanged(savedInstanceState: Bundle?): Boolean {
+        nightMode = AppCompatDelegate.getDefaultNightMode()
+        val previousNightMode = savedInstanceState?.getInt(THEME_ID)
+        val currentNightMode = AppCompatDelegate.getDefaultNightMode()
+        if (previousNightMode != null && previousNightMode != currentNightMode) {
+            return true
         }
         return false
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        val currentNightMode = nightMode
-        outState.putInt("theme", currentNightMode?:-100)
-    }
-
-    private fun preSetTheme() {
-        Log.d("1", "task: preSetTheme")
-        val themeSet = settingsPreferenceProvider.isThemeSet()
-
-        if (!themeSet) {
-            val isSystemThemeDark = this.isDarkThemeOn()
-            settingsPreferenceProvider.saveSettings(isSystemThemeDark, null)
-        }
-
-        val darkMode = settingsPreferenceProvider.getSettings().get(SettingsPreferenceProvider.KEY_DARK_THEME_ENABLED) ?: false
-
-        if (darkMode) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-        }
-        else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-        }
-    }
 
     private fun setupFade() {
         val fade = Fade()
@@ -120,6 +105,11 @@ class MainActivityFree : AppCompatActivity(), BottomNavigationView.OnNavigationI
 
     private fun setupAds() {
         MobileAds.initialize(this) {}
+    }
+
+    companion object {
+        const val THEME_ID = "themeId"
+        const val UNDEFINED_THEME = -100
     }
 
 }

@@ -29,8 +29,15 @@ import org.kodein.di.generic.bind
 import org.kodein.di.generic.instance
 import org.kodein.di.generic.provider
 import org.kodein.di.generic.singleton
+import androidx.appcompat.app.AppCompatDelegate
 
-class SMSReceiverApplication: Application(), KodeinAware {
+import android.R
+
+import android.os.Build
+import android.util.Log
+
+
+class SMSReceiverApplication : Application(), KodeinAware {
 
     override val kodein: Kodein = Kodein.lazy {
         import(androidXModule(this@SMSReceiverApplication))
@@ -56,5 +63,33 @@ class SMSReceiverApplication: Application(), KodeinAware {
         bind<SearchCountryRepository>() with singleton { SearchCountryRepositoryImpl }
 
     }
+
+    override fun onCreate() {
+        super.onCreate()
+
+        Log.d("1", "task: application")
+
+        applyDayNightMode()
+    }
+
+    fun applyDayNightMode() {
+        var mode = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+        val settingsPreferenceProvider by instance<SettingsPreferenceProvider>()
+
+        if (settingsPreferenceProvider.isThemeSet()) {
+
+            val darkMode = settingsPreferenceProvider.getSettings()
+                .get(SettingsPreferenceProvider.KEY_DARK_THEME_ENABLED) ?: false
+
+            if (darkMode) {
+                mode = AppCompatDelegate.MODE_NIGHT_YES
+            } else {
+                mode = AppCompatDelegate.MODE_NIGHT_NO
+            }
+        }
+
+        AppCompatDelegate.setDefaultNightMode(mode)
+    }
+
 
 }
