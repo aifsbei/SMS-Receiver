@@ -58,7 +58,7 @@ class AboutFragment : Fragment(), KodeinAware {
 
         binding.contactLayout.setOnClickListener {
             val emailIntent = Intent(Intent.ACTION_SENDTO, Uri.fromParts(
-                "mailto", "d4nila.leskov@yandex.ru", null
+                "mailto", "d4nila.leskov@gmail.com", null
             ))
             emailIntent.putExtra(Intent.EXTRA_SUBJECT, "SMS Receiver")
             startActivity(Intent.createChooser(emailIntent, "Select app to contact us"))

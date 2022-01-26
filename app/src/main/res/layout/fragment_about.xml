@@ -12,7 +12,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
-        android:text="About"
+        android:text="@string/about_label"
         android:textColor="?attr/colorOnSecondary"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -54,7 +54,7 @@
                         android:id="@+id/settings_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="SETTINGS"
+                        android:text="@string/settings_label"
                         android:textColor="?attr/colorControlNormal"
                         android:textSize="14sp"
                         app:layout_constraintStart_toStartOf="parent"
@@ -102,7 +102,7 @@
                             android:layout_marginStart="10dp"
                             android:layout_marginEnd="10dp"
                             android:layout_weight="1"
-                            android:text="Dark Theme"
+                            android:text="@string/dark_theme_option"
                             android:textColor="?attr/colorOnSecondary"
                             android:textSize="21sp">
 
@@ -147,7 +147,7 @@
                             android:layout_marginStart="10dp"
                             android:layout_marginEnd="10dp"
                             android:layout_weight="1"
-                            android:text="Copy prefix"
+                            android:text="@string/copy_prefix_option"
                             android:textColor="?attr/colorOnSecondary"
                             android:textSize="21sp">
 
@@ -192,7 +192,7 @@
                         android:id="@+id/other_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="OTHER"
+                        android:text="@string/other_label"
                         android:textColor="?colorControlNormal"
                         android:textSize="14sp"
                         app:layout_constraintStart_toStartOf="parent"
@@ -242,7 +242,7 @@
                             android:layout_marginStart="10dp"
                             android:layout_marginEnd="10dp"
                             android:layout_weight="1"
-                            android:text="How to use"
+                            android:text="@string/how_to_use_button"
                             android:textColor="?attr/colorOnSecondary"
                             android:textSize="21sp">
 
@@ -286,7 +286,7 @@
                             android:layout_marginStart="10dp"
                             android:layout_marginEnd="10dp"
                             android:layout_weight="1"
-                            android:text="Contact us"
+                            android:text="@string/contact_us_button"
                             android:textColor="?attr/colorOnSecondary"
                             android:textSize="21sp">
 
@@ -304,6 +304,7 @@
                         android:id="@+id/rate_layout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:visibility="gone"
                         android:paddingTop="15dp"
                         android:paddingBottom="15dp"
                         android:background="@drawable/ripple_settings_item"
@@ -329,7 +330,7 @@
                             android:layout_marginStart="10dp"
                             android:layout_marginEnd="10dp"
                             android:layout_weight="1"
-                            android:text="Rate this app"
+                            android:text="@string/rate_this_app_button"
                             android:textColor="?attr/colorOnSecondary"
                             android:textSize="21sp">
 

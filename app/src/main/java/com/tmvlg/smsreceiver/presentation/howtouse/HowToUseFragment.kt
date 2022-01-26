@@ -90,7 +90,7 @@ class HowToUseFragment : Fragment() {
                 binding.stepper.ivStep3.setBackgroundResource(R.drawable.round_indicator_unfilled)
                 binding.stepper.ivStep4.setBackgroundResource(R.drawable.round_indicator_unfilled)
 
-                binding.nextButton.text = "Next"
+                binding.nextButton.text = getString(R.string.next_button)
                 binding.nextButton.setCompoundDrawablesWithIntrinsicBounds(0, 0, drawable, 0)
 
             }
@@ -100,7 +100,7 @@ class HowToUseFragment : Fragment() {
                 binding.stepper.ivStep3.setBackgroundResource(R.drawable.round_indicator_unfilled)
                 binding.stepper.ivStep4.setBackgroundResource(R.drawable.round_indicator_unfilled)
 
-                binding.nextButton.text = "Next"
+                binding.nextButton.text = getString(R.string.next_button)
                 binding.nextButton.setCompoundDrawablesWithIntrinsicBounds(0, 0, drawable, 0)
 
             }
@@ -110,7 +110,7 @@ class HowToUseFragment : Fragment() {
                 binding.stepper.ivStep3.setBackgroundResource(R.drawable.round_indicator_success)
                 binding.stepper.ivStep4.setBackgroundResource(R.drawable.round_indicator_unfilled)
 
-                binding.nextButton.text = "Next"
+                binding.nextButton.text = getString(R.string.next_button)
                 binding.nextButton.setCompoundDrawablesWithIntrinsicBounds(0, 0, drawable, 0)
 
             }
@@ -120,7 +120,7 @@ class HowToUseFragment : Fragment() {
                 binding.stepper.ivStep3.setBackgroundResource(R.drawable.round_indicator_unfilled)
                 binding.stepper.ivStep4.setBackgroundResource(R.drawable.round_indicator_success)
 
-                binding.nextButton.text = "Got It"
+                binding.nextButton.text = getString(R.string.got_it_button)
                 binding.nextButton.setCompoundDrawablesWithIntrinsicBounds(0, 0, drawableInvisible, 0)
 
             }

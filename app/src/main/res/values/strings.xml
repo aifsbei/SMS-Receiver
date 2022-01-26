@@ -1,10 +1,49 @@
 <resources>
-    <string name="app_name">SMS Receiver</string>
+    <string name="app_name" translatable="false">SMS Receiver</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="hashtag_country_code"># RU</string>
-    <string name="hashtag_prefix"># +7</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <string name="hashtag_country_code" translatable="false"># RU</string>
+    <string name="hashtag_prefix" translatable="false"># +7</string>
     <string name="what_is_this_app_for_description">It is easy to <b>receive verification code</b> to sign up on any online service</string>
     <string name="is_it_free_description">It is absolutely <b>free</b></string>
     <string name="importance_description">There is <b>no guarantee</b> that you will receive a valid verification code. These numbers are public so anyone can use them before you</string>
+    <string name="about_label">About</string>
+    <string name="dark_theme_option">Dark Theme</string>
+    <string name="copy_prefix_option">Copy prefix</string>
+    <string name="how_to_use_button">How to use</string>
+    <string name="contact_us_button">Contact us</string>
+    <string name="rate_this_app_button">Rate this app</string>
+    <string name="what_is_this_app_for">What is this app for?</string>
+    <string name="is_it_free">Is it free?</string>
+    <string name="important">Important</string>
+    <string name="step_2_copy_the_number">Step 2. Copy the number</string>
+    <string name="step_2_description">Paste selected number to register anywhere. You can change copy method in settings</string>
+    <string name="step_3_wait_for_code">Step 3. Wait for code</string>
+    <string name="step_3_description">Click refresh button to load new messages. If you didn\'t receive your code try to refresh again.</string>
+    <string name="step_1_select_a_number">Step 1. Select a number</string>
+    <string name="step_1_description">Search a number by country name, region, prefix, etc.</string>
+    <string name="search_label">Search</string>
+    <string name="message_connectivity_description">Turn on Wi-Fi or Cellular data and click refresh button</string>
+    <string name="connectivity_header">No Internet connection!</string>
+    <string name="refresh_button">refresh</string>
+    <string name="copy_label" translatable="false">Copy</string>
+    <string name="default_prefix" translatable="false">+7</string>
+    <string name="default_call_number" translatable="false">999 123 23 43</string>
+    <string name="default_country" translatable="false">Россия</string>
+    <string name="default_country_code" translatable="false">RU</string>
+    <string name="next_button">NEXT</string>
+    <string name="cancel_button">Cancel</string>
+    <string name="default_message_header" translatable="false">AUTORUS</string>
+    <string name="default_message_time" translatable="false">5 минут назад</string>
+    <string name="default_message_text" translatable="false">Спасибо за регистрацию в AUTORUS! Ваш проверочный код: 125854. Никому не сообщайте этот код!</string>
+    <string name="default_region_and_prefix" translatable="false">RU +7</string>
+    <string name="default_call_number_formatted" translatable="false">000 000 00 00</string>
+    <string name="default_country_name_placeholder" translatable="false">CountryName</string>
+    <string name="free_numbers_menu_title">Free numbers</string>
+    <string name="about_menu_title">About</string>
+    <string name="click_here_to_reload">Click here to Reload</string>
+    <string name="number_connectivity_description">Turn on Wi-Fi or Cellular data and then reload this page</string>
+    <string name="settings_label">SETTINGS</string>
+    <string name="other_label">OTHER</string>
+    <string name="got_it_button">Got It</string>
 </resources>

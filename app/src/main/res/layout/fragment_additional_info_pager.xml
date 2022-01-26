@@ -27,7 +27,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:backgroundTint="?attr/colorSecondary"
-                    android:text="What is this app for?"
+                    android:text="@string/what_is_this_app_for"
                     android:textColor="@color/white"
                     android:textSize="16sp" />
 
@@ -52,6 +52,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:layout_gravity="center"
                     android:layout_margin="10dp"
                     android:lineSpacingExtra="8sp"
@@ -65,7 +66,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:backgroundTint="?attr/colorSecondary"
-                    android:text="Is it free?"
+                    android:text="@string/is_it_free"
                     android:textColor="@color/white"
                     android:textSize="16sp" />
 
@@ -102,7 +103,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="10dp"
-                            android:text="Important"
+                            android:text="@string/important"
                             android:textColor="?attr/colorSecondaryVariant"
                             android:textSize="16sp" />
 

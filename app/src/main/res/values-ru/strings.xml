@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="what_is_this_app_for_description">Можно легко <b>получить верификационный код</b> для регистрации на любом онлайн сервисе</string>
+    <string name="is_it_free_description">Это абсолютно  <b>бесплатно</b></string>
+    <string name="importance_description">Нет никаких <b>гарантий</b>, что Вы получите верификационный код. Номера, используемые в данном приложении, публичные, поэтому кто угодно может воспользоваться номером до Вас.</string>
+    <string name="about_label">Информация</string>
+    <string name="dark_theme_option">Темная тема</string>
+    <string name="copy_prefix_option">Копировать префикс</string>
+    <string name="how_to_use_button">Инструкция</string>
+    <string name="contact_us_button">Связь с нами</string>
+    <string name="rate_this_app_button">Оценить приложение</string>
+    <string name="what_is_this_app_for">Применение</string>
+    <string name="is_it_free">Это бесплатно?</string>
+    <string name="important">Обратите внимание!</string>
+    <string name="step_2_copy_the_number">Шаг 2. Скопируйте номер</string>
+    <string name="step_2_description">Вставьте скопированный номер для регистрации на любом онлайн сервисе. Вы можете поменять режим копирования в настройках.</string>
+    <string name="step_3_wait_for_code">Шаг 3. Ожидайте Ваш код</string>
+    <string name="step_3_description">Нажимайте кнопку Обновить, чтобы загрузить новые сообщения. Если Ваше сообщение не пришло, обновите список снова.</string>
+    <string name="step_1_select_a_number">Шаг 1. Выберите номер</string>
+    <string name="step_1_description">Вы можете фильтровать номера по наименованию страны, коду региона, префиксу и т. д.</string>
+    <string name="search_label">Поиск</string>
+    <string name="message_connectivity_description">Включите Wi-Fi или Мобильные данные и нажмите кнопку Обновить</string>
+    <string name="connectivity_header">Нет подключения к Интернету!</string>
+    <string name="refresh_button">Обновить</string>
+    <string name="next_button">Далее</string>
+    <string name="cancel_button">Отмена</string>
+    <string name="free_numbers_menu_title">Бесплатные</string>
+    <string name="about_menu_title">Информация</string>
+    <string name="click_here_to_reload">Нажмите чтобы обновить</string>
+    <string name="number_connectivity_description">Включите Wi-Fi или Мобильные данные, а затем обновите вкладку</string>
+    <string name="settings_label">Настройки</string>
+    <string name="other_label">Дополнительно</string>
+    <string name="got_it_button">Понятно</string>
+</resources>

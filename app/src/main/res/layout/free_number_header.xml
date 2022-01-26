@@ -13,7 +13,7 @@
         android:layout_marginStart="25dp"
         android:layout_marginLeft="25dp"
         android:layout_marginTop="10dp"
-        android:text="CountryName"
+        android:text="@string/default_country_name_placeholder"
         android:textColor="?attr/colorControlNormal"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"

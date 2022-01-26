@@ -36,12 +36,13 @@ class FreeNumbersParser {
             for (i in numbers.indices) {
                 val code = getCountryCodeByName(countries[i].text()) ?: continue
                 val prefix = getPrefixByCountryCode(code) ?: continue
+                val countryName = countries[i].text()
                 val free_number = FreeNumber(
                     call_number = numbers[i].text().replace(prefix, "")
                         .replace("^\\s+".toRegex(), ""),
                     call_number_prefix = prefix,
                     country_code = code,
-                    counrty_name = countries[i].text(),
+                    counrty_name = code.translateCountryName(),
                     origin = "parse_1",
                     icon_path = "$code.xml"
                 )
@@ -87,12 +88,13 @@ class FreeNumbersParser {
             for (i in numbers.indices) {
                 val prefix = "+7"
                 val code = "RU"
+                val countryName = "Russia"
                 val free_number = FreeNumber(
                     call_number = numbers[i].text().replace(prefix, "")
                         .replace("^\\s+".toRegex(), ""),
                     call_number_prefix = prefix,
                     country_code = code,
-                    counrty_name = "Russia",
+                    counrty_name = code.translateCountryName(),
                     origin = "parse_2",
                     icon_path = "$code.xml"
                 )
@@ -167,7 +169,7 @@ class FreeNumbersParser {
                         call_number = numberFormatted,
                         call_number_prefix = prefix,
                         country_code = code,
-                        counrty_name = countryName,
+                        counrty_name = code.translateCountryName(),
                         origin = "parse_3",
                         icon_path = "$code.xml"
                     )
@@ -232,7 +234,7 @@ class FreeNumbersParser {
                         call_number = it.number,
                         call_number_prefix = "+${it.country}",
                         country_code = countryCode,
-                        counrty_name = countryName,
+                        counrty_name = countryCode.translateCountryName(),
                         origin = "parse_4",
                         icon_path = "${countryCode.uppercase()}.xml"
                     )
@@ -286,12 +288,13 @@ class FreeNumbersParser {
                 } else {
                     val code = getCountryCodeByName(countries[i].text()) ?: continue
                     val prefix = getPrefixByCountryCode(code) ?: continue
+                    val countryName = countries[i].text()
                     val free_number = FreeNumber(
                         call_number = numbers[i].text().replace(prefix, "")
                             .replace("^\\s+".toRegex(), ""),
                         call_number_prefix = prefix,
                         country_code = code,
-                        counrty_name = countries[i].text(),
+                        counrty_name = code.translateCountryName(),
                         origin = "parse_5",
                         icon_path = "$code.xml"
                     )
@@ -346,6 +349,7 @@ class FreeNumbersParser {
 //        for (number in tempFreeNumberList) {
 //            Log.d(TAG, "parse_numbers: $number")
 //        }
+        Log.d(TAG, "parse_numbers_size: ${tempFreeNumberList.size}")
         return tempFreeNumberList
     }
 

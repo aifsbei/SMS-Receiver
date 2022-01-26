@@ -33,7 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="Step 3. Wait for code"
+            android:text="@string/step_3_wait_for_code"
             android:textColor="?attr/colorOnSecondary"
             android:textSize="21sp"
             android:layout_gravity="center_horizontal"/>
@@ -44,7 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:lineSpacingExtra="8sp"
-            android:text="Click refresh button to load new messages. If you didn't receive your code try to refresh again."
+            android:text="@string/step_3_description"
             android:textAlignment="center"
             android:textSize="16sp"
             android:layout_gravity="center_horizontal"/>
