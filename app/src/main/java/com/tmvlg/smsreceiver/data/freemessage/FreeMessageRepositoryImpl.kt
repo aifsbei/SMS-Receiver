@@ -18,6 +18,8 @@ object FreeMessageRepositoryImpl : FreeMessageRepository {
 
     private var autoIncrementId = 0
 
+    private var isLoading = false
+
 //    init {
 //        val parser = FreeNumbersParser()
 //        for (item in parser.messagesList) {
@@ -49,12 +51,16 @@ object FreeMessageRepositoryImpl : FreeMessageRepository {
     }
 
     override suspend fun loadFreeMessageList(freeNumber: FreeNumber) {
-        Log.d("1", "loadFreeMessageList: another load")
-        clearList()
-        val parser = FreeNumbersParser()
-        val messages = parser.parse_messages(freeNumber)
-        for (item in messages) {
-            addFreeMessage(item)
+        if (!isLoading) {
+            isLoading = true
+            Log.d("1", "loadFreeMessageList: another load")
+            clearList()
+            val parser = FreeNumbersParser()
+            val messages = parser.parse_messages(freeNumber)
+            for (item in messages) {
+                addFreeMessage(item)
+            }
+            isLoading = false
         }
     }
 

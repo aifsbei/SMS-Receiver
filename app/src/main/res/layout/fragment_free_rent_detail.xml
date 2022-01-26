@@ -175,6 +175,7 @@
                     android:layout_height="wrap_content"
                     android:elevation="2dp"
                     android:text="@string/copy_label"
+                    android:padding="3dp"
                     android:textColor="#FFFFFF"
                     android:textSize="10sp"
                     app:layout_constraintEnd_toEndOf="@+id/free_copy_icon_info"

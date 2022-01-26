@@ -16,6 +16,8 @@ object FreeNumberRepositoryImpl : FreeNumberRepository {
 
     private var autoIncrementId = 0
 
+    private var isLoading = false
+
     override fun addFreeNumber(freeNumber: FreeNumber) {
         if (freeNumber.id == FreeNumber.UNDEFINED_ID)
             freeNumber.id = autoIncrementId++
@@ -50,12 +52,16 @@ object FreeNumberRepositoryImpl : FreeNumberRepository {
     }
 
     override suspend fun loadFreeNumberList() {
+        if (!isLoading) {
+            isLoading = true
 //        Log.d("1", "task: load")
-        clearList()
-        val parser = FreeNumbersParser()
-        val numbers = parser.parse_numbers()
-        for (item in numbers) {
-            addFreeNumber(item)
+            clearList()
+            val parser = FreeNumbersParser()
+            val numbers = parser.parse_numbers()
+            for (item in numbers) {
+                addFreeNumber(item)
+            }
+            isLoading = false
         }
     }
 

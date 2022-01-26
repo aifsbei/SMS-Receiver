@@ -16,6 +16,7 @@ import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.tmvlg.smsreceiver.R
 import com.tmvlg.smsreceiver.databinding.FragmentFreeRentBinding
+import com.tmvlg.smsreceiver.internal.constants
 import com.tmvlg.smsreceiver.presentation.freerent.freenumberlist.FreeNumberDataAdapter
 import com.tmvlg.smsreceiver.util.isOnline
 import kotlinx.coroutines.*
@@ -91,6 +92,7 @@ class FreeRentFragment : Fragment(), KodeinAware {
                 interstitialAd?.show(requireActivity())
             } else {
                 Log.d(TAG, "The interstitial ad wasn't ready yet.")
+                loadAd()
             }
             requireActivity().supportFragmentManager.beginTransaction()
                 .setCustomAnimations(R.anim.fragment_in, R.anim.fragment_out, R.anim.fragment_in, R.anim.fragment_out)
@@ -149,13 +151,14 @@ class FreeRentFragment : Fragment(), KodeinAware {
 
         InterstitialAd.load(
             requireContext(),
-//            "ca-app-pub-3224585614176095/1135446133",
-            "ca-app-pub-3940256099942544/1033173712",
+            constants.TEST_AD_UNIT_ID,
             adRequest,
             object: InterstitialAdLoadCallback() {
                 override fun onAdFailedToLoad(p0: LoadAdError) {
                     Log.d(TAG, "onAdFailedToLoad: failed to load Ad")
-                        interstitialAd = null
+                    interstitialAd = null
+                    Log.d(TAG, "onAdFailedToLoad: ${p0.code}")
+                    Log.d(TAG, "onAdFailedToLoad: ${p0.message}")
                 }
 
                 override fun onAdLoaded(p0: InterstitialAd) {
@@ -182,7 +185,6 @@ class FreeRentFragment : Fragment(), KodeinAware {
             override fun onAdShowedFullScreenContent() {
                 Log.d(TAG, "Ad showed fullscreen content.")
                 interstitialAd = null
-//                loadAd()
             }
         }
     }
