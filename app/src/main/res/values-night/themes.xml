@@ -36,6 +36,8 @@
 
         <item name="android:windowBackground">@color/windowBackground</item>
 
+        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
+
         <item name="itemRippleColor">@color/ripple_material_dark</item>
 
 

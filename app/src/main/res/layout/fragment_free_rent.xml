@@ -113,6 +113,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:text="@string/connectivity_header"
+            app:autoSizeTextType="uniform"
+            android:maxLines="1"
             android:textSize="24dp"
             android:textColor="?attr/colorOnSecondary"
             app:layout_constraintEnd_toEndOf="parent"

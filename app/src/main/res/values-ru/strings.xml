@@ -31,4 +31,5 @@
     <string name="settings_label">Настройки</string>
     <string name="other_label">Дополнительно</string>
     <string name="got_it_button">Понятно</string>
+    <string name="copy_toast_text">Номер скопирован!</string>
 </resources>

@@ -46,4 +46,5 @@
     <string name="settings_label">SETTINGS</string>
     <string name="other_label">OTHER</string>
     <string name="got_it_button">Got It</string>
+    <string name="copy_toast_text">Successfuly copied!</string>
 </resources>

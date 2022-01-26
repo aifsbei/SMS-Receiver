@@ -47,6 +47,9 @@
 
         <item name="android:windowBackground">@color/white</item>
 
+        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
+
+
 
     </style>
 

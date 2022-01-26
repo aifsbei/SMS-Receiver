@@ -246,7 +246,7 @@ class FreeRentDetailFragment : Fragment(), KodeinAware {
         val clipboard = requireActivity().getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
         val clip = ClipData.newPlainText("Clipboard", clipData)
         clipboard.setPrimaryClip(clip)
-        Toast.makeText(requireContext(), "Successfuly copied!", Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireContext(), getString(R.string.copy_toast_text), Toast.LENGTH_SHORT).show()
     }
 
 

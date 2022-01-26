@@ -147,11 +147,11 @@ class FreeRentFragment : Fragment(), KodeinAware {
     }
 
     private fun loadAd() {
-        var adRequest = AdRequest.Builder().build()
+        val adRequest = AdRequest.Builder().build()
 
         InterstitialAd.load(
             requireContext(),
-            constants.TEST_AD_UNIT_ID,
+            constants.AD_UNIT_ID,
             adRequest,
             object: InterstitialAdLoadCallback() {
                 override fun onAdFailedToLoad(p0: LoadAdError) {
