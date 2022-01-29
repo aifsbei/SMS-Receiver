@@ -65,7 +65,7 @@ class AboutFragment : Fragment(), KodeinAware {
         }
 
         binding.rateLayout.setOnClickListener {
-            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=PackageName")))
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.tmvlg.smsreceiver")))
         }
         binding.howToUseLayout.setOnClickListener {
             val intent = Intent(requireActivity(), HowToUseActivity::class.java)

@@ -304,7 +304,6 @@
                         android:id="@+id/rate_layout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:visibility="gone"
                         android:paddingTop="15dp"
                         android:paddingBottom="15dp"
                         android:background="@drawable/ripple_settings_item"
@@ -318,8 +317,9 @@
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:layout_gravity="center_vertical"
+                            android:padding="2dp"
                             android:layout_weight="0"
-                            android:src="@drawable/round_star_rate_24">
+                            android:src="@drawable/custom_star">
 
                         </ImageView>
 
