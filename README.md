@@ -19,7 +19,7 @@ You will get registration code if nobody registered with this number yet.
 
 #
 ### Contribution
-To contribute contact me via email d4nila.leskov@yandex.ru
+To contribute contact me via email d4nila.leskov@gmail.com
 #
 
 ### License
