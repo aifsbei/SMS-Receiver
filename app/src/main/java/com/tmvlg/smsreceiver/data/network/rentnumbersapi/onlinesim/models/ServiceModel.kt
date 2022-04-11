@@ -13,7 +13,7 @@ data class ServiceModel(
     @SerializedName("popular")
     val popular: Boolean, // false
     @SerializedName("price")
-    val price: Int, // 50
+    val price: Float, // 50
     @SerializedName("service")
     val service: String, // Facebook
     @SerializedName("slug")

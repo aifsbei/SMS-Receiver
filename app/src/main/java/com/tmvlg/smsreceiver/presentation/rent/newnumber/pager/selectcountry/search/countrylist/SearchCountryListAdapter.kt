@@ -27,17 +27,12 @@ class SearchCountryListAdapter : ListAdapter<Country, SearchCountryViewHolder>(S
 
         with(holder) {
             binging.countryName.text = country.name
-            binging.servicesNumLabel.text = "${country.totalNumbers} numbers"
-//            binging.newChip.visibility.apply {
-//                if (country.new)
-//                    View.VISIBLE
-//                else
-//                    View.INVISIBLE
-//            }
+            binging.priceLabel.text = "${country.price} ₽"
+            binging.numbersCountLabel.text = "${country.totalNumbers} numbers available"
             if (country.new)
-                binging.newChip.visibility = View.VISIBLE
+                binging.newIndicator.visibility = View.VISIBLE
             else
-                binging.newChip.visibility = View.INVISIBLE
+                binging.newIndicator.visibility = View.INVISIBLE
 
             Log.d("1", "onBindViewHolder: ${country.iconPath}")
             val resID = context

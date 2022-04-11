@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="90dp">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/service_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Telegram"
+            android:layout_marginLeft="20dp"
+            android:textSize="20sp"
+            android:textColor="?attr/colorOnSecondary"
+            app:layout_constraintBottom_toBottomOf="@+id/service_icon"
+            app:layout_constraintStart_toEndOf="@+id/service_icon"
+            app:layout_constraintTop_toTopOf="@+id/service_icon"/>
+
+        <TextView
+            android:id="@+id/numbers_count_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="85 numbers"
+            android:textSize="16sp"
+            android:textColor="?attr/colorSecondary"
+            android:layout_marginRight="25dp"
+            app:layout_constraintBottom_toTopOf="@+id/min_price_label"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/service_icon" />
+
+        <TextView
+            android:id="@+id/min_price_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="from $0.4"
+            android:textSize="14sp"
+            android:textColor="?attr/colorControlNormal"
+            android:layout_marginRight="25dp"
+            app:layout_constraintBottom_toBottomOf="@+id/service_icon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/numbers_count_label" />
+
+        <ImageView
+            android:id="@+id/service_icon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="25dp"
+            android:scaleType="fitCenter"
+            android:src="@xml/flag_ru"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+</LinearLayout>

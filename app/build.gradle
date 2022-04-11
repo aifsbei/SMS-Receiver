@@ -84,6 +84,10 @@ dependencies {
     // AAC
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0-alpha03"
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.0'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.4.0'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+
+
 
     //Sticky Headers for RecyclerView
     implementation "com.github.shuhart:stickyheader:1.1.0"
@@ -95,8 +99,8 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.8'
 
     // Retrofit2
-    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     implementation 'com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2'
 
     def room_version = "2.3.0"
@@ -118,7 +122,14 @@ dependencies {
     implementation 'org.droidparts:droidparts-misc:3.2.5'
 
     //AdMob
-    implementation 'com.google.android.gms:play-services-ads:20.5.0'
+    implementation 'com.google.android.gms:play-services-ads:20.6.0'
+
+    //ViewBinding custom delegate
+    implementation 'com.github.kirich1409:viewbindingpropertydelegate:1.5.3'
+
+    //activity fragment ktx
+    implementation "androidx.activity:activity-ktx:1.4.0"
+    implementation "androidx.fragment:fragment-ktx:1.4.1"
 }
 repositories {
     mavenCentral()

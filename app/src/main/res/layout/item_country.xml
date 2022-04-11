@@ -18,22 +18,35 @@
             android:id="@+id/country_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="United States"
             android:layout_marginLeft="20dp"
-            android:textSize="20sp"
+            android:text="United States"
             android:textColor="?attr/colorOnSecondary"
-            app:layout_constraintBottom_toBottomOf="@+id/country_icon"
+            android:textSize="18sp"
             app:layout_constraintStart_toEndOf="@+id/country_icon"
-            app:layout_constraintTop_toTopOf="@+id/country_icon"/>
+            app:layout_constraintBottom_toTopOf="@id/numbers_count_label"
+            app:layout_constraintTop_toTopOf="@+id/country_icon" />
 
 
         <TextView
-            android:id="@+id/services_num_label"
+            android:id="@+id/numbers_count_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="85 services"
-            android:textSize="14sp"
+            android:layout_marginLeft="20dp"
+            android:text="64 numbers available"
             android:textColor="?attr/colorControlNormal"
+            android:textSize="12sp"
+            app:layout_constraintTop_toBottomOf="@id/country_name"
+            app:layout_constraintBottom_toBottomOf="@+id/country_icon"
+            app:layout_constraintStart_toEndOf="@+id/country_icon" />
+
+
+        <TextView
+            android:id="@+id/price_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="19 ₽"
+            android:textSize="16sp"
+            android:textColor="?attr/colorSecondaryVariant"
             android:layout_marginRight="25dp"
             app:layout_constraintBottom_toBottomOf="@+id/country_icon"
             app:layout_constraintEnd_toEndOf="parent"
@@ -53,18 +66,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/new_chip"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginBottom="16dp"
-            android:backgroundTint="#FFC107"
-            android:text="NEW"
+        <View
+            android:id="@+id/new_indicator"
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:background="@drawable/circle"
+            android:text=""
+            android:textColor="@color/black"
             android:textSize="10sp"
             android:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="@+id/country_icon"
-            app:layout_constraintStart_toStartOf="@+id/country_icon" />
+            app:layout_constraintTop_toTopOf="@+id/country_icon"
+            app:layout_constraintEnd_toEndOf="@+id/country_icon" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

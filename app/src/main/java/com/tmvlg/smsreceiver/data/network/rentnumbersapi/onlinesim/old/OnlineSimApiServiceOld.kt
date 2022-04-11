@@ -3,7 +3,7 @@ package com.tmvlg.smsreceiver.data.network.rentnumbersapi.onlinesim.old
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.tmvlg.smsreceiver.data.network.ConnectivityInterceptor
 import com.tmvlg.smsreceiver.data.network.rentnumbersapi.onlinesim.old.pojo.GetNumResponseOld
-import com.tmvlg.smsreceiver.internal.constants
+import com.tmvlg.smsreceiver.internal.Constants
 import kotlinx.coroutines.Deferred
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -12,7 +12,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-const val API_KEY = constants.ONLINESIM_API_KEY
+const val API_KEY = Constants.ONLINESIM_API_KEY
 
 interface OnlineSimApiServiceOld {
 

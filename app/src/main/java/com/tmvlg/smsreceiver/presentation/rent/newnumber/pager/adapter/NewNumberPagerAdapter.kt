@@ -18,10 +18,10 @@ class NewNumberPagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment)
     override fun createFragment(position: Int): Fragment {
         val fragment = when (position) {
             0 -> {
-                SelectCountryFragment()
+                SelectServiceFragment()
             }
             1 -> {
-                SelectServiceFragment()
+                SelectCountryFragment()
             }
             2 -> {
                 PayForNumberFragment()

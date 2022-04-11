@@ -1,8 +1,10 @@
 package com.tmvlg.smsreceiver.domain.numberforrent.searchnumber
 
-class GetCountryUseCase(private var countryRepository: SearchCountryRepository) {
+import com.tmvlg.smsreceiver.domain.numberforrent.NumberForRentRepository
 
-    fun getCountry(countryId: Int): Country {
-        return countryRepository.getCountry(countryId)
+class GetCountryUseCase(private var repository: NumberForRentRepository) {
+
+    operator fun invoke(countryId: Int): Country {
+        return repository.getCountry(countryId)
     }
 }

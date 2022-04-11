@@ -80,6 +80,20 @@
         <entry key="..\:/Users/aifsb/AndroidStudioProjects/SMSReceiver/app/src/main/res/layout/stepper_small.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/aifsb/AndroidStudioProjects/SMSReceiver/app/src/main/res/menu/free_bottom_navigation_menu.xml" value="0.20625" />
         <entry key="..\:/Users/aifsb/AndroidStudioProjects/SMSReceiver/app/src/main/res/xml/flag_undefined.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/my/SMSReceiver/app/src/main/res/drawable/circle.xml" value="0.196" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/my/SMSReceiver/app/src/main/res/drawable/edit_text_drawable.xml" value="0.196" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/my/SMSReceiver/app/src/main/res/drawable/rounded_textview.xml" value="0.196" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/my/SMSReceiver/app/src/main/res/layout/fragment_new_number.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/my/SMSReceiver/app/src/main/res/layout/fragment_search_country.xml" value="0.18802083333333333" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/my/SMSReceiver/app/src/main/res/layout/fragment_search_service.xml" value="0.18802083333333333" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/my/SMSReceiver/app/src/main/res/layout/fragment_select_country.xml" value="0.33" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/my/SMSReceiver/app/src/main/res/layout/fragment_select_service.xml" value="0.25" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/my/SMSReceiver/app/src/main/res/layout/item_country.xml" value="0.33" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/my/SMSReceiver/app/src/main/res/layout/item_service.xml" value="0.33" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/my/SMSReceiver/app/src/main/res/layout/stepper_layout.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/my/SMSReceiver/app/src/main/res/layout/stepper_small.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/my/SMSReceiver/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.33" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/my/SMSReceiver/app/src/main/res/menu/free_bottom_navigation_menu.xml" value="0.36666666666666664" />
       </map>
     </option>
   </component>

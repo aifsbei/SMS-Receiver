@@ -9,9 +9,9 @@
         android:icon="@drawable/round_money_off_24"
         android:title="Public"/>
 
-    <item android:id="@+id/navigation_profile"
-        android:icon="@drawable/round_person_24"
-        android:title="Profile"/>
+    <item android:id="@+id/navigation_about"
+        android:icon="@drawable/round_help_outline_24"
+        android:title="@string/about_menu_title"/>
 
 
 

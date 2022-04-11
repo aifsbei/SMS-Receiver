@@ -59,7 +59,7 @@ class   RentNumberFragment : Fragment(), KodeinAware {
                 .commit()
         }
         Log.d(TAG, "onViewCreated: created $this")
-        observeViewModel()
+//        observeViewModel()
     }
 
     private fun observeViewModel() {

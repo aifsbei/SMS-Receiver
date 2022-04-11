@@ -2,16 +2,19 @@ package com.tmvlg.smsreceiver.data.number
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.tmvlg.smsreceiver.data.NumberParser
+import com.tmvlg.smsreceiver.data.NumberDataSource
 import com.tmvlg.smsreceiver.data.db.NumberForRentDao
 import com.tmvlg.smsreceiver.domain.freenumber.FreeNumber
-import com.tmvlg.smsreceiver.domain.numberforrent.searchnumber.Country
 import com.tmvlg.smsreceiver.domain.numberforrent.NumberForRentRepository
 import com.tmvlg.smsreceiver.domain.numberforrent.NumberForRent
+import com.tmvlg.smsreceiver.domain.numberforrent.searchnumber.Country
+import com.tmvlg.smsreceiver.domain.numberforrent.searchnumber.Service
+import kotlinx.coroutines.flow.Flow
 import java.lang.RuntimeException
 
 class NumberForRentRepositoryImpl(
-    private val numberForRentDao: NumberForRentDao
+    private val numberForRentDao: NumberForRentDao,
+    private val numberDataSource: NumberDataSource
 ) : NumberForRentRepository {
 
 
@@ -26,6 +29,18 @@ class NumberForRentRepositoryImpl(
             numberForRent.id = autoIncrementId++
         numberForRentList.add(numberForRent)
         updateList()
+    }
+
+    override fun loadAvailableCountries(serviceId: Int): Flow<List<Country>> {
+        return numberDataSource.fetchAvailableCountries(serviceId)
+    }
+
+    override fun getCountry(countryId: Int): Country {
+        return Country()
+    }
+
+    override fun loadServiceList(): Flow<List<Service>> {
+        return numberDataSource.fetchServiceList()
     }
 
     override fun getNumberForRent(numberForRentId: Int): NumberForRent {

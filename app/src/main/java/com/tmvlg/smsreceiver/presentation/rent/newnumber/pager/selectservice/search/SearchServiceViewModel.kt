@@ -1,14 +1,13 @@
-package com.tmvlg.smsreceiver.presentation.rent.newnumber.pager.selectservice
+package com.tmvlg.smsreceiver.presentation.rent.newnumber.pager.selectservice.search
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tmvlg.smsreceiver.domain.numberforrent.NumberForRentRepository
 import com.tmvlg.smsreceiver.domain.numberforrent.searchnumber.LoadServiceListUseCase
-import com.tmvlg.smsreceiver.presentation.rent.newnumber.pager.selectservice.search.SearchServiceUiState
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
-class SelectServiceViewModel(
+class SearchServiceViewModel(
     private val repository: NumberForRentRepository
 ) : ViewModel() {
     private val _uiState = MutableStateFlow<SearchServiceUiState>(SearchServiceUiState.Idle)

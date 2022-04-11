@@ -6,45 +6,33 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.tmvlg.smsreceiver.R
 import com.tmvlg.smsreceiver.databinding.FragmentSearchCountryBinding
-import com.tmvlg.smsreceiver.presentation.rent.RentNumberViewModelFactory
 import com.tmvlg.smsreceiver.presentation.rent.newnumber.pager.selectcountry.search.countrylist.SearchCountryListAdapter
-import org.kodein.di.Kodein
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
 import org.kodein.di.generic.instance
 import java.lang.RuntimeException
 
-class SearchCountryFragment : Fragment(), KodeinAware {
+class SearchCountryFragment : Fragment(R.layout.fragment_search_country), KodeinAware {
 
     override val kodein by closestKodein()
 
-    private var _binding: FragmentSearchCountryBinding? = null
-    private val binding: FragmentSearchCountryBinding
-        get() = _binding ?: throw RuntimeException("null binding at $this")
-
-    private lateinit var viewModel: SearchCountryViewModel
+    private val binding: FragmentSearchCountryBinding by viewBinding()
 
     private lateinit var countryAdapter: SearchCountryListAdapter
 
     private val factory: SearchCountryViewModelFactory by instance()
 
-
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-
-        _binding = FragmentSearchCountryBinding.inflate(inflater, container, false)
-
-        viewModel = ViewModelProvider(this, factory)[SearchCountryViewModel::class.java]
-
-
-        return binding.root
-    }
+    private val viewModel by viewModels<SearchCountryViewModel> { factory }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -53,20 +41,26 @@ class SearchCountryFragment : Fragment(), KodeinAware {
         countryAdapter = SearchCountryListAdapter()
         binding.countryRv.adapter = countryAdapter
 
-        viewModel.loadCountries()
-        observeViewModel()
-    }
-
-    private fun observeViewModel() {
-        viewModel.countryList.observe(viewLifecycleOwner) {
-            countryAdapter.submitList(it)
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.uiState.collect { uiState ->
+                    when (uiState) {
+                        is SearchCountryUiState.Idle -> {
+                            viewModel.loadCountries()
+                        }
+                        is SearchCountryUiState.Progress -> {
+                            // TODO: сюда поставить шиммер
+                        }
+                        is SearchCountryUiState.Success -> {
+                            countryAdapter.submitList(uiState.countryList)
+                        }
+                        is SearchCountryUiState.Error -> {
+                            // TODO: попросить пользователя сделать релоад 
+                        }
+                    }
+                }
+            }
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        viewModel.clearCountryList()
-        _binding = null
     }
 
     companion object {

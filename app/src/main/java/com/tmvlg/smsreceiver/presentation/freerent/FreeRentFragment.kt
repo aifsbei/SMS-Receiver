@@ -16,7 +16,7 @@ import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.tmvlg.smsreceiver.R
 import com.tmvlg.smsreceiver.databinding.FragmentFreeRentBinding
-import com.tmvlg.smsreceiver.internal.constants
+import com.tmvlg.smsreceiver.internal.Constants
 import com.tmvlg.smsreceiver.presentation.freerent.freenumberlist.FreeNumberDataAdapter
 import com.tmvlg.smsreceiver.util.isOnline
 import kotlinx.coroutines.*
@@ -151,7 +151,7 @@ class FreeRentFragment : Fragment(), KodeinAware {
 
         InterstitialAd.load(
             requireContext(),
-            constants.AD_UNIT_ID,
+            Constants.AD_UNIT_ID,
             adRequest,
             object: InterstitialAdLoadCallback() {
                 override fun onAdFailedToLoad(p0: LoadAdError) {

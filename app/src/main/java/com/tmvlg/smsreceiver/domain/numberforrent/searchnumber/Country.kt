@@ -7,6 +7,7 @@ data class Country (
     var enabled: Boolean = true,
     var totalNumbers: Int = 0,
     var iconPath: String = "",
+    var price: Float = 0f,
     var id: Int = UNDEFINED_ID
 ) {
     companion object {

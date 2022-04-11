@@ -6,16 +6,13 @@ import com.tmvlg.smsreceiver.data.freemessage.FreeMessageRepositoryImpl
 import com.tmvlg.smsreceiver.data.freenumber.FreeNumberRepositoryImpl
 import com.tmvlg.smsreceiver.data.network.ConnectivityInterceptor
 import com.tmvlg.smsreceiver.data.network.ConnectivityInterceptorImpl
-import com.tmvlg.smsreceiver.data.network.rentnumbersapi.onlinesim.OnlineSimApiService
 import com.tmvlg.smsreceiver.data.network.rentnumbersapi.onlinesim.old.OnlineSimApiServiceOld
 import com.tmvlg.smsreceiver.data.number.NumberForRentRepositoryImpl
-import com.tmvlg.smsreceiver.data.number.searchnumber.SearchCountryRepositoryImpl
 import com.tmvlg.smsreceiver.data.preferences.SettingsPreferenceProvider
 import com.tmvlg.smsreceiver.data.settings.SettingsRepositoryImpl
 import com.tmvlg.smsreceiver.domain.freemessage.FreeMessageRepository
 import com.tmvlg.smsreceiver.domain.freenumber.FreeNumberRepository
 import com.tmvlg.smsreceiver.domain.numberforrent.NumberForRentRepository
-import com.tmvlg.smsreceiver.domain.numberforrent.searchnumber.SearchCountryRepository
 import com.tmvlg.smsreceiver.domain.settings.SettingsRepository
 import com.tmvlg.smsreceiver.presentation.about.AboutViewModelFactory
 import com.tmvlg.smsreceiver.presentation.freerent.FreeRentDetailViewModelFactory
@@ -31,16 +28,20 @@ import org.kodein.di.generic.provider
 import org.kodein.di.generic.singleton
 import androidx.appcompat.app.AppCompatDelegate
 
-import android.R
-
-import android.os.Build
 import android.util.Log
+import com.tmvlg.smsreceiver.data.NumberDataSource
+import com.tmvlg.smsreceiver.data.network.freenumbersapi.onlinesimfree.OnlineSimFreeApi
+import com.tmvlg.smsreceiver.data.network.rentnumbersapi.onlinesim.OnlineSimApi
+import com.tmvlg.smsreceiver.presentation.rent.newnumber.pager.selectservice.SelectServiceViewModelFactory
+import com.tmvlg.smsreceiver.presentation.rent.newnumber.pager.selectservice.search.SearchServiceViewModelFactory
 
 
 class SMSReceiverApplication : Application(), KodeinAware {
 
     override val kodein: Kodein = Kodein.lazy {
         import(androidXModule(this@SMSReceiverApplication))
+        bind() from singleton { OnlineSimApi }
+        bind() from singleton { OnlineSimFreeApi }
         bind() from singleton { NumberDatabase(instance()) }
         bind() from singleton { instance<NumberDatabase>().numberForRentDao() }
         bind<ConnectivityInterceptor>() with singleton { ConnectivityInterceptorImpl(instance()) }
@@ -50,18 +51,18 @@ class SMSReceiverApplication : Application(), KodeinAware {
         bind<SettingsRepository>() with singleton { SettingsRepositoryImpl(instance()) }
         bind() from provider { AboutViewModelFactory(instance()) }
 
-        bind<NumberForRentRepository>() with singleton { NumberForRentRepositoryImpl(instance()) }
+        bind() from singleton { NumberDataSource(instance()) }
+        bind<NumberForRentRepository>() with singleton { NumberForRentRepositoryImpl(instance(), instance()) }
         bind() from provider { RentNumberViewModelFactory(instance()) }
         bind() from provider { SearchCountryViewModelFactory(instance()) }
+        bind() from provider { SearchServiceViewModelFactory(instance()) }
+        bind() from provider { SelectServiceViewModelFactory(instance()) }
 
         bind<FreeNumberRepository>() with singleton { FreeNumberRepositoryImpl }
         bind() from provider { FreeRentViewModelFactory(instance()) }
 
         bind<FreeMessageRepository>() with singleton { FreeMessageRepositoryImpl }
         bind() from provider { FreeRentDetailViewModelFactory(instance(), instance(), instance()) }
-
-        bind<SearchCountryRepository>() with singleton { SearchCountryRepositoryImpl }
-
     }
 
     override fun onCreate() {

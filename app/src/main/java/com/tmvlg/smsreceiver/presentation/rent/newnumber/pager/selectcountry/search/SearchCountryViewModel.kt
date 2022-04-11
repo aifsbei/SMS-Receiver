@@ -2,29 +2,27 @@ package com.tmvlg.smsreceiver.presentation.rent.newnumber.pager.selectcountry.se
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.tmvlg.smsreceiver.domain.numberforrent.searchnumber.LoadCountryListUseCase
 import com.tmvlg.smsreceiver.domain.numberforrent.NumberForRentRepository
-import com.tmvlg.smsreceiver.domain.numberforrent.searchnumber.DeleteCountryListUseCase
-import com.tmvlg.smsreceiver.domain.numberforrent.searchnumber.GetCountryListUseCase
-import com.tmvlg.smsreceiver.domain.numberforrent.searchnumber.SearchCountryRepository
-import kotlinx.coroutines.Dispatchers
+import com.tmvlg.smsreceiver.domain.numberforrent.searchnumber.LoadAvailableCountriesUseCase
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 class SearchCountryViewModel(
-    private val countryRepository: SearchCountryRepository
+    private val repository: NumberForRentRepository
 ) : ViewModel() {
 
-    private val loadCountryListUseCase = LoadCountryListUseCase(countryRepository)
-    private val getCountryListUseCase = GetCountryListUseCase(countryRepository)
-    private val deleteCountryListUseCase = DeleteCountryListUseCase(countryRepository)
+    private val _uiState = MutableStateFlow<SearchCountryUiState>(SearchCountryUiState.Idle)
+    val uiState: StateFlow<SearchCountryUiState> = _uiState.asStateFlow()
 
-    var countryList = getCountryListUseCase.getCountryList()
+    private val loadCountryListUseCase = LoadAvailableCountriesUseCase(repository)
 
-    fun loadCountries() = viewModelScope.launch(Dispatchers.IO) {
-        loadCountryListUseCase.loadCountryList()
-    }
-
-    fun clearCountryList() {
-        deleteCountryListUseCase.deleteCountryList()
+    fun loadCountries() = viewModelScope.launch {
+        loadCountryListUseCase(1)
+            .catch { throwable ->
+                _uiState.value = SearchCountryUiState.Error(throwable)
+            }
+            .collect { countryList ->
+                _uiState.value = SearchCountryUiState.Success(countryList)
+            }
     }
 }

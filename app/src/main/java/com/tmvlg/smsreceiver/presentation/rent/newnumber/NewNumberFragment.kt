@@ -6,34 +6,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.tmvlg.smsreceiver.R
 import com.tmvlg.smsreceiver.databinding.FragmentNewNumberBinding
 import com.tmvlg.smsreceiver.presentation.rent.newnumber.pager.adapter.NewNumberPagerAdapter
 import kotlin.math.abs
 
-class NewNumberFragment : Fragment() {
+class NewNumberFragment : Fragment(R.layout.fragment_new_number) {
 
-    private lateinit var viewModel: NewNumberViewModel
+    private val viewModel by viewModels<NewNumberViewModel>()
 
     private lateinit var pagerAdapter: NewNumberPagerAdapter
 
-    private var _binding: FragmentNewNumberBinding? = null
-    private val binding: FragmentNewNumberBinding
-        get() = _binding ?: throw IllegalStateException("null binding at $this")
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-
-        viewModel = ViewModelProvider(this)[NewNumberViewModel::class.java]
-
-        _binding = FragmentNewNumberBinding.inflate(inflater, container, false)
-
-        return binding.root
-    }
+    private val binding: FragmentNewNumberBinding by viewBinding()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -79,14 +67,7 @@ class NewNumberFragment : Fragment() {
     private fun toggleStepper() {
         when (binding.pager.currentItem) {
             0 -> {
-                binding.stepper.tvStep1.visibility = View.VISIBLE
-                binding.stepper.ivStep1.visibility = View.INVISIBLE
-                binding.stepper.tvStep2.visibility = View.INVISIBLE
-                binding.stepper.ivStep2.visibility = View.VISIBLE
-                binding.stepper.tvStep3.visibility = View.INVISIBLE
-                binding.stepper.ivStep3.visibility = View.VISIBLE
-
-                binding.stepper.ivStep1.setBackgroundResource(R.drawable.round_indicator_unfilled)
+                binding.stepper.ivStep1.setBackgroundResource(R.drawable.round_indicator_success)
                 binding.stepper.ivStep2.setBackgroundResource(R.drawable.round_indicator_unfilled)
                 binding.stepper.ivStep3.setBackgroundResource(R.drawable.round_indicator_unfilled)
 
@@ -95,15 +76,8 @@ class NewNumberFragment : Fragment() {
 
             }
             1 -> {
-                binding.stepper.tvStep1.visibility = View.INVISIBLE
-                binding.stepper.ivStep1.visibility = View.VISIBLE
-                binding.stepper.tvStep2.visibility = View.VISIBLE
-                binding.stepper.ivStep2.visibility = View.INVISIBLE
-                binding.stepper.tvStep3.visibility = View.INVISIBLE
-                binding.stepper.ivStep3.visibility = View.VISIBLE
-
                 binding.stepper.ivStep1.setBackgroundResource(R.drawable.round_indicator_success)
-                binding.stepper.ivStep2.setBackgroundResource(R.drawable.round_indicator_unfilled)
+                binding.stepper.ivStep2.setBackgroundResource(R.drawable.round_indicator_success)
                 binding.stepper.ivStep3.setBackgroundResource(R.drawable.round_indicator_unfilled)
 
                 binding.nextButton.text = "Next"
@@ -111,27 +85,15 @@ class NewNumberFragment : Fragment() {
 
             }
             2 -> {
-                binding.stepper.tvStep1.visibility = View.INVISIBLE
-                binding.stepper.ivStep1.visibility = View.VISIBLE
-                binding.stepper.tvStep2.visibility = View.INVISIBLE
-                binding.stepper.ivStep2.visibility = View.VISIBLE
-                binding.stepper.tvStep3.visibility = View.VISIBLE
-                binding.stepper.ivStep3.visibility = View.INVISIBLE
-
                 binding.stepper.ivStep1.setBackgroundResource(R.drawable.round_indicator_success)
                 binding.stepper.ivStep2.setBackgroundResource(R.drawable.round_indicator_success)
-                binding.stepper.ivStep3.setBackgroundResource(R.drawable.round_indicator_unfilled)
+                binding.stepper.ivStep3.setBackgroundResource(R.drawable.round_indicator_success)
 
                 binding.nextButton.text = "Finish"
                 binding.nextButton.isEnabled = false
 
             }
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
     companion object {
